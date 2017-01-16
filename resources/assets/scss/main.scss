@@ -1,0 +1,26 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'node_modules/bootstrap/scss/bootstrap';
+
+@import 'node_modules/font-awesome/scss/font-awesome';
+
+.navbar {
+  border: 1px solid #d3e0e9;
+  background-color: darken(#fff, 3%);
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.page-enter-active, .page-leave-active {
+  transition: opacity .3s
+}
+.page-enter, .page-leave-active {
+  opacity: 0
+}
