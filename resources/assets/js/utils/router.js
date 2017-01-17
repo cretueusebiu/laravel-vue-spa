@@ -1,3 +1,4 @@
+import store from '../store'
 import Router from 'vue-router'
 
 /**
@@ -23,7 +24,11 @@ export default function router (routes) {
       }, 0)
     }
 
-    next()
+    if (!store.getters.authCheck && store.getters.authToken) {
+      store.dispatch('fetchUser').then(() => next())
+    } else {
+      next()
+    }
   })
 
   router.afterEach((to, from) => {
@@ -33,8 +38,6 @@ export default function router (routes) {
   return router
 }
 
-const authenticated = false
-
 /**
  * Add the "authenticated" guard.
  *
@@ -43,10 +46,10 @@ const authenticated = false
  */
 export function authGuard (routes) {
   return guard(routes, (to, from, next) => {
-    if (authenticated) {
+    if (store.getters.authCheck) {
       next()
     } else {
-      next('/login')
+      next({ name: 'auth.login' })
     }
   })
 }
@@ -59,8 +62,8 @@ export function authGuard (routes) {
  */
 export function guestGuard (routes) {
   return guard(routes, (to, from, next) => {
-    if (authenticated) {
-      next('/')
+    if (store.getters.authCheck) {
+      next({ name: 'home' })
     } else {
       next()
     }

@@ -4,6 +4,8 @@
 
 <script>
 export default {
+  name: 'home',
+
   metaInfo: {
     titleTemplate: 'Home | %s'
   }

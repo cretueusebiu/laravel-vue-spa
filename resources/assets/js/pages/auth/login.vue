@@ -60,6 +60,8 @@
 import Form from 'vform'
 
 export default {
+  name: 'login',
+
   metaInfo: { titleTemplate: 'Login | %s' },
 
   data: () => ({
@@ -73,6 +75,16 @@ export default {
   methods: {
     login () {
       this.form.post('/api/login')
+        .then(({ data }) => {
+          this.$store.dispatch('saveToken', {
+            token: data.token,
+            remember: this.form.remember
+          })
+
+          this.$store.dispatch('fetchUser').then(() => {
+            this.$router.push({ name: 'home' })
+          })
+        })
     }
   }
 }

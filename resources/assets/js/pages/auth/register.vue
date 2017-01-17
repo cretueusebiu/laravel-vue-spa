@@ -46,7 +46,7 @@
                 <button :disabled="form.busy" type="submit" class="btn btn-primary">
                   <i v-if="form.busy" class="fa fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
                   <i v-else class="fa fa-sign-in fa-fw" aria-hidden="true"></i>
-                  Login
+                  Register
                 </button>
               </div>
             </div>
@@ -61,6 +61,8 @@
 import Form from 'vform'
 
 export default {
+  name: 'register',
+
   metaInfo: { titleTemplate: 'Register | %s' },
 
   data: () => ({
@@ -75,6 +77,18 @@ export default {
   methods: {
     register () {
       this.form.post('/api/register')
+        .then(() => this.login())
+    },
+
+    login () {
+      this.form.post('/api/login')
+        .then(({ data: { token }}) => {
+          this.$store.dispatch('saveToken', { token })
+
+          this.$store.dispatch('fetchUser').then(() => {
+            this.$router.push({ name: 'home' })
+          })
+        })
     }
   }
 }

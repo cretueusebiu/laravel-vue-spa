@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import api from '../../api'
 import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
@@ -27,8 +26,7 @@ const mutations = {
 
   [types.LOGOUT] (state) {
     state.user = null
-    state.token = undefined
-    state.impersonatorToken = undefined
+    state.token = null
 
     Cookies.remove('token')
   }
@@ -36,14 +34,26 @@ const mutations = {
 
 // actions
 const actions = {
-  fetchUser ({ commit }) {
-    // const user = await api.fetchUser()
+  saveToken ({ commit, dispatch }, payload) {
+    commit(types.SAVE_TOKEN, payload)
+  },
 
-    // if (user) {
-    //   commit(types.FETCH_USER_SUCCESS, { user })
-    // } else {
-      commit(types.FETCH_USER_FAILURE)
-    // }
+  fetchUser ({ commit }) {
+    return new Promise(async (resolve, reject) => {
+      const user = await api.fetchUser()
+
+      if (user) {
+        commit(types.FETCH_USER_SUCCESS, { user })
+        resolve(user)
+      } else {
+        commit(types.FETCH_USER_FAILURE)
+        reject()
+      }
+    })
+  },
+
+  logout ({ commit }) {
+    commit(types.LOGOUT)
   }
 }
 

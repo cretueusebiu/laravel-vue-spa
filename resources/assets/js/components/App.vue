@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <PageLoading ref="loading"></PageLoading>
+    <ProgressBar ref="loading"></ProgressBar>
 
-    <component v-if="layout" :is="layout"></component>
+    <transition name="page" mode="out-in">
+      <component v-if="layout" :is="layout"></component>
+    </transition>
   </div>
 </template>
 
@@ -12,12 +14,12 @@ const layouts = {
   _default: require('../layouts/default.vue')
 }
 
-import PageLoading from './PageLoading.vue'
+import ProgressBar from './ProgressBar.vue'
 
 export default {
   name: 'App',
 
-  components: { PageLoading },
+  components: { ProgressBar },
 
   metaInfo: {
     title: 'Laravel'

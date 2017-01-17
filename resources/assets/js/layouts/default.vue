@@ -1,3 +1,3 @@
 <template>
-  <LayoutContent/>
+  <Child/>
 </template>
