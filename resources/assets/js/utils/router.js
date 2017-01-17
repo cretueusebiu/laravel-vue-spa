@@ -19,7 +19,10 @@ export default function router (routes) {
 
     if (components.length) {
       setTimeout(() => {
-        router.app.$loading.start()
+        if (components[0].loading !== false) {
+          router.app.$loading.start()
+        }
+
         router.app.setLayout(components[0].layout || '')
       }, 0)
     }
