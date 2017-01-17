@@ -4,7 +4,12 @@ export default [
   { path: '/', name: 'welcome', component: require('./pages/welcome.vue') },
 
   ...authGuard([
-    { path: '/home', name: 'home', component: require('./pages/home.vue') }
+    { path: '/home', name: 'home', component: require('./pages/home.vue') },
+    { path: '/settings', component: require('./pages/settings/account.vue'), children: [
+      { path: '', redirect: { name: 'settings.profile' }},
+      { path: 'profile', name: 'settings.profile', component: require('./pages/settings/_profile.vue') },
+      { path: 'security', name: 'settings.security', component: require('./pages/settings/_security.vue') }
+    ] }
   ]),
 
   ...guestGuard([

@@ -29,6 +29,10 @@ const mutations = {
     state.token = null
 
     Cookies.remove('token')
+  },
+
+  [types.UPDATE_USER] (state, { user }) {
+    state.user = user
   }
 }
 
@@ -50,6 +54,10 @@ const actions = {
         reject()
       }
     })
+  },
+
+  updateUser ({ commit }, payload) {
+    commit(types.UPDATE_USER, payload)
   },
 
   logout ({ commit }) {

@@ -11,7 +11,9 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <router-link :to="{ name: 'welcome' }" class="navbar-brand">Laravel</router-link>
+        <router-link :to="{ name: 'welcome' }" class="navbar-brand">
+          Laravel
+        </router-link>
 
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="navbar-nav mr-auto">
@@ -21,6 +23,9 @@
           </ul>
           <ul class="navbar-nav">
             <template v-if="authenticated">
+              <router-link :to="{ name: 'settings.profile' }" tag="li" class="nav-item">
+                <a class="nav-link">{{ user.name }}</a>
+              </router-link>
               <li class="nav-item">
                 <a @click.prevent="logout" class="nav-link" href="#">Logout</a>
               </li>
@@ -49,6 +54,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: mapGetters({
+    user: 'authUser',
     authenticated: 'authCheck'
   }),
 

@@ -13,8 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth.api:api'], function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::patch('settings/profile', 'SettingsController@updateProfile');
+    Route::patch('settings/password', 'SettingsController@updatePassword');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
