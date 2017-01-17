@@ -18,9 +18,15 @@
   cursor: pointer;
 }
 
-.page-enter-active, .page-leave-active {
+.custom-control-description {
+  line-height: 1.5rem;
+}
+
+.page-enter-active,
+.page-leave-active {
   transition: opacity .3s
 }
-.page-enter, .page-leave-active {
+.page-enter,
+.page-leave-active {
   opacity: 0
 }

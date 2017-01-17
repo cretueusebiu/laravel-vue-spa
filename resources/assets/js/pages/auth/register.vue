@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-header">Register</div>
         <div class="card-block">
-          <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)">
+          <form @submit.prevent="register" @keydown="form.errors.clear($event.target.name)">
             <!-- Name -->
             <div class="form-group row" :class="{ 'has-danger': form.errors.has('name') }">
               <label for="name" class="col-sm-3 col-form-label text-sm-right">Name</label>

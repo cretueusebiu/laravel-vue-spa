@@ -72,7 +72,7 @@ export default {
 
   methods: {
     login () {
-      this.form.post('/api/token')
+      this.form.post('/api/login')
     }
   }
 }
