@@ -9,7 +9,7 @@
 
   <!-- Styles -->
   @if (!ScriptVariables::hotReload())
-    <link rel="stylesheet" href="{{ elixir('app.css') }}">
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
   @endif
 
   <!-- Scripts -->
@@ -22,9 +22,9 @@
   @if (ScriptVariables::hotReload())
     <script src="http://localhost:8080/app.js"></script>
   @else
-    <script src="{{ elixir('manifest.js') }}"></script>
-    <script src="{{ elixir('vendor.js') }}"></script>
-    <script src="{{ elixir('app.js') }}"></script>
+    <script src="{{ elixir('js/manifest.js') }}"></script>
+    <script src="{{ elixir('js/vendor.js') }}"></script>
+    <script src="{{ elixir('js/app.js') }}"></script>
   @endif
 </body>
 </html>

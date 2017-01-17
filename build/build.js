@@ -12,7 +12,10 @@ var webpackConfig = require('./webpack.prod.conf')
 var spinner = ora('building for production...')
 spinner.start()
 
-fs.unlinkSync('../storage/framework/cache/hot')
+const hotPath = './storage/framework/cache/hot'
+if (fs.existsSync(hotPath)) {
+  fs.unlinkSync(hotPath)
+}
 
 // var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
 // rm('-rf', assetsPath)

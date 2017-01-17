@@ -59,3 +59,21 @@ exports.styleLoaders = function (options) {
   }
   return output
 }
+
+exports.transformManifest = function (stats) {
+  var flattenedPaths = [].concat.apply([], Object.values(stats.assetsByChunkName))
+
+  var manifest = flattenedPaths.reduce((manifest, path) => {
+    path = path.replace('build/', '')
+
+    var original = path.endsWith('.css')
+                  ? path.replace(/\.(\w{32})(\..+)/, '$2')
+                  : path.replace(/\.(\w{20})(\..+)/, '$2')
+
+    manifest[original] = path
+
+    return manifest
+  }, {})
+
+  return JSON.stringify(manifest, null, 2)
+}
