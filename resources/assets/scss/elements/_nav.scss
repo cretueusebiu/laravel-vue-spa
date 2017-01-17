@@ -1,0 +1,21 @@
+.nav-pills {
+  .nav-link.active,
+  .nav-item.open .nav-link {
+    @include plain-hover-focus {
+      padding-left: .81em;
+      border-left: 3px solid $component-active-bg;
+    }
+  }
+
+  .nav-link {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    &:not(.active) {
+      color: $gray;
+    }
+  }
+
+  .fa {
+    margin-right: .2rem;
+  }
+}

@@ -1,10 +1,15 @@
 // Body
-$body-bg: #f5f8fa;
+$body-bg: #f7f9fb;
+
+// Navbar
+$navbar-border-radius: 0;
 
 // Fonts
 $fa-font-path: '/fonts';
 
 // Cards
+$card-spacer-x: 0.9375rem;
+$card-spacer-y: 0.625rem;
 $card-cap-bg: #fbfbfb;
 $card-border-color: #e8eced;
 
@@ -13,36 +18,7 @@ $border-radius: .125rem;
 $border-radius-lg: .2rem;
 $border-radius-sm: .15rem;
 
-// // Borders
-// $laravel-border-color: darken($body-bg, 10%);
-// $list-group-border: $laravel-border-color;
-// $navbar-default-border: $laravel-border-color;
-// $panel-default-border: $laravel-border-color;
-// $panel-inner-border: $laravel-border-color;
-
-// // Brands
-// $brand-primary: #3097D1;
-// $brand-info: #8eb4cb;
-// $brand-success: #2ab27b;
-// $brand-warning: #cbb956;
-// $brand-danger: #bf5329;
-
-// // Typography
-$font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 0.875rem;
-// $line-height-base: 1.6;
-// $text-color: #636b6f;
-
-// // Navbar
-// $navbar-default-bg: #fff;
-
-// // Buttons
-// $btn-default-color: $text-color;
-
-// // Inputs
-// $input-border: lighten($text-color, 40%);
-// $input-border-focus: lighten($brand-primary, 25%);
-// $input-color-placeholder: lighten($text-color, 30%);
-
-// // Panels
-// $panel-default-heading-bg: #fff;
+// Nav
+$nav-pills-active-link-color: #55595c; // $gray;
+$nav-pills-active-link-bg: #fff;
+$nav-pills-border-radius: 0;

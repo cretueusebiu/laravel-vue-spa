@@ -1,21 +1,15 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
 @import 'variables';
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/sweetalert2/src/sweetalert2';
 @import 'node_modules/font-awesome/scss/font-awesome';
 
+@import 'elements/nav';
+@import 'elements/card';
+@import 'elements/forms';
+
 .navbar {
   border: 1px solid #d3e0e9;
   background-color: darken(#fff, 3%);
-}
-
-.btn {
-  cursor: pointer;
-}
-
-.custom-control-description {
-  line-height: 1.5rem;
 }
 
 .page-enter-active,
@@ -23,6 +17,15 @@
   transition: opacity .3s;
 }
 .page-enter,
-.page-leave-active {
+.page-leave-to {
   opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .15s
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0
 }
