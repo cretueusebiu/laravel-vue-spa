@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ProgressBar ref="loading"></ProgressBar>
+    <Loading ref="loading"></Loading>
 
     <transition name="page" mode="out-in">
       <component v-if="layout" :is="layout"></component>
@@ -14,12 +14,12 @@ const layouts = {
   _default: require('../layouts/default.vue')
 }
 
-import ProgressBar from './ProgressBar.vue'
-
 export default {
   name: 'App',
 
-  components: { ProgressBar },
+  components: {
+    Loading: require('./Loading.vue')
+  },
 
   metaInfo: {
     title: 'Laravel'
@@ -27,7 +27,6 @@ export default {
 
   data: () => ({
     layout: null,
-    layoutName: '',
     defaultLayout: 'app'
   }),
 
@@ -50,11 +49,7 @@ export default {
         layout = this.defaultLayout
       }
 
-      this.layoutName = layout
-
-      const _layout = '_' + layout
-
-      this.layout = layouts[_layout]
+      this.layout = layouts['_' + layout]
     }
   }
 }
