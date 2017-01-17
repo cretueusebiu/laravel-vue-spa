@@ -34,7 +34,7 @@
               </div>
               <div class="col-xs-6 col-sm-3 text-right">
                 <small>
-                  <router-link :to="{ name: 'password.reset' }">Forgot Your Password?</router-link>
+                  <router-link :to="{ name: 'password.request' }">Forgot Your Password?</router-link>
                 </small>
               </div>
             </div>
