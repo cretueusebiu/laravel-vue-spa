@@ -241,12 +241,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "c52d031010d37f782bd49cfda947fec8904ebb38"
+                "reference": "ef43a3cba04ece7d591c5c52b71dc3b5842eb370"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/c52d031010d37f782bd49cfda947fec8904ebb38",
-                "reference": "c52d031010d37f782bd49cfda947fec8904ebb38",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ef43a3cba04ece7d591c5c52b71dc3b5842eb370",
+                "reference": "ef43a3cba04ece7d591c5c52b71dc3b5842eb370",
                 "shasum": ""
             },
             "require": {
@@ -362,7 +362,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-01-16T22:12:38+00:00"
+            "time": "2017-01-17T13:39:04+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1986,12 +1986,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cretueusebiu/jwt-auth.git",
-                "reference": "69d351f725f9c6fb2ca5dc3dcffd8c04891d7f6e"
+                "reference": "f44be83ccd206bb6dc1c7af35dfec8a7a8b930be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cretueusebiu/jwt-auth/zipball/69d351f725f9c6fb2ca5dc3dcffd8c04891d7f6e",
-                "reference": "69d351f725f9c6fb2ca5dc3dcffd8c04891d7f6e",
+                "url": "https://api.github.com/repos/cretueusebiu/jwt-auth/zipball/f44be83ccd206bb6dc1c7af35dfec8a7a8b930be",
+                "reference": "f44be83ccd206bb6dc1c7af35dfec8a7a8b930be",
                 "shasum": ""
             },
             "require": {
@@ -2059,7 +2059,7 @@
             "support": {
                 "source": "https://github.com/cretueusebiu/jwt-auth/tree/develop"
             },
-            "time": "2017-01-17T09:20:06+00:00"
+            "time": "2017-01-17T10:33:16+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
