@@ -14,7 +14,3 @@
 Route::get('{path}', function () {
     return view('index');
 })->where('path', '(.*)');
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index');
