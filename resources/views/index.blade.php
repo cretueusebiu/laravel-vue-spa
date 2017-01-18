@@ -16,6 +16,8 @@
   {{ ScriptVariables::render() }}
 </head>
 <body>
+  @include('_icons')
+
   <div id="app"></div>
 
   <!-- Scripts -->

@@ -29,7 +29,7 @@
         <div class="form-group row">
           <div class="col-sm-9 offset-sm-3 col-lg-6 offset-lg-3">
             <button :disabled="form.busy" type="submit" class="btn btn-success">
-              <i v-if="form.busy" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+              <icon v-if="form.busy" name="spinner"></icon>
               Update
             </button>
           </div>

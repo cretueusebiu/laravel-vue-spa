@@ -1,0 +1,149 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M576 706.612v-52.78c70.498-39.728 128-138.772 128-237.832 0-159.058 0-288-192-288s-192 128.942-192 288c0 99.060 57.502 198.104 128 237.832v52.78c-217.102 17.748-384 124.42-384 253.388h896c0-128.968-166.898-235.64-384-253.388z"
+        ],
+        "tags": [
+          "user",
+          "profile",
+          "avatar",
+          "person",
+          "member"
+        ],
+        "defaultCode": 59761,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "user, profile2",
+        "name": "user",
+        "order": 2,
+        "id": 114,
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 113
+    },
+    {
+      "icon": {
+        "paths": [
+          "M384 128c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128s-128-57.308-128-128zM655.53 240.47c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128s-128-57.308-128-128zM832 512c0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64s-64-28.654-64-64zM719.53 783.53c0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64s-64-28.654-64-64zM448.002 896c0 0 0 0 0 0 0-35.346 28.654-64 64-64s64 28.654 64 64c0 0 0 0 0 0 0 35.346-28.654 64-64 64s-64-28.654-64-64zM176.472 783.53c0 0 0 0 0 0 0-35.346 28.654-64 64-64s64 28.654 64 64c0 0 0 0 0 0 0 35.346-28.654 64-64 64s-64-28.654-64-64zM144.472 240.47c0 0 0 0 0 0 0-53.019 42.981-96 96-96s96 42.981 96 96c0 0 0 0 0 0 0 53.019-42.981 96-96 96s-96-42.981-96-96zM56 512c0-39.765 32.235-72 72-72s72 32.235 72 72c0 39.765-32.235 72-72 72s-72-32.235-72-72z"
+        ],
+        "tags": [
+          "spinner",
+          "loading",
+          "loading-wheel",
+          "busy",
+          "wait"
+        ],
+        "defaultCode": 59770,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "spinner, loading2",
+        "name": "spinner",
+        "order": 6,
+        "id": 123,
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 122
+    },
+    {
+      "icon": {
+        "paths": [
+          "M592 448h-16v-192c0-105.87-86.13-192-192-192h-128c-105.87 0-192 86.13-192 192v192h-16c-26.4 0-48 21.6-48 48v480c0 26.4 21.6 48 48 48h544c26.4 0 48-21.6 48-48v-480c0-26.4-21.6-48-48-48zM192 256c0-35.29 28.71-64 64-64h128c35.29 0 64 28.71 64 64v192h-256v-192z"
+        ],
+        "tags": [
+          "lock",
+          "secure",
+          "private",
+          "encrypted"
+        ],
+        "defaultCode": 59791,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "lock, secure",
+        "name": "lock",
+        "order": 3,
+        "id": 144,
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 143
+    },
+    {
+      "icon": {
+        "paths": [
+          "M384 512h-320v-128h320v-128l192 192-192 192zM1024 0v832l-384 192v-192h-384v-256h64v192h320v-576l256-128h-576v256h-64v-320z"
+        ],
+        "tags": [
+          "enter",
+          "signin",
+          "login"
+        ],
+        "defaultCode": 59923,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "enter, signin",
+        "name": "enter",
+        "order": 4,
+        "id": 276,
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 275
+    }
+  ],
+  "height": 1024,
+  "preferences": {
+    "showGlyphs": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "icomoon"
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "classSelector": ".icon",
+      "autoHost": true
+    },
+    "historySize": 100,
+    "showCodes": true,
+    "gridSize": 16,
+    "showGrid": false,
+    "quickUsageToken": {
+      "UntitledProject": "NmRjNjdlNzlkZWUwZDdhMWIyOTU0YTcyYWI4NzJiNjUjMSMxNDg0NzI2NjY2IyMj"
+    }
+  }
+}

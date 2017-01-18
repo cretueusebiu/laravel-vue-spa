@@ -22,7 +22,7 @@
             <div class="form-group row">
               <div class="col-sm-9 offset-sm-3">
                 <button :disabled="form.busy" type="submit" class="btn btn-primary">
-                  <i v-if="form.busy" class="fa fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+                  <icon v-if="form.busy" name="spinner"></icon>
                   Send Password Reset Link
                 </button>
               </div>
