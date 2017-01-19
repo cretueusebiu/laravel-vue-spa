@@ -45,11 +45,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/cretueusebiu/jwt-auth"
-        }
-    ]
+    "prefer-stable": true
 }
