@@ -1,9 +1,12 @@
 /node_modules
 /public/storage
-/public/build
 /storage/*.key
 /vendor
 /.idea
 Homestead.json
 Homestead.yaml
 .env
+npm-debug.log
+/public/js/app.*
+/public/css/app.*
+public/mix-manifest.json

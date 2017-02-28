@@ -44,7 +44,7 @@
     </nav>
 
     <div class="container">
-      <Child/>
+      <child/>
     </div>
   </div>
 </template>

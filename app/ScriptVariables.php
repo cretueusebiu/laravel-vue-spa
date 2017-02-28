@@ -57,20 +57,4 @@ class ScriptVariables
     {
         return new HtmlString('<script>window.'.$varName.' = '.json_encode(static::all()).';</script>');
     }
-
-    /**
-     * Determine if Webpack hot reload is enabled.
-     *
-     * @return bool
-     */
-    public static function hotReload()
-    {
-        static $shouldHotReload = null;
-
-        if (is_null($shouldHotReload)) {
-            $shouldHotReload = file_exists(storage_path('framework/cache/hot'));
-        }
-
-        return $shouldHotReload;
-    }
 }

@@ -6,6 +6,8 @@ import Router from 'vue-router'
 import './utils/interceptors'
 import { HasError4, AlertError, AlertSuccess } from 'vform'
 
+Vue.config.productionTip = false
+
 Vue.use(Router)
 Vue.use(Meta)
 
@@ -18,4 +20,4 @@ Vue.component('has-error', HasError4)
 Vue.component('alert-error', AlertError)
 Vue.component('alert-success', AlertSuccess)
 Vue.component('icon', require('./components/icon.vue'))
-Vue.component('Child', require('./components/Child.vue'))
+Vue.component('child', require('./components/Child.vue'))

@@ -1,11 +1,17 @@
 <template>
-  <svg class="icon" :class="{ 'icon-spin': spin, [name]: name }">
-    <use :xlink:href="`#icon-${name}`"></use>
+  <svg class="icon" :class="{ 'icon-spin': spin, [`icon-${name}`]: name }">
+    <use :xlink:href="`#${name}`"></use>
   </svg>
 </template>
 
 <script>
+const files = require.context('!svg-sprite-loader!./../../icons', false, /.*\.svg$/)
+
+files.keys().forEach(files)
+
 export default {
+  name: 'icon',
+
   props: {
     name: {
       type: String,

@@ -7,26 +7,12 @@
 
   <title>{{ config('app.name', 'Laravel') }}</title>
 
-  <!-- Styles -->
-  @if (!ScriptVariables::hotReload())
-    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
-  @endif
-
-  <!-- Scripts -->
-  {{ ScriptVariables::render() }}
+  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body>
-  @include('_icons')
-
   <div id="app"></div>
 
-  <!-- Scripts -->
-  @if (ScriptVariables::hotReload())
-    <script src="http://localhost:8080/app.js"></script>
-  @else
-    <script src="{{ elixir('js/manifest.js') }}"></script>
-    <script src="{{ elixir('js/vendor.js') }}"></script>
-    <script src="{{ elixir('js/app.js') }}"></script>
-  @endif
+  {{ ScriptVariables::render() }}
+  <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

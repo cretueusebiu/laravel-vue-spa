@@ -1,6 +1,6 @@
 <template>
   <div class="default-layout flex-center position-ref full-height">
-    <Child/>
+    <child/>
   </div>
 </template>
 

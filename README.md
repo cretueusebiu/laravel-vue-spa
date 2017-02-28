@@ -8,8 +8,9 @@
 - Pages with custom layouts 
 - Examples for login, register and password reset
 - Integration with [vform](https://github.com/cretueusebiu/vform)
-- Authentication with JWT
-- Webpack (with HMR and pre-processors)
+- Authentication with [JWT](https://github.com/tymondesigns/jwt-auth)
+- Webpack with [laravel-mix](https://github.com/JeffreyWay/laravel-mix)
+- SVG icons with [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader)
 
 ## Installation
 
@@ -28,12 +29,15 @@
 #### Development
 
 ```bash
+# build and watch
+npm run watch
+
 # serve with hot reloading
-npm run dev
+npm run hot
 ```
 
 #### Production
 
 ```bash
-npm run build
+npm run production
 ```

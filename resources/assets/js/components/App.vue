@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Loading ref="loading"></Loading>
+    <loading ref="loading"></loading>
 
     <transition name="page" mode="out-in">
       <component v-if="layout" :is="layout"></component>
@@ -54,7 +54,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-@import '../../scss/main';
-</style>
