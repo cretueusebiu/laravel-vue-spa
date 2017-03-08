@@ -4,7 +4,7 @@ import { sync } from 'vuex-router-sync'
 
 import store from './store'
 import routes from './routes'
-import makeRouter from './utils/router'
+import makeRouter from './util/router'
 import App from './components/App.vue'
 
 const router = makeRouter(routes)

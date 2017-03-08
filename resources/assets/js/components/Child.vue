@@ -7,3 +7,9 @@
     </transition>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'child'
+}
+</script>

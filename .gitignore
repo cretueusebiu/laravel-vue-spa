@@ -10,3 +10,4 @@ npm-debug.log
 /public/js/app.*
 /public/css/app.*
 public/mix-manifest.json
+public/hot
