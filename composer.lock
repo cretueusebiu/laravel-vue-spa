@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b4705efd00d4b7631571d3caadd429e",
+    "content-hash": "13240c2f653984c7c255613666230beb",
     "packages": [
+        {
+            "name": "cretueusebiu/laravel-javascript",
+            "version": "0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cretueusebiu/laravel-javascript.git",
+                "reference": "55abeb955b6bd22313abc5a8832997f607b7c2e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cretueusebiu/laravel-javascript/zipball/55abeb955b6bd22313abc5a8832997f607b7c2e7",
+                "reference": "55abeb955b6bd22313abc5a8832997f607b7c2e7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.1",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "~5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eusebiu\\JavaScript\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cretu Eusebiu",
+                    "email": "me@cretueusebiu.com"
+                }
+            ],
+            "description": "Add JavaScript variables to Laravel.",
+            "homepage": "https://github.com/cretueusebiu/laravel-javascript",
+            "time": "2017-03-09T13:55:46+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
