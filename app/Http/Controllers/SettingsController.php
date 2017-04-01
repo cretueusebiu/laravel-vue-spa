@@ -36,7 +36,7 @@ class SettingsController extends Controller
     {
         $this->validate($request, ['password' => 'required|confirmed|min:6']);
 
-        $request->user()->update(['password' => $request->password]);
+        $request->user()->update(['password' => bcrypt($request->password)]);
 
         return response()->json(null, 204);
     }
