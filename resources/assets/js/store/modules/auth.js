@@ -1,4 +1,5 @@
 import api from '../../api'
+import axios from 'axios'
 import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
 
@@ -61,7 +62,15 @@ const actions = {
   },
 
   logout ({ commit }) {
-    commit(types.LOGOUT)
+    return new Promise((resolve, reject) => {
+      axios.post('/api/logout')
+        .then(() => {
+          commit(types.LOGOUT)
+
+          resolve()
+        })
+        .catch(reject)
+    })
   }
 }
 

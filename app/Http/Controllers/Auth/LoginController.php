@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class LoginController extends Controller
 {
@@ -25,66 +21,57 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle a login request to the application.
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+        $token = $this->guard()->attempt(
+            $this->credentials($request)
+        );
+
+        if ($token) {
+            $this->guard()->setToken($token);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    protected function sendLoginResponse(Request $request)
     {
-        $this->validateLogin($request);
+        $this->clearLoginAttempts($request);
 
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
-        }
-
-        if ($user = $this->retrieveByCredentials($request)) {
-            return $this->authenticated($request, $user);
-        }
-
-        $this->incrementLoginAttempts($request);
-
-        return $this->sendFailedLoginResponse($request);
-    }
-
-    /**
-     * The user has been authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function authenticated(Request $request, $user)
-    {
-        try {
-            $token = Auth::guard('api')->login($user);
-            $exp = Auth::guard('api')->setToken($token)->payload()->get('exp');
-        } catch (JWTException $e) {
-            throw new HttpException(500, 'Could not create access token.');
-        }
+        $token = (string) $this->guard()->getToken();
+        $expiration = $this->guard()->getPayload()->get('exp');
 
         return [
             'token' => $token,
-            'expires_at' => date('c', $exp),
+            'token_type' => 'bearer',
+            'expires_in' => $expiration - time(),
+            // 'user' => $this->guard()->user(),
         ];
     }
 
     /**
+     * Log the user out of the application.
+     *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Illuminate\Http\Response
      */
-    protected function retrieveByCredentials(Request $request)
+    public function logout(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $this->guard()->logout();
 
-        $provider = Auth::createUserProvider('users');
-
-        $user = $provider->retrieveByCredentials($credentials);
-
-        if ($user && $provider->validateCredentials($user, $credentials)) {
-            return $user;
-        }
+        return response()->json(null, 204);
     }
 }
