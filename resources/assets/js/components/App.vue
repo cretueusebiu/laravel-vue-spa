@@ -9,10 +9,15 @@
 </template>
 
 <script>
-const layouts = {
-  _app: require('../layouts/app.vue'),
-  _default: require('../layouts/default.vue')
-}
+const layouts = {}
+
+const requireContext = require.context('../layouts', false, /.*\.vue$/)
+
+requireContext.keys().forEach(file => {
+  const layoutName = file.replace(/(^.\/)|(\.vue$)/g, '')
+
+  layouts[layoutName] = requireContext(file)
+})
 
 export default {
   name: 'App',
@@ -45,11 +50,11 @@ export default {
      * @param {String} layout
      */
     setLayout (layout) {
-      if (!layout || !layouts['_' + layout]) {
+      if (!layout || !layouts[layout]) {
         layout = this.defaultLayout
       }
 
-      this.layout = layouts['_' + layout]
+      this.layout = layouts[layout]
     }
   }
 }
