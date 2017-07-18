@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-layout">
     <nav class="navbar navbar-toggleable-md navbar-light mb-4">
       <div class="container">
         <button class="navbar-toggler navbar-toggler-right" type="button"
@@ -53,6 +53,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'app-layout',
+
   computed: mapGetters({
     user: 'authUser',
     authenticated: 'authCheck'

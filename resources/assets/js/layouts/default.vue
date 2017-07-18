@@ -4,6 +4,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'default-layout'
+}
+</script>
+
 <style lang="scss">
 .default-layout {
   background-color: #fff;
