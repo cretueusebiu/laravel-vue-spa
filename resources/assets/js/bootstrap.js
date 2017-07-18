@@ -5,7 +5,7 @@ import Meta from 'vue-meta'
 import Router from 'vue-router'
 
 import './components'
-import './util/interceptors'
+import './utils/interceptors'
 
 Vue.config.productionTip = false
 

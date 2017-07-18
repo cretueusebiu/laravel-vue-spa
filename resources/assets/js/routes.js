@@ -1,4 +1,4 @@
-import { authGuard, guestGuard } from './util/router'
+import { authGuard, guestGuard } from './utils/router'
 
 export default [
   { path: '/', name: 'welcome', component: require('./pages/welcome.vue') },
