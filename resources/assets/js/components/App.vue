@@ -10,13 +10,12 @@
 
 <script>
 const layouts = {}
-
 const requireContext = require.context('../layouts', false, /.*\.vue$/)
 
 requireContext.keys().forEach(file => {
-  const layoutName = file.replace(/(^.\/)|(\.vue$)/g, '')
+  const name = file.replace(/(^.\/)|(\.vue$)/g, '')
 
-  layouts[layoutName] = requireContext(file)
+  layouts[name] = requireContext(file)
 })
 
 export default {
