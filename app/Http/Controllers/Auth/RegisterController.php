@@ -31,7 +31,7 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        return response()->json($user, 201);
+        return $user;
     }
 
     /**

@@ -21,9 +21,7 @@ class SettingsController extends Controller
             'email' => 'required|email|unique:users,email,'.$user->id,
         ]);
 
-        $user->update($request->only('name', 'email'));
-
-        return $user;
+        return tap($user)->update($request->only('name', 'email'));
     }
 
     /**
@@ -34,10 +32,12 @@ class SettingsController extends Controller
      */
     public function updatePassword(Request $request)
     {
-        $this->validate($request, ['password' => 'required|confirmed|min:6']);
+        $this->validate($request, [
+            'password' => 'required|confirmed|min:6'
+        ]);
 
-        $request->user()->update(['password' => bcrypt($request->password)]);
-
-        return response()->json(null, 204);
+        $request->user()->update([
+            'password' => bcrypt($request->password)
+        ]);
     }
 }
