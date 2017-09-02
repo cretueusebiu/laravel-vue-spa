@@ -1,5 +1,7 @@
 # Laravel-Vue SPA Starter
 
+[![Build Status](https://img.shields.io/travis/cretueusebiu/laravel-vue-spa/master.svg?style=flat-square)](https://travis-ci.org/cretueusebiu/laravel-vue-spa)
+
 > A Laravel-Vue SPA starter project template.
 
 ## Features
