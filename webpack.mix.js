@@ -19,7 +19,7 @@ if (mix.inProduction()) {
     'axios',
     'vuex',
     'jquery',
-    'tether',
+    'popper.js',
     'vue-i18n',
     'vue-meta',
     'js-cookie',
