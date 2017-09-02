@@ -43,9 +43,6 @@ mix.webpackConfig({
   resolve: {
     alias: {
       '~': path.join(__dirname, './resources/assets/js')
-      // '~router': path.join(__dirname, './resources/assets/js/router'),
-      // '~plugins': path.join(__dirname, './resources/assets/js/plugins'),
-      // '~components': path.join(__dirname, './resources/assets/js/components')
     }
   }
 })
