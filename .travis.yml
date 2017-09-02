@@ -12,10 +12,10 @@ services:
   - mysql
 
 before_install:
-  - mysql -e 'CREATE DATABASE laravel_spa_dusk;'
+  - mysql -e 'CREATE DATABASE laravel_vue_spa;'
 
 install:
-  - cp .env.dusk.local .env
+  - cp .env.testing .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - npm install
   - npm run production
