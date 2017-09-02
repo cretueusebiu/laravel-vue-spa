@@ -1,0 +1,32 @@
+sudo: required
+language: php
+dist: trusty
+
+addons:
+  chrome: stable
+
+php:
+  - 7.1
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE laravel_spa_dusk;'
+
+install:
+  - cp .env.dusk.local .env
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - npm install
+  - npm run production
+
+before_script:
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - php artisan serve &
+
+script:
+  - php artisan dusk
+  - vendor/bin/phpunit
+
+notifications:
+  email: false
