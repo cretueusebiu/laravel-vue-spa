@@ -9,34 +9,40 @@
 </template>
 
 <script>
-const layouts = {}
+import Loading from './Loading'
+
+// Load layout components dynamically.
 const requireContext = require.context('../layouts', false, /.*\.vue$/)
 
-requireContext.keys().forEach(file => {
-  const name = file.replace(/(^.\/)|(\.vue$)/g, '')
-
-  layouts[name] = requireContext(file)
-})
+const layouts = requireContext.keys()
+  .map(file =>
+    [file.replace(/(^.\/)|(\.vue$)/g, ''), requireContext(file)]
+  )
+  .reduce((components, [name, component]) => {
+    components[name] = component
+    return components
+  }, {})
 
 export default {
-  name: 'App',
+  el: '#app',
 
   components: {
-    Loading: require('./Loading.vue')
+    Loading
   },
 
-  metaInfo: {
-    title: 'Laravel'
+  metaInfo () {
+    const { appName } = window.config
+
+    return {
+      title: appName,
+      titleTemplate: `%s · ${appName}`
+    }
   },
 
   data: () => ({
     layout: null,
     defaultLayout: 'app'
   }),
-
-  created () {
-    this.$root.$loading = this
-  },
 
   mounted () {
     this.$loading = this.$refs.loading

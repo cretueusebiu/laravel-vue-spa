@@ -1,56 +1,48 @@
 <template>
   <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <div class="card">
-        <div class="card-header">Login</div>
-        <div class="card-block">
-          <form @submit.prevent="login" @keydown="form.errors.clear($event.target.name)">
-            <!-- Email -->
-            <div class="form-group row" :class="{ 'has-danger': form.errors.has('email') }">
-              <label for="email" class="col-sm-3 col-form-label text-sm-right">Email</label>
-              <div class="col-sm-7">
-                <input v-model="form.email" type="text" name="email" id="email" class="form-control">
-                <has-error :form="form" field="email"></has-error>
-              </div>
+    <div class="col-lg-8 m-auto">
+      <card :title="$t('login')">
+        <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+          <!-- Email -->
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
+            <div class="col-md-7">
+              <input v-model="form.email" type="email" name="email" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('email') }">
+              <has-error :form="form" field="email"></has-error>
             </div>
+          </div>
 
-            <!-- Password -->
-            <div class="form-group row" :class="{ 'has-danger': form.errors.has('password') }">
-              <label for="password" class="col-sm-3 col-form-label text-sm-right">Password</label>
-              <div class="col-sm-7">
-                <input v-model="form.password" type="password" name="password" id="password" class="form-control">
-                <has-error :form="form" field="password"></has-error>
-              </div>
+          <!-- Password -->
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
+            <div class="col-md-7">
+              <input v-model="form.password" type="password" name="password" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('password') }">
+              <has-error :form="form" field="password"></has-error>
             </div>
+          </div>
 
-            <!-- Remember Me -->
-            <div class="form-group row">
-              <div class="col-xs-6 col-sm-4 offset-sm-3">
-                <label class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" value="1" v-model="form.remember">
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description">Remember Me</span>
-                </label>
-              </div>
-              <div class="col-xs-6 col-sm-3 text-right">
-                <small>
-                  <router-link :to="{ name: 'password.request' }">Forgot Your Password?</router-link>
-                </small>
-              </div>
-            </div>
+          <!-- Remember Me -->
+          <div class="form-group row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+              <router-link :to="{ name: 'password.request' }" class="float-right small">
+                {{ $t('forgot_password') }}
+              </router-link>
 
-            <!-- Submit Button -->
-            <div class="form-group row">
-              <div class="col-sm-9 offset-sm-3">
-                <button :disabled="form.busy" type="submit" class="btn btn-primary">
-                  <icon :name="form.busy ? 'spinner' : 'enter'"></icon>
-                  Login
-                </button>
-              </div>
+              <checkbox v-model="remember">{{ $t('remember_me') }}</checkbox>
             </div>
-          </form>
-        </div>
-      </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group row">
+            <div class="col-md-9 ml-md-auto">
+              <v-button :loading="form.busy">{{ $t('login') }}</v-button>
+            </div>
+          </div>
+        </form>
+      </card>
     </div>
   </div>
 </template>
@@ -59,31 +51,34 @@
 import Form from 'vform'
 
 export default {
-  name: 'login',
-
-  metaInfo: { titleTemplate: 'Login | %s' },
+  metaInfo () {
+    return { title: this.$t('login') }
+  },
 
   data: () => ({
     form: new Form({
       email: '',
-      password: '',
-      remember: false
-    })
+      password: ''
+    }),
+    remember: false
   }),
 
   methods: {
-    login () {
-      this.form.post('/api/login')
-        .then(({ data }) => {
-          this.$store.dispatch('saveToken', {
-            token: data.token,
-            remember: this.form.remember
-          })
+    async login () {
+      // Submit the form.
+      const { data } = await this.form.post('/api/login')
 
-          this.$store.dispatch('fetchUser').then(() => {
-            this.$router.push({ name: 'home' })
-          })
-        })
+      // Save the token.
+      this.$store.dispatch('saveToken', {
+        token: data.token,
+        remember: this.remember
+      })
+
+      // Fetch the user.
+      await this.$store.dispatch('fetchUser')
+
+      // Redirect home.
+      this.$router.push({ name: 'home' })
     }
   }
 }

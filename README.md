@@ -1,10 +1,10 @@
-# Laravel-Vue SPA Starter [WIP]
+# Laravel-Vue SPA Starter
 
 > A Laravel-Vue SPA starter project template.
 
 ## Features
 
-- Laravel 5.4 + Vue + Vue Router + Vuex
+- Laravel 5.5 + Vue + Vue Router + Vuex
 - Pages with custom layouts 
 - Examples for login, register and password reset
 - Integration with [vform](https://github.com/cretueusebiu/vform)
@@ -41,3 +41,8 @@ npm run hot
 ```bash
 npm run production
 ```
+
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

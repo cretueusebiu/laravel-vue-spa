@@ -1,35 +1,28 @@
 <template>
   <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <div class="card">
-        <div class="card-header">Reset Password</div>
-        <div class="card-block">
-          <form @submit.prevent="send" @keydown="form.errors.clear($event.target.name)">
-            <div v-if="status" class="alert alert-success">
-              {{ status }}
-            </div>
+    <div class="col-lg-8 m-auto">
+      <card :title="$t('reset_password')">
+        <form @submit.prevent="send" @keydown="form.onKeydown($event)">
+          <alert-success :form="form" :message="status"></alert-success>
 
-            <!-- Email -->
-            <div class="form-group row" :class="{ 'has-danger': form.errors.has('email') }">
-              <label for="email" class="col-sm-3 col-form-label text-sm-right">Email</label>
-              <div class="col-sm-7">
-                <input v-model="form.email" type="text" name="email" id="email" class="form-control">
-                <has-error :form="form" field="email"></has-error>
-              </div>
+          <!-- Email -->
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
+            <div class="col-md-7">
+              <input v-model="form.email" type="email" name="email" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('email') }">
+              <has-error :form="form" field="email"></has-error>
             </div>
+          </div>
 
-            <!-- Submit Button -->
-            <div class="form-group row">
-              <div class="col-sm-9 offset-sm-3">
-                <button :disabled="form.busy" type="submit" class="btn btn-primary">
-                  <icon v-if="form.busy" name="spinner"></icon>
-                  Send Password Reset Link
-                </button>
-              </div>
+          <!-- Submit Button -->
+          <div class="form-group row">
+            <div class="col-md-9 ml-md-auto">
+              <v-button :loading="form.busy">{{ $t('send_password_reset_link') }}</v-button>
             </div>
-          </form>
-        </div>
-      </div>
+          </div>
+        </form>
+      </card>
     </div>
   </div>
 </template>
@@ -38,20 +31,24 @@
 import Form from 'vform'
 
 export default {
-  metaInfo: { titleTemplate: 'Reset Password | %s' },
+  metaInfo () {
+    return { title: this.$t('reset_password') }
+  },
 
   data: () => ({
-    status: null,
-    form: new Form({ email: '' })
+    status: '',
+    form: new Form({
+      email: ''
+    })
   }),
 
   methods: {
-    send () {
-      this.form.post('/api/password/email')
-        .then(({ data: { status }}) => {
-          this.form.reset()
-          this.status = status
-        })
+    async send () {
+      const { data } = await this.form.post('/api/password/email')
+
+      this.status = data.status
+
+      this.form.reset()
     }
   }
 }

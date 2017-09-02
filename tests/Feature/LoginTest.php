@@ -18,7 +18,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function can_authenticate()
+    function authenticate()
     {
         $this->postJson('/api/login', [
             'email' => $this->user->email,
@@ -30,7 +30,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function can_fetch_the_current_user()
+    function fetch_the_current_user()
     {
         $this->actingAs($this->user)
             ->getJson('/api/user')
@@ -39,14 +39,14 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function can_log_out()
+    function log_out()
     {
         $token = $this->postJson('/api/login', [
             'email' => $this->user->email,
             'password' => 'secret',
         ])->json()['token'];
 
-        $this->json('POST', "/api/logout?token=$token")
+        $this->postJson("/api/logout?token=$token")
             ->assertSuccessful();
 
         $this->getJson("/api/user?token=$token")

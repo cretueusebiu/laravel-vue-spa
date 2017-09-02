@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const mix = require('laravel-mix')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
@@ -32,14 +33,19 @@ if (mix.inProduction()) {
 mix.webpackConfig({
   plugins: [
     // new BundleAnalyzerPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default']
+    })
   ],
   resolve: {
     alias: {
-      'src': path.join(__dirname, './resources/assets/js'),
-      '~utils': path.join(__dirname, './resources/assets/js/utils'),
-      '~plugins': path.join(__dirname, './resources/assets/js/plugins'),
-      '~services': path.join(__dirname, './resources/assets/js/services'),
-      '~components': path.join(__dirname, './resources/assets/js/components')
+      '~': path.join(__dirname, './resources/assets/js')
+      // '~router': path.join(__dirname, './resources/assets/js/router'),
+      // '~plugins': path.join(__dirname, './resources/assets/js/plugins'),
+      // '~components': path.join(__dirname, './resources/assets/js/components')
     }
   }
 })

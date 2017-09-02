@@ -17,7 +17,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest')->except('logout');
     }
 
     /**
@@ -56,7 +56,6 @@ class LoginController extends Controller
             'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $expiration - time(),
-            // 'user' => $this->guard()->user(),
         ];
     }
 
