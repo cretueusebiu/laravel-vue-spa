@@ -17,6 +17,11 @@
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li> -->
+          <router-link v-if="authenticated" :to="{ name: 'users.index' }" tag="li" class="nav-item">
+              <a class="nav-link">
+                Users
+              </a>
+          </router-link>
         </ul>
 
         <ul class="navbar-nav">
@@ -60,7 +65,7 @@ export default {
     appName: window.config.appName
   }),
 
-  computed: mapGetters({
+  computed: mapGetters('auth', {
     user: 'authUser',
     authenticated: 'authCheck'
   }),
@@ -68,7 +73,7 @@ export default {
   methods: {
     async logout () {
       // Log out the user.
-      await this.$store.dispatch('logout')
+      await this.$store.dispatch('auth/logout')
 
       // Redirect to login.
       this.$router.push({ name: 'login' })

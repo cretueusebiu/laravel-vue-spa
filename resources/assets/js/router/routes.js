@@ -7,8 +7,13 @@ export default ({ authGuard, guestGuard }) => [
     { path: '/settings', component: require('~/pages/settings/index.vue'), children: [
       { path: '', redirect: { name: 'settings.profile' }},
       { path: 'profile', name: 'settings.profile', component: require('~/pages/settings/profile.vue') },
-      { path: 'password', name: 'settings.password', component: require('~/pages/settings/password.vue') }
-    ] }
+      { path: 'password', name: 'settings.password', component: require('~/pages/settings/password.vue') },
+    ] },
+
+    { path: '/users', name: 'users.index', component: require('~/pages/users/index.vue') },
+    { path: '/users/:id', name: 'users.show', component: require('~/pages/users/show.vue') },
+    { path: '/users/create', name: 'users.create', component: require('~/pages/users/create.vue') },
+    { path: '/users/:id/edit', name: 'users.edit', component: require('~/pages/users/edit.vue') },
   ]),
 
   // Guest routes.
@@ -19,5 +24,5 @@ export default ({ authGuard, guestGuard }) => [
     { path: '/password/reset/:token', name: 'password.reset', component: require('~/pages/auth/password/reset.vue') }
   ]),
 
-  { path: '*', component: require('~/pages/errors/404.vue') }
+  { path: '*', name: 'not-found', component: require('~/pages/errors/404.vue') }
 ]

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => 'auth:api'], function () {
+    // auth
     Route::post('logout', 'Auth\LoginController@logout');
 
     Route::get('/user', function (Request $request) {
@@ -22,6 +23,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+
+    // users
+    Route::resource('users', 'UserController');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

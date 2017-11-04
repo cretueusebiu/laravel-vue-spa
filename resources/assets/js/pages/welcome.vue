@@ -42,7 +42,7 @@ export default {
     return { title: this.$t('home') }
   },
 
-  computed: mapGetters({
+  computed: mapGetters('auth', {
     authenticated: 'authCheck'
   }),
 

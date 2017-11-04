@@ -34,34 +34,34 @@
 </template>
 
 <script>
-import Form from 'vform'
-import { mapGetters } from 'vuex'
+    import Form from 'vform'
+    import { mapGetters } from 'vuex'
 
-export default {
-  data: () => ({
-    form: new Form({
-      name: '',
-      email: ''
-    })
-  }),
+    export default {
+      data: () => ({
+        form: new Form({
+          name: '',
+          email: ''
+        })
+      }),
 
-  computed: mapGetters({
-    user: 'authUser'
-  }),
+      computed: mapGetters('auth', {
+        user: 'authUser'
+      }),
 
-  created () {
-    // Fill the form with user data.
-    this.form.keys().forEach(key => {
-      this.form[key] = this.user[key]
-    })
-  },
+      created () {
+        // Fill the form with user data.
+        this.form.keys().forEach(key => {
+          this.form[key] = this.user[key]
+        })
+      },
 
-  methods: {
-    async update () {
-      const { data } = await this.form.patch('/api/settings/profile')
+      methods: {
+        async update () {
+          const { data } = await this.form.patch('/api/settings/profile')
 
-      this.$store.dispatch('updateUser', { user: data })
+          this.$store.dispatch('auth/updateUser', { user: data })
+        }
+      }
     }
-  }
-}
 </script>
