@@ -6,7 +6,8 @@ import App from '~/components/App'
 
 import '~/components'
 
-Vue.config.productionTip = false
+Vue.config.devtools = true;
+Vue.config.productionTip = false;
 
 new Vue({
   i18n,

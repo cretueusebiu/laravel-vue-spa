@@ -2,6 +2,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
 
+export const namespaced = true
+
 // state
 export const state = {
   user: null,

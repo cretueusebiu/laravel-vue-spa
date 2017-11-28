@@ -4,8 +4,8 @@ import router from '~/router'
 import swal from 'sweetalert2'
 
 axios.interceptors.request.use(request => {
-  if (store.getters.authToken) {
-    request.headers.common['Authorization'] = `Bearer ${store.getters.authToken}`
+  if (store.getters['auth/authToken']) {
+    request.headers.common['Authorization'] = `Bearer ${store.getters['auth/authToken']}`
   }
 
   // request.headers['X-Socket-Id'] = Echo.socketId()
@@ -24,7 +24,7 @@ axios.interceptors.response.use(response => response, error => {
     })
   }
 
-  if (status === 401 && store.getters.authCheck) {
+  if (status === 401 && store.getters['auth/authToken']) {
     swal({
       type: 'warning',
       title: swal.i18n.t('token_expired_alert_title'),
@@ -35,6 +35,10 @@ axios.interceptors.response.use(response => response, error => {
 
       router.push({ name: 'login' })
     })
+  }
+
+  if (status === 404) {
+      router.push({ name: 'not-found' })
   }
 
   return Promise.reject(error)

@@ -3,13 +3,18 @@ import store from '~/store'
 import Meta from 'vue-meta'
 import routes from './routes'
 import Router from 'vue-router'
-import { sync } from 'vuex-router-sync'
+import {
+  sync
+} from 'vuex-router-sync'
 
 Vue.use(Meta)
 Vue.use(Router)
 
 const router = make(
-  routes({ authGuard, guestGuard })
+  routes({
+    authGuard,
+    guestGuard
+  })
 )
 
 sync(store, router)
@@ -22,7 +27,7 @@ export default router
  * @param  {Array} routes
  * @return {Router}
  */
-function make (routes) {
+function make(routes) {
   const router = new Router({
     routes,
     scrollBehavior,
@@ -30,11 +35,11 @@ function make (routes) {
   })
 
   // Register before guard.
-  router.beforeEach(async (to, from, next) => {
-    if (!store.getters.authCheck && store.getters.authToken) {
+  router.beforeEach(async(to, from, next) => {
+    if (!store.getters['auth/authCheck'] && store.getters['auth/authToken']) {
       try {
-        await store.dispatch('fetchUser')
-      } catch (e) { }
+        await store.dispatch('auth/fetchUser')
+      } catch (e) {}
     }
 
     setLayout(router, to)
@@ -57,9 +62,11 @@ function make (routes) {
  * @param {Router} router
  * @param {Route} to
  */
-function setLayout (router, to) {
+function setLayout(router, to) {
   // Get the first matched component.
-  const [component] = router.getMatchedComponents({ ...to })
+  const [component] = router.getMatchedComponents({
+      ...to
+  })
 
   if (component) {
     router.app.$nextTick(() => {
@@ -80,10 +87,12 @@ function setLayout (router, to) {
  * @param  {Array} routes
  * @return {Array}
  */
-function authGuard (routes) {
+function authGuard(routes) {
   return beforeEnter(routes, (to, from, next) => {
-    if (!store.getters.authCheck) {
-      next({ name: 'login' })
+    if (!store.getters['auth/authCheck']) {
+      next({
+        name: 'login'
+      })
     } else {
       next()
     }
@@ -96,10 +105,12 @@ function authGuard (routes) {
  * @param  {Array} routes
  * @return {Array}
  */
-function guestGuard (routes) {
+function guestGuard(routes) {
   return beforeEnter(routes, (to, from, next) => {
-    if (store.getters.authCheck) {
-      next({ name: 'home' })
+    if (store.getters['auth/authCheck']) {
+      next({
+        name: 'home'
+      })
     } else {
       next()
     }
@@ -113,9 +124,11 @@ function guestGuard (routes) {
  * @param  {Function} beforeEnter
  * @return {Array}
  */
-function beforeEnter (routes, beforeEnter) {
+function beforeEnter(routes, beforeEnter) {
   return routes.map(route => {
-    return { ...route, beforeEnter }
+    return { ...route,
+      beforeEnter
+    }
   })
 }
 
@@ -125,7 +138,7 @@ function beforeEnter (routes, beforeEnter) {
  * @param  {Object|undefined} savedPosition
  * @return {Object}
  */
-function scrollBehavior (to, from, savedPosition) {
+function scrollBehavior(to, from, savedPosition) {
   if (savedPosition) {
     return savedPosition
   }

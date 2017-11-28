@@ -42,6 +42,15 @@
             </div>
           </div>
         </form>
+
+        <div class="form-group row">
+            <div class="col-12">
+                <p>Or login with:</p>
+            </div>
+            <div class="col-md-9 ml-md-auto">
+                <a href="#" class="btn btn-secondary">Facebook</a>
+            </div>
+        </div>
       </card>
     </div>
   </div>
@@ -69,13 +78,13 @@ export default {
       const { data } = await this.form.post('/api/login')
 
       // Save the token.
-      this.$store.dispatch('saveToken', {
+      this.$store.dispatch('auth/saveToken', {
         token: data.token,
         remember: this.remember
       })
 
       // Fetch the user.
-      await this.$store.dispatch('fetchUser')
+      await this.$store.dispatch('auth/fetchUser')
 
       // Redirect home.
       this.$router.push({ name: 'home' })
