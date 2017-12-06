@@ -1,6 +1,0 @@
-{
-  "plugins": [
-    "transform-runtime",
-    "transform-async-to-generator"
-  ]
-}
