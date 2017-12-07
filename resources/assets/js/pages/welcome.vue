@@ -43,7 +43,7 @@ export default {
   },
 
   computed: mapGetters({
-    authenticated: 'authCheck'
+    authenticated: 'auth/check'
   }),
 
   data: () => ({

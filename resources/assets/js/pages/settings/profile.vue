@@ -50,7 +50,7 @@ export default {
   }),
 
   computed: mapGetters({
-    user: 'authUser'
+    user: 'auth/user'
   }),
 
   created () {
@@ -64,7 +64,7 @@ export default {
     async update () {
       const { data } = await this.form.patch('/api/settings/profile')
 
-      this.$store.dispatch('updateUser', { user: data })
+      this.$store.dispatch('auth/updateUser', { user: data })
     }
   }
 }

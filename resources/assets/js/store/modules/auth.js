@@ -8,6 +8,13 @@ export const state = {
   token: Cookies.get('token')
 }
 
+// getters
+export const getters = {
+  user: state => state.user,
+  token: state => state.token,
+  check: state => state.user !== null
+}
+
 // mutations
 export const mutations = {
   [types.SAVE_TOKEN] (state, { token, remember }) {
@@ -63,11 +70,4 @@ export const actions = {
 
     commit(types.LOGOUT)
   }
-}
-
-// getters
-export const getters = {
-  authUser: state => state.user,
-  authToken: state => state.token,
-  authCheck: state => state.user !== null
 }

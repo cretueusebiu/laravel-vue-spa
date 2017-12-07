@@ -21,7 +21,7 @@
 
         <ul class="navbar-nav">
           <!-- Authenticated -->
-          <li v-if="authenticated" class="nav-item dropdown">
+          <li v-if="user" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark py-0"
               href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
@@ -66,14 +66,13 @@ export default {
   }),
 
   computed: mapGetters({
-    user: 'authUser',
-    authenticated: 'authCheck'
+    user: 'auth/user'
   }),
 
   methods: {
     async logout () {
       // Log out the user.
-      await this.$store.dispatch('logout')
+      await this.$store.dispatch('auth/logout')
 
       // Redirect to login.
       this.$router.push({ name: 'login' })

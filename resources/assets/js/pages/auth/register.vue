@@ -84,7 +84,7 @@ export default {
       this.$store.dispatch('saveToken', { token })
 
       // Update the user.
-      await this.$store.dispatch('updateUser', { user: data })
+      await this.$store.dispatch('auth/updateUser', { user: data })
 
       // Redirect home.
       this.$router.push({ name: 'home' })

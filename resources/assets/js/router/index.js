@@ -32,9 +32,9 @@ function make () {
 
   // Register before guard.
   router.beforeEach(async (to, from, next) => {
-    if (!store.getters.authCheck && store.getters.authToken) {
+    if (!store.getters['auth/check'] && store.getters['auth/token']) {
       try {
-        await store.dispatch('fetchUser')
+        await store.dispatch('auth/fetchUser')
       } catch (e) { }
     }
 

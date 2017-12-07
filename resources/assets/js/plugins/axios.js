@@ -4,8 +4,10 @@ import router from '~/router'
 import swal from 'sweetalert2'
 
 axios.interceptors.request.use(request => {
-  if (store.getters.authToken) {
-    request.headers.common['Authorization'] = `Bearer ${store.getters.authToken}`
+  const token = store.getters['auth/token']
+
+  if (token) {
+    request.headers.common['Authorization'] = `Bearer ${token}`
   }
 
   // request.headers['X-Socket-Id'] = Echo.socketId()
@@ -24,14 +26,14 @@ axios.interceptors.response.use(response => response, error => {
     })
   }
 
-  if (status === 401 && store.getters.authCheck) {
+  if (status === 401 && store.getters['auth/check']) {
     swal({
       type: 'warning',
       title: swal.i18n.t('token_expired_alert_title'),
       text: swal.i18n.t('token_expired_alert_text')
     })
     .then(async () => {
-      await store.dispatch('logout')
+      await store.dispatch('auth/logout')
 
       router.push({ name: 'login' })
     })
