@@ -5,7 +5,6 @@
       :name="name"
       @click="handleClick"
       :checked="internalValue"
-      v-indeterminate="indeterminate"
       class="custom-control-input"
     >
     <span class="custom-control-indicator"></span>
@@ -22,8 +21,7 @@ export default {
   props: {
     name: String,
     value: Boolean,
-    checked: Boolean,
-    indeterminate: Boolean
+    checked: Boolean
   },
 
   data: () => ({
