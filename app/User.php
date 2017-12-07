@@ -29,6 +29,25 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'photo_url',
+    ];
+
+    /**
+     * Get the profile photo URL attribute.
+     *
+     * @return string
+     */
+    public function getPhotoUrlAttribute()
+    {
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'.jpg?s=200&d=mm';
+    }
+
+    /**
      * @return int
      */
     public function getJWTIdentifier()

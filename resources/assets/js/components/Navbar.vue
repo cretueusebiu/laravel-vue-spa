@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-      <router-link :to="{ name: 'welcome' }" class="navbar-brand">
+      <router-link :to="{ name: 'home' }" class="navbar-brand">
         {{ appName }}
       </router-link>
 
@@ -21,18 +21,23 @@
 
         <ul class="navbar-nav">
           <!-- Authenticated -->
-          <template v-if="authenticated">
-            <router-link :to="{ name: 'settings.profile' }" tag="li" class="nav-item">
-              <a class="nav-link">
-                {{ user.name }}
-              </a>
-            </router-link>
-            <li class="nav-item">
-              <a @click.prevent="logout" href="#" class="nav-link">
+          <li v-if="authenticated" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark py-0"
+              href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
+              {{ user.name }}
+            </a>
+            <div class="dropdown-menu">
+              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item">
+                {{ $t('settings') }}
+              </router-link>
+
+              <div class="dropdown-divider"></div>
+              <a @click.prevent="logout" class="dropdown-item"  href="#">
                 {{ $t('logout') }}
               </a>
-            </li>
-          </template>
+            </div>
+          </li>
           <!-- Guest -->
           <template v-else>
             <li class="nav-item">
@@ -79,6 +84,12 @@ export default {
 
 <style scoped>
 .navbar {
-  border: 1px solid #d3e0e9;
+  font-weight: 600;
+  border-bottom: 1px solid #dee9f2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.profile-photo {
+  height: 2rem;
 }
 </style>
