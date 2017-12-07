@@ -8,9 +8,11 @@ import { sync } from 'vuex-router-sync'
 Vue.use(Meta)
 Vue.use(Router)
 
-const router = make(
-  routes({ authGuard, guestGuard })
+const routeMiddleware = resolveMiddleware(
+  require.context('./middleware', false, /.*\.js$/)
 )
+
+const router = make()
 
 sync(store, router)
 
@@ -19,14 +21,13 @@ export default router
 /**
  * Create a new router instance.
  *
- * @param  {Array} routes
  * @return {Router}
  */
-function make (routes) {
+function make () {
   const router = new Router({
-    routes,
     scrollBehavior,
-    mode: 'history'
+    mode: 'history',
+    routes: routes.map(beforeEnter)
   })
 
   // Register before guard.
@@ -49,6 +50,40 @@ function make (routes) {
   })
 
   return router
+}
+
+/**
+ * Add beforeEnter guard to the route.
+ *
+ * @param {Object} route
+ * @param {Object}
+ */
+function beforeEnter (route) {
+  if (route.children) {
+    route.children.forEach(beforeEnter)
+  }
+
+  if (!route.middleware) {
+    return route
+  }
+
+  route.beforeEnter = (...args) => {
+    if (!Array.isArray(route.middleware)) {
+      route.middleware = [route.middleware]
+    }
+
+    route.middleware.forEach(middleware => {
+      if (typeof middleware === 'function') {
+        middleware(...args)
+      } else if (routeMiddleware[middleware]) {
+        routeMiddleware[middleware](...args)
+      } else {
+        throw Error(`Undefined middleware [${middleware}]`)
+      }
+    })
+  }
+
+  return route
 }
 
 /**
@@ -75,51 +110,6 @@ function setLayout (router, to) {
 }
 
 /**
- * Redirect to login if guest.
- *
- * @param  {Array} routes
- * @return {Array}
- */
-function authGuard (routes) {
-  return beforeEnter(routes, (to, from, next) => {
-    if (!store.getters.authCheck) {
-      next({ name: 'login' })
-    } else {
-      next()
-    }
-  })
-}
-
-/**
- * Redirect home if authenticated.
- *
- * @param  {Array} routes
- * @return {Array}
- */
-function guestGuard (routes) {
-  return beforeEnter(routes, (to, from, next) => {
-    if (store.getters.authCheck) {
-      next({ name: 'home' })
-    } else {
-      next()
-    }
-  })
-}
-
-/**
- * Apply beforeEnter guard to the routes.
- *
- * @param  {Array} routes
- * @param  {Function} beforeEnter
- * @return {Array}
- */
-function beforeEnter (routes, beforeEnter) {
-  return routes.map(route => {
-    return { ...route, beforeEnter }
-  })
-}
-
-/**
  * @param  {Route} to
  * @param  {Route} from
  * @param  {Object|undefined} savedPosition
@@ -142,4 +132,18 @@ function scrollBehavior (to, from, savedPosition) {
   }
 
   return position
+}
+
+/**
+ * @param  {Object} requireContext
+ * @return {Object}
+ */
+function resolveMiddleware (requireContext) {
+  return requireContext.keys()
+  .map(file =>
+    [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)]
+  )
+  .reduce((guards, [name, guard]) => (
+    { ...guards, [name]: guard.default }
+  ), {})
 }
