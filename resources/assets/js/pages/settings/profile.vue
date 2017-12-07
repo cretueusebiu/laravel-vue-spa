@@ -38,6 +38,10 @@ import Form from 'vform'
 import { mapGetters } from 'vuex'
 
 export default {
+  metaInfo () {
+    return { title: this.$t('settings') }
+  },
+
   data: () => ({
     form: new Form({
       name: '',

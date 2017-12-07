@@ -37,6 +37,10 @@
 import Form from 'vform'
 
 export default {
+  metaInfo () {
+    return { title: this.$t('settings') }
+  },
+
   data: () => ({
     form: new Form({
       password: '',
