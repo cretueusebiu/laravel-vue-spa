@@ -43,10 +43,17 @@
             </div>
           </div>
 
-          <!-- Submit Button -->
           <div class="form-group row">
-            <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">{{ $t('register') }}</v-button>
+            <div class="col-md-7 offset-md-3 d-flex">
+              <!-- Submit Button -->
+              <v-button :loading="form.busy">
+                {{ $t('register') }}
+              </v-button>
+
+              <!-- GitHub Register Button -->
+              <a v-if="githubAuth" href="/oauth/github" class="btn btn-dark ml-auto">
+                {{ $t('register_with_github') }}
+              </a>
             </div>
           </div>
         </form>
@@ -89,6 +96,10 @@ export default {
       // Redirect home.
       this.$router.push({ name: 'home' })
     }
+  },
+
+  computed: {
+    githubAuth: () => window.config.githubAuth
   }
 }
 </script>

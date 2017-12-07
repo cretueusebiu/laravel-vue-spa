@@ -8,7 +8,8 @@
 
 - Laravel 5.5 + Vue + Vue Router + Vuex
 - Pages with custom layouts 
-- Examples for login, register and password reset
+- Login, register and password reset
+- Socialite integration
 - Integration with [vform](https://github.com/cretueusebiu/vform)
 - Authentication with [JWT](https://github.com/tymondesigns/jwt-auth)
 - Webpack with [laravel-mix](https://github.com/JeffreyWay/laravel-mix)

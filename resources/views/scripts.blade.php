@@ -4,9 +4,10 @@ $config = [
     'appName' => config('app.name'),
     'locale' => $locale = app()->getLocale(),
     'translations' => json_decode(file_get_contents(resource_path("lang/{$locale}.json")), true),
+    'githubAuth' => config('services.github.client_id'),
 ];
 @endphp
-<script>window.config = {!! json_encode($config); !!};</script>
+<script>window.config = @json($config);</script>
 
 {{-- Polyfill some features via polyfill.io --}}
 @php
