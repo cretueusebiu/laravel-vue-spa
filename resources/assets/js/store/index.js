@@ -10,10 +10,9 @@ const modules = requireContext.keys()
   .map(file =>
     [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)]
   )
-  .reduce((modules, [name, module]) => {
-    modules[name] = module
-    return modules
-  }, {})
+  .reduce((modules, [name, module]) => (
+    { ...modules, [name]: module }
+  ), {})
 
 export default new Vuex.Store({
   modules
