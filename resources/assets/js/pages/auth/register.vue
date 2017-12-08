@@ -52,7 +52,8 @@
 
               <!-- GitHub Register Button -->
               <a v-if="githubAuth" href="/oauth/github" class="btn btn-dark ml-auto">
-                {{ $t('register_with_github') }}
+                {{ $t('register_with') }}
+                <fa :icon="['fab', 'github']"/>
               </a>
             </div>
           </div>

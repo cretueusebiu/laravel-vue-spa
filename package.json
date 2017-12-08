@@ -11,6 +11,11 @@
     "lint": "eslint resources/assets/js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.0.0",
+    "@fortawesome/fontawesome-free-brands": "^5.0.0",
+    "@fortawesome/fontawesome-free-regular": "^5.0.0",
+    "@fortawesome/fontawesome-free-solid": "^5.0.0",
+    "@fortawesome/vue-fontawesome": "^0.0.21",
     "axios": "^0.16.2",
     "bootstrap": "^4.0.0-beta.2",
     "jquery": "^3.2.1",
@@ -30,7 +35,6 @@
     "eslint": "^3.19.0",
     "eslint-plugin-vue-libs": "^1.2.1",
     "laravel-mix": "^1.7.0",
-    "svg-sprite-loader": "^3.3.1",
     "vue-template-compiler": "^2.5.2",
     "webpack-bundle-analyzer": "^2.9.0"
   }

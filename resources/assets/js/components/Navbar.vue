@@ -28,12 +28,14 @@
               {{ user.name }}
             </a>
             <div class="dropdown-menu">
-              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item">
+              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
+                <fa icon="cog" fixed-width/>
                 {{ $t('settings') }}
               </router-link>
 
               <div class="dropdown-divider"></div>
-              <a @click.prevent="logout" class="dropdown-item"  href="#">
+              <a @click.prevent="logout" class="dropdown-item pl-3"  href="#">
+                <fa icon="sign-out-alt" fixed-width/>
                 {{ $t('logout') }}
               </a>
             </div>

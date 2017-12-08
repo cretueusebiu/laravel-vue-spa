@@ -6,14 +6,13 @@
 
 ## Features
 
-- Laravel 5.5 + Vue + Vue Router + Vuex
+- Laravel 5.5 
+- Vue + VueRouter + Vuex + VueI18n
 - Pages with custom layouts 
 - Login, register and password reset
-- Socialite integration
-- Integration with [vform](https://github.com/cretueusebiu/vform)
 - Authentication with [JWT](https://github.com/tymondesigns/jwt-auth)
-- Webpack with [laravel-mix](https://github.com/JeffreyWay/laravel-mix)
-- SVG icons with [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader)
+- Socialite integration
+- Bootstrap 4 + Font Awesome 5
 
 ## Installation
 

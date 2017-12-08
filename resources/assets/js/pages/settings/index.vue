@@ -5,7 +5,7 @@
         <ul class="nav flex-column nav-pills">
           <li v-for="tab in tabs" class="nav-item">
             <router-link :to="{ name: tab.route }" class="nav-link" active-class="active">
-              <icon :name="tab.icon"></icon>
+              <fa :icon="tab.icon" fixed-width/>
               {{ tab.name }}
             </router-link>
           </li>

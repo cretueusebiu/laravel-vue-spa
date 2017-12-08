@@ -29,6 +29,6 @@
   "your_password": "Your Password",
   "password_updated": "Your password has been updated!",
   "new_password": "New Password",
-  "login_with_github": "Login with GitHub",
-  "register_with_github": "Register with GitHub"
+  "login_with": "Login with",
+  "register_with": "Register with"
 }
