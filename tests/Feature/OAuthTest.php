@@ -88,14 +88,14 @@ class OAuthTest extends TestCase
 
     protected function mockSocialite($driver, $user = null)
     {
-        $mock = Socialite::shouldReceive('driver')
+        $mock = Socialite::shouldReceive('stateless')
+            ->andReturn(m::self())
+            ->shouldReceive('driver')
             ->with($driver)
             ->andReturn(m::self());
 
         if ($user) {
-            $mock->shouldReceive('stateless')
-                ->andReturn(m::self())
-                ->shouldReceive('user')
+            $mock->shouldReceive('user')
                 ->andReturn((new SocialiteUser)->setRaw($user)->map($user));
         } else {
             $mock->shouldReceive('redirect')
