@@ -20,7 +20,9 @@ class OAuthController extends Controller
      */
     public function __construct()
     {
-        config(['services.github.redirect' => route('oauth.callback', 'github')]);
+        config([
+            'services.github.redirect' => route('oauth.callback', 'github'),
+        ]);
     }
 
     /**
@@ -31,7 +33,7 @@ class OAuthController extends Controller
      */
     public function redirectToProvider($driver)
     {
-        return Socialite::driver($driver)->redirect();
+        return Socialite::driver($driver)->stateless()->redirect();
     }
 
     /**
