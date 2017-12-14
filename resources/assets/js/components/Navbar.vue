@@ -14,6 +14,7 @@
 
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <locale-dropdown/>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li> -->
@@ -61,6 +62,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import LocaleDropdown from './LocaleDropdown'
 
 export default {
   data: () => ({
@@ -70,6 +72,10 @@ export default {
   computed: mapGetters({
     user: 'auth/user'
   }),
+
+  components: {
+    LocaleDropdown
+  },
 
   methods: {
     async logout () {
