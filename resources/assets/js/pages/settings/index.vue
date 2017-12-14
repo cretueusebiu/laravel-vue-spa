@@ -25,9 +25,9 @@
 export default {
   loading: false,
 
-  data () {
-    return {
-      tabs: [
+  computed: {
+    tabs () {
+      return [
         {
           icon: 'user',
           name: this.$t('profile'),
