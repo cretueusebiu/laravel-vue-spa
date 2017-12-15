@@ -123,18 +123,16 @@ function scrollBehavior (to, from, savedPosition) {
     return savedPosition
   }
 
-  const position = {}
-
   if (to.hash) {
-    position.selector = to.hash
+    return { selector: to.hash }
   }
 
-  if (to.matched.some(m => m.meta.scrollToTop)) {
-    position.x = 0
-    position.y = 0
+  const [route] = to.matched.slice(-1)
+  if (route && route.components.default.scrollToTop === false) {
+    return {}
   }
 
-  return position
+  return { x: 0, y: 0 }
 }
 
 /**
