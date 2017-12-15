@@ -127,8 +127,9 @@ function scrollBehavior (to, from, savedPosition) {
     return { selector: to.hash }
   }
 
-  const [route] = to.matched.slice(-1)
-  if (route && route.components.default.scrollToTop === false) {
+  const [component] = router.getMatchedComponents({ ...to }).slice(-1)
+
+  if (component && component.scrollToTop === false) {
     return {}
   }
 
