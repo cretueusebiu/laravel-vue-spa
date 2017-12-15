@@ -11,7 +11,7 @@ use Laravel\Socialite\Two\User as SocialiteUser;
 class OAuthTest extends TestCase
 {
     /** @test */
-    function redirect_to_provider()
+    public function redirect_to_provider()
     {
         $this->mockSocialite('github');
 
@@ -20,7 +20,7 @@ class OAuthTest extends TestCase
     }
 
     /** @test */
-    function create_user_and_redirect_home_with_token()
+    public function create_user_and_redirect_home_with_token()
     {
         $this->mockSocialite('github', [
             'id' => '123',
@@ -49,7 +49,7 @@ class OAuthTest extends TestCase
     }
 
     /** @test */
-    function update_user_and_redirect_home_with_token()
+    public function update_user_and_redirect_home_with_token()
     {
         $user = factory(User::class)->create(['email' => 'test@example.com']);
         $user->oauthProviders()->create([
@@ -76,7 +76,7 @@ class OAuthTest extends TestCase
     }
 
     /** @test */
-    function can_not_create_user_if_email_is_taken()
+    public function can_not_create_user_if_email_is_taken()
     {
         factory(User::class)->create(['email' => 'test@example.com']);
 

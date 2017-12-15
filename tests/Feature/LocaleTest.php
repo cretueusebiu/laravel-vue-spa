@@ -15,7 +15,7 @@ class LocaleTest extends TestCase
     }
 
     /** @test */
-    function set_locale_from_header()
+    public function set_locale_from_header()
     {
         $this->withHeaders(['Accept-Language' => 'zh-CN'])
             ->postJson('/api/login');
@@ -24,7 +24,7 @@ class LocaleTest extends TestCase
     }
 
     /** @test */
-    function set_locale_from_header_short()
+    public function set_locale_from_header_short()
     {
         $this->withHeaders(['Accept-Language' => 'en-US'])
             ->postJson('/api/login');
