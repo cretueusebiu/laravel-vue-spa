@@ -12,21 +12,16 @@
 - Vue + VueRouter + Vuex + VueI18n
 - Pages with custom layouts 
 - Login, register and password reset
-- Authentication with [JWT](https://github.com/tymondesigns/jwt-auth)
+- Authentication with JWT
 - Socialite integration
 - Bootstrap 4 + Font Awesome 5
 
 ## Installation
 
-- `git clone https://github.com/cretueusebiu/laravel-vue-spa.git`
-- `cd laravel-vue-spa`
-- `cp .env.example .env`
-- `composer install`
-- `php artisan key:generate`
-- `php artisan jwt:secret`
+- `composer create-project --prefer-dist cretueusebiu/laravel-vue-spa`
 - Edit `.env` and set your database connection details
 - `php artisan migrate`
-- `npm install` / `yarn`
+- `yarn` / `npm install`
 
 ## Usage
 
@@ -45,7 +40,6 @@ npm run hot
 ```bash
 npm run production
 ```
-
 
 ## Changelog
 
