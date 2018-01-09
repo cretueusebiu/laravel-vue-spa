@@ -13,17 +13,17 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarToggler">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <ul class="navbar-nav">
           <locale-dropdown/>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li> -->
         </ul>
 
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
           <!-- Authenticated -->
           <li v-if="user" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark py-0"
+            <a class="nav-link dropdown-toggle text-dark"
               href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
               {{ user.name }}
@@ -90,13 +90,9 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
-  font-weight: 600;
-  border-bottom: 1px solid #dee9f2;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
 .profile-photo {
+  width: 2rem;
   height: 2rem;
+  margin: -.375rem 0;
 }
 </style>
