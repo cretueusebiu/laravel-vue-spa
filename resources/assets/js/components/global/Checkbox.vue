@@ -1,17 +1,17 @@
 <template>
-  <label class="custom-control custom-checkbox">
+  <div class="custom-control custom-checkbox">
     <input
       type="checkbox"
       :name="name"
       @click="handleClick"
       :checked="internalValue"
       class="custom-control-input"
+      :id="id || name || 'checkbox'"
     >
-    <span class="custom-control-indicator"></span>
-    <span class="custom-control-description">
+    <label class="custom-control-label" :for="id || name || 'checkbox'">
       <slot></slot>
-    </span>
-  </label>
+    </label>
+  </div>
 </template>
 
 <script>
@@ -19,6 +19,7 @@ export default {
   name: 'Checkbox',
 
   props: {
+    id: String,
     name: String,
     value: Boolean,
     checked: Boolean

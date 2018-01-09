@@ -17,7 +17,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.0",
     "@fortawesome/vue-fontawesome": "^0.0.21",
     "axios": "^0.16.2",
-    "bootstrap": "^4.0.0-beta.2",
+    "bootstrap": "^4.0.0-beta.3",
     "jquery": "^3.2.1",
     "js-cookie": "^2.1.4",
     "popper.js": "^1.12.5",
