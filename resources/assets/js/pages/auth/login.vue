@@ -45,10 +45,7 @@
               </v-button>
 
               <!-- GitHub Login Button -->
-              <a v-if="githubAuth" href="/oauth/github" class="btn btn-dark ml-auto">
-                {{ $t('login_with') }}
-                <fa :icon="['fab', 'github']"/>
-              </a>
+              <login-with-github/>
             </div>
           </div>
         </form>
@@ -90,10 +87,6 @@ export default {
       // Redirect home.
       this.$router.push({ name: 'home' })
     }
-  },
-
-  computed: {
-    githubAuth: () => window.config.githubAuth
   }
 }
 </script>
