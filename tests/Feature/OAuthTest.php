@@ -5,22 +5,40 @@ namespace Tests\Feature;
 use App\User;
 use Mockery as m;
 use Tests\TestCase;
+use PHPUnit\Framework\Assert as PHPUnit;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Foundation\Testing\TestResponse;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
 class OAuthTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        TestResponse::macro('assertText', function ($text) {
+            PHPUnit::assertTrue(str_contains($this->getContent(), $text), "Expected text [{$text}] not found.");
+            return $this;
+        });
+
+        TestResponse::macro('assertTextMissing', function ($text) {
+            PHPUnit::assertFalse(str_contains($this->getContent(), $text), "Expected missing text [{$text}] found.");
+            return $this;
+        });
+    }
+
     /** @test */
     public function redirect_to_provider()
     {
         $this->mockSocialite('github');
 
-        $this->get('/oauth/github')
-            ->assertRedirect('https://url-to-provider');
+        $this->postJson('/api/oauth/github')
+            ->assertSuccessful()
+            ->assertJson(['url' => 'https://url-to-provider']);
     }
 
     /** @test */
-    public function create_user_and_redirect_home_with_token()
+    public function create_user_and_return_token()
     {
         $this->mockSocialite('github', [
             'id' => '123',
@@ -30,9 +48,11 @@ class OAuthTest extends TestCase
             'refreshToken' => 'refresh-token',
         ]);
 
-        $this->get('/oauth/github/callback')
-            ->assertRedirect('/home')
-            ->assertCookie('token');
+        $this->withoutExceptionHandling();
+
+        $this->get('/api/oauth/github/callback')
+            ->assertText('token')
+            ->assertSuccessful();
 
         $this->assertDatabaseHas('users', [
             'name' => 'Test User',
@@ -49,7 +69,7 @@ class OAuthTest extends TestCase
     }
 
     /** @test */
-    public function update_user_and_redirect_home_with_token()
+    public function update_user_and_return_token()
     {
         $user = factory(User::class)->create(['email' => 'test@example.com']);
         $user->oauthProviders()->create([
@@ -64,9 +84,9 @@ class OAuthTest extends TestCase
             'refreshToken' => 'updated-refresh-token',
         ]);
 
-        $this->get('/oauth/github/callback')
-            ->assertRedirect('/home')
-            ->assertCookie('token');
+        $this->get('/api/oauth/github/callback')
+            ->assertText('token')
+            ->assertSuccessful();
 
         $this->assertDatabaseHas('oauth_providers', [
             'user_id' => $user->id,
@@ -82,16 +102,18 @@ class OAuthTest extends TestCase
 
         $this->mockSocialite('github', ['email' => 'test@example.com']);
 
-        $this->get('/oauth/github/callback')
-            ->assertRedirect('/?error=email_taken');
+        $this->get('/api/oauth/github/callback')
+            ->assertText('Email already taken.')
+            ->assertTextMissing('token')
+            ->assertStatus(400);
     }
 
-    protected function mockSocialite($driver, $user = null)
+    protected function mockSocialite($provider, $user = null)
     {
         $mock = Socialite::shouldReceive('stateless')
             ->andReturn(m::self())
             ->shouldReceive('driver')
-            ->with($driver)
+            ->with($provider)
             ->andReturn(m::self());
 
         if ($user) {
