@@ -1,5 +1,5 @@
 <template>
-  <div class="default-layout flex-center position-ref full-height">
+  <div class="default-layout d-flex align-items-center justify-content-center m-0 bg-white">
     <child/>
   </div>
 </template>
@@ -12,11 +12,10 @@ export default {
 
 <style lang="scss">
 .default-layout {
-  background-color: #fff;
   color: #636b6f;
-  font-weight: 100;
   height: 100vh;
-  margin: 0;
+  font-weight: 100;
+  position: relative;
 
   .links > a {
     color: #636b6f;
@@ -30,18 +29,3 @@ export default {
 }
 </style>
 
-<style scoped>
-.full-height {
-  height: 100vh;
-}
-
-.flex-center {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-
-.position-ref {
-  position: relative;
-}
-</style>
