@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 - 2018-01-10
+
+- Simplifyd password reset
+- Upgrade to Bootstrap 4 beta3
+- Added oauth with popup window
+
 ## 2.0.0 - 2017-12-19
 
 - Added support for Socialite
