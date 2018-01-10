@@ -141,10 +141,10 @@ function scrollBehavior (to, from, savedPosition) {
  */
 function resolveMiddleware (requireContext) {
   return requireContext.keys()
-  .map(file =>
-    [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)]
-  )
-  .reduce((guards, [name, guard]) => (
-    { ...guards, [name]: guard.default }
-  ), {})
+    .map(file =>
+      [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)]
+    )
+    .reduce((guards, [name, guard]) => (
+      { ...guards, [name]: guard.default }
+    ), {})
 }

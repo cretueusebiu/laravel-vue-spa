@@ -44,8 +44,7 @@ axios.interceptors.response.use(response => response, error => {
       reverseButtons: true,
       confirmButtonText: i18n.t('ok'),
       cancelButtonText: i18n.t('cancel')
-    })
-    .then(async () => {
+    }).then(async () => {
       await store.dispatch('auth/logout')
 
       router.push({ name: 'login' })
