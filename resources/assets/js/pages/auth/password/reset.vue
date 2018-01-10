@@ -10,7 +10,7 @@
             <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
             <div class="col-md-7">
               <input v-model="form.email" type="email" name="email" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('email') }">
+                :class="{ 'is-invalid': form.errors.has('email') }" readonly>
               <has-error :form="form" field="email"></has-error>
             </div>
           </div>
@@ -65,10 +65,13 @@ export default {
     })
   }),
 
+  created () {
+    this.form.email = this.$route.query.email
+    this.form.token = this.$route.params.token
+  },
+
   methods: {
     async reset () {
-      this.form.token = this.$route.params.token
-
       const { data } = await this.form.post('/api/password/reset')
 
       this.status = data.status
