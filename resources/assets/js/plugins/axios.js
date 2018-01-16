@@ -13,7 +13,7 @@ axios.interceptors.request.use(request => {
 
   const locale = store.getters['lang/locale']
   if (locale) {
-    axios.defaults.headers.common['Accept-Language'] = locale
+    request.headers.common['Accept-Language'] = locale
   }
 
   // request.headers['X-Socket-Id'] = Echo.socketId()
