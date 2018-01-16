@@ -41,7 +41,7 @@ function make () {
       } catch (e) { }
     }
 
-    setLayout(to)
+    await setLayout(to)
     next()
   })
 
@@ -94,20 +94,24 @@ function beforeEnter (route) {
  *
  * @param {Route} to
  */
-function setLayout (to) {
+async function setLayout (to) {
   // Get the first matched component.
-  const [component] = router.getMatchedComponents({ ...to })
+  let [component] = router.getMatchedComponents({ ...to })
 
   if (component) {
-    router.app.$nextTick(() => {
-      // Start the page loading bar.
-      if (component.loading !== false) {
-        router.app.$loading.start()
-      }
+    await router.app.$nextTick()
 
-      // Set application layout.
-      router.app.setLayout(component.layout || '')
-    })
+    if (typeof component === 'function') {
+      component = await component()
+    }
+
+    // Start the page loading bar.
+    if (component.loading !== false) {
+      router.app.$loading.start()
+    }
+
+    // Set application layout.
+    router.app.setLayout(component.layout || '')
   }
 }
 

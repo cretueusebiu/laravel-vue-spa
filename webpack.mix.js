@@ -46,5 +46,9 @@ mix.webpackConfig({
     alias: {
       '~': path.join(__dirname, './resources/assets/js')
     }
+  },
+  output: {
+    publicPath: '/',
+    chunkFilename: 'js/[id].[chunkhash].js'
   }
 })
