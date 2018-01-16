@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const mix = require('laravel-mix')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
@@ -34,13 +33,7 @@ if (mix.inProduction()) {
 
 mix.webpackConfig({
   plugins: [
-    // new BundleAnalyzerPlugin(),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      Popper: ['popper.js', 'default']
-    })
+    // new BundleAnalyzerPlugin()
   ],
   resolve: {
     alias: {
