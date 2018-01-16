@@ -4,7 +4,6 @@ $config = [
     'locale' => $locale = app()->getLocale(),
     'locales' => config('app.locales'),
     'githubAuth' => config('services.github.client_id'),
-    'translations' => json_decode(file_get_contents(resource_path("lang/{$locale}.json")), true),
 ];
 
 $polyfills = [

@@ -4,7 +4,7 @@ import Meta from 'vue-meta'
 import routes from './routes'
 import Router from 'vue-router'
 import { sync } from 'vuex-router-sync'
-import { setLocale } from '~/plugins/i18n'
+import { loadMessages } from '~/plugins/i18n'
 
 Vue.use(Meta)
 Vue.use(Router)
@@ -33,7 +33,7 @@ function make () {
 
   // Register before guard.
   router.beforeEach(async (to, from, next) => {
-    await setLocale(store.getters['lang/locale'])
+    await loadMessages(store.getters['lang/locale'])
 
     if (!store.getters['auth/check'] && store.getters['auth/token']) {
       try {

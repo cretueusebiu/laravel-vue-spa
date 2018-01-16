@@ -7,14 +7,6 @@ use Tests\TestCase;
 class LocaleTest extends TestCase
 {
     /** @test */
-    public function fetch_translations()
-    {
-        $this->getJson('/api/translations/en')
-            ->assertSuccessful()
-            ->assertJson(['ok' => 'Ok']);
-    }
-
-    /** @test */
     public function set_locale_from_header()
     {
         $this->withHeaders(['Accept-Language' => 'zh-CN'])

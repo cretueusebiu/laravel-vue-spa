@@ -30,10 +30,6 @@ class SetLocale
     {
         $locales = config('app.locales');
 
-        // if (array_key_exists($locale = $request->cookie('locale'), $locales)) {
-        //     return $locale;
-        // }
-
         $locale = $request->server('HTTP_ACCEPT_LANGUAGE');
         $locale = substr($locale, 0, strpos($locale, ',') ?: strlen($locale));
 
