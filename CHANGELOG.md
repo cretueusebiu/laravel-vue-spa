@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0 - 2018-01-16
+
+- Added dynamic import for pages
+- Added locale with dynamic import
+- Import shakable fontawesome module
+
 ## 2.1.0 - 2018-01-10
 
 - Simplifyd password reset
