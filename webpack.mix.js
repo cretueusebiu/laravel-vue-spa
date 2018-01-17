@@ -43,6 +43,6 @@ mix.webpackConfig({
   },
   output: {
     publicPath: '/',
-    chunkFilename: 'js/[id].[chunkhash].js'
+    chunkFilename: 'js/[name].[chunkhash].js'
   }
 })
