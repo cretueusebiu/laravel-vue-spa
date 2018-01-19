@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1 - 2018-01-19
+
+- Upgrade to Bootstrap 4
+
 ## 2.2.0 - 2018-01-16
 
 - Added dynamic import for pages
