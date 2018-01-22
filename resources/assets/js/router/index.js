@@ -29,15 +29,41 @@ export default router
  */
 function createRouter () {
   const router = new Router({
-    routes,
     scrollBehavior,
-    mode: 'history'
+    mode: 'history',
+    routes: routes.map(beforeEnter)
   })
 
-  router.beforeEach(globalGuard)
-  router.afterEach(afterHook)
+  router.beforeEach(beforeEach)
+  router.afterEach(afterEach)
 
   return router
+}
+
+/**
+ * Add per-route beforeEnter guard.
+ *
+ * @param  {Object} route
+ * @return {Object}
+ */
+function beforeEnter (route) {
+  if (route.children) {
+    route.children.forEach(beforeEnter)
+  }
+
+  let middleware = route.middleware || []
+
+  if (!Array.isArray(middleware)) {
+    middleware = [middleware]
+  }
+
+  if (middleware.length > 0) {
+    route.beforeEnter = (to, from, next) => {
+      callMiddleware(middleware, to, from, next)
+    }
+  }
+
+  return route
 }
 
 /**
@@ -47,7 +73,7 @@ function createRouter () {
  * @param {Route} from
  * @param {Function} next
  */
-async function globalGuard (to, from, next) {
+async function beforeEach (to, from, next) {
   // Get the matched components and resolve them.
   const components = await resolveComponents(
     router.getMatchedComponents({ ...to })
@@ -58,13 +84,28 @@ async function globalGuard (to, from, next) {
   }
 
   // Start the loading bar.
-  router.app.$nextTick(() => router.app.$loading.start())
+  if (components[components.length - 1].loading !== false) {
+    router.app.$nextTick(() => router.app.$loading.start())
+  }
 
   // Get the middleware for all the matched components.
   const middleware = getMiddleware(components)
 
   // Call each middleware.
   callMiddleware(middleware, to, from, next)
+}
+
+/**
+ * Global after hook.
+ *
+ * @param {Route} to
+ * @param {Route} from
+ * @param {Function} next
+ */
+async function afterEach (to, from, next) {
+  await router.app.$nextTick()
+
+  router.app.$loading.finish()
 }
 
 /**
@@ -132,19 +173,6 @@ function getMiddleware (components) {
   })
 
   return middleware
-}
-
-/**
- * Global after hook.
- *
- * @param {Route} to
- * @param {Route} from
- * @param {Function} next
- */
-async function afterHook (to, from, next) {
-  await router.app.$nextTick()
-
-  router.app.$loading.finish()
 }
 
 /**
