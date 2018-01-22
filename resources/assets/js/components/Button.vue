@@ -5,7 +5,7 @@
     'btn-lg': large,
     'btn-loading': loading
   }">
-    <slot></slot>
+    <slot/>
   </button>
 </template>
 

@@ -9,7 +9,7 @@
       :id="id || name || 'checkbox'"
     >
     <label class="custom-control-label" :for="id || name || 'checkbox'">
-      <slot></slot>
+      <slot/>
     </label>
   </div>
 </template>

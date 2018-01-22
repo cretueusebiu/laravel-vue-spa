@@ -4,7 +4,7 @@
     height: height,
     opacity: show ? 1 : 0,
     'background-color': canSuccess ? color : failedColor
-  }"></div>
+  }"/>
 </template>
 
 <script>
