@@ -31,39 +31,13 @@ function createRouter () {
   const router = new Router({
     scrollBehavior,
     mode: 'history',
-    routes: routes.map(beforeEnter)
+    routes
   })
 
   router.beforeEach(beforeEach)
   router.afterEach(afterEach)
 
   return router
-}
-
-/**
- * Add per-route beforeEnter guard.
- *
- * @param  {Object} route
- * @return {Object}
- */
-function beforeEnter (route) {
-  if (route.children) {
-    route.children.forEach(beforeEnter)
-  }
-
-  let middleware = route.middleware || []
-
-  if (!Array.isArray(middleware)) {
-    middleware = [middleware]
-  }
-
-  if (middleware.length > 0) {
-    route.beforeEnter = (to, from, next) => {
-      callMiddleware(middleware, to, from, next)
-    }
-  }
-
-  return route
 }
 
 /**

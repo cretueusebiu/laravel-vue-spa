@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1 - 2018-01-22
+
+- Removed middleware from routes, since they don't work when you press the back button. Now you have to use the `middleware` property in pages.
+
 ## 3.0.0 - 2018-01-22
 
 - Removed `layout` property from pages in favor of explicit layout components

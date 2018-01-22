@@ -25,6 +25,8 @@
 
 <script>
 export default {
+  middleware: 'auth',
+
   computed: {
     tabs () {
       return [
