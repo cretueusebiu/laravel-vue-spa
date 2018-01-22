@@ -5,20 +5,25 @@ Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.component(AlertSuccess.name, AlertSuccess)
 
-const registerComponent = c => {
-  if (c.default) {
-    c = c.default
-  }
+/**
+ * @param {Object} requireContext
+ */
+const registerComponents = requireContext => {
+  requireContext.keys().forEach(file => {
+    let component = requireContext(file)
 
-  if (c.name !== undefined) {
-    Vue.component(c.name, c)
-  }
+    if (component.default) {
+      component = component.default
+    }
+
+    if (component.name !== undefined) {
+      Vue.component(component.name, component)
+    }
+  })
 }
 
 // Load global components dynamically
-let requireContext = require.context('./global', false, /.*\.(js|vue)$/)
-requireContext.keys().forEach(file => registerComponent(requireContext(file)))
+registerComponents(require.context('./global', false, /.*\.(js|vue)$/))
 
 // Load layout components dynamically
-requireContext = require.context('./layouts', false, /.*\.(js|vue)$/)
-requireContext.keys().forEach(file => registerComponent(requireContext(file)))
+registerComponents(require.context('./layouts', false, /.*\.(js|vue)$/))
