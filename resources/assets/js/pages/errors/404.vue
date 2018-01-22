@@ -1,14 +1,14 @@
 <template>
   <main-layout>
-    <div class="text-center">
-      <h2 class="mb-4">{{ $t('page_not_found') }}</h2>
+    <card class="text-center">
+      <h3 class="mb-4">{{ $t('page_not_found') }}</h3>
 
       <div class="links">
         <router-link :to="{ name: 'welcome' }">
           {{ $t('go_home') }}
         </router-link>
       </div>
-    </div>
+    </card>
   </main-layout>
 </template>
 
