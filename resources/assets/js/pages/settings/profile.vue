@@ -1,7 +1,7 @@
 <template>
   <card :title="$t('your_info')">
     <form @submit.prevent="update" @keydown="form.onKeydown($event)">
-      <alert-success :form="form" :message="$t('info_updated')"></alert-success>
+      <alert-success :form="form" :message="$t('info_updated')"/>
 
       <!-- Name -->
       <div class="form-group row">
@@ -9,7 +9,7 @@
         <div class="col-md-7">
           <input v-model="form.name" type="text" name="name" class="form-control"
             :class="{ 'is-invalid': form.errors.has('name') }">
-          <has-error :form="form" field="name"></has-error>
+          <has-error :form="form" field="name"/>
         </div>
       </div>
 
@@ -19,7 +19,7 @@
         <div class="col-md-7">
           <input v-model="form.email" type="email" name="email" class="form-control"
             :class="{ 'is-invalid': form.errors.has('email') }">
-          <has-error :form="form" field="email"></has-error>
+          <has-error :form="form" field="email" />
         </div>
       </div>
 

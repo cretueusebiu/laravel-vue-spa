@@ -1,7 +1,7 @@
 <template>
   <card :title="$t('your_password')">
     <form @submit.prevent="update" @keydown="form.onKeydown($event)">
-      <alert-success :form="form" :message="$t('password_updated')"></alert-success>
+      <alert-success :form="form" :message="$t('password_updated')"/>
 
       <!-- Password -->
       <div class="form-group row">
@@ -9,7 +9,7 @@
         <div class="col-md-7">
           <input v-model="form.password" type="password" name="password" class="form-control"
             :class="{ 'is-invalid': form.errors.has('password') }">
-          <has-error :form="form" field="password"></has-error>
+          <has-error :form="form" field="password"/>
         </div>
       </div>
 
@@ -19,7 +19,7 @@
         <div class="col-md-7">
           <input v-model="form.password_confirmation" type="password" name="password_confirmation" class="form-control"
             :class="{ 'is-invalid': form.errors.has('password_confirmation') }">
-          <has-error :form="form" field="password_confirmation"></has-error>
+          <has-error :form="form" field="password_confirmation"/>
         </div>
       </div>
 

@@ -13,39 +13,22 @@ const SettingsPassword = () => import('~/pages/settings/password').then(m => m.d
 export default [
   { path: '/', name: 'welcome', component: Welcome },
 
-  ...middleware('guest', [
-    { path: '/login', name: 'login', component: Login },
-    { path: '/register', name: 'register', component: Register },
-    { path: '/password/reset', name: 'password.request', component: PasswordRequest },
-    { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset }
-  ]),
+  { path: '/login', name: 'login', component: Login },
+  { path: '/register', name: 'register', component: Register },
+  { path: '/password/reset', name: 'password.request', component: PasswordRequest },
+  { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset },
 
-  ...middleware('auth', [
-    { path: '/home', name: 'home', component: Home },
-    { path: '/settings', component: Settings, children: [
-      { path: '', redirect: { name: 'settings.profile' }},
-      { path: 'profile', name: 'settings.profile', component: SettingsProfile },
-      { path: 'password', name: 'settings.password', component: SettingsPassword }
-    ] }
+  { path: '/home', name: 'home', component: Home },
+  { path: '/settings', component: Settings, children: [
+    { path: '', redirect: { name: 'settings.profile' }},
+    { path: 'profile', name: 'settings.profile', component: SettingsProfile },
+    { path: 'password', name: 'settings.password', component: SettingsPassword }
+  ] },
 
-    // ...middleware('admin', [
-    //   { path: '/admin', name: 'admin', component: require('~/pages/admin') }
-    // ])
-    // { path: '/example', name: 'example', component: require('~/pages/example'), middleware: ['admin'] },
-  ]),
+  // ...middleware('admin', [
+  //   { path: '/admin', name: 'admin', component: require('~/pages/admin') }
+  // ])
+  // { path: '/example', name: 'example', component: require('~/pages/example'), middleware: ['admin'] },
 
   { path: '*', component: require('~/pages/errors/404.vue') }
 ]
-
-/**
- * @param  {String|Function} middleware
- * @param  {Array} routes
- * @return {Array}
- */
-function middleware (middleware, routes) {
-  routes.forEach(route =>
-    (route.middleware || (route.middleware = [])).unshift(middleware)
-  )
-
-  return routes
-}

@@ -4,16 +4,18 @@ import Meta from 'vue-meta'
 import routes from './routes'
 import Router from 'vue-router'
 import { sync } from 'vuex-router-sync'
-import { loadMessages } from '~/plugins/i18n'
 
 Vue.use(Meta)
 Vue.use(Router)
+
+// The middleware for every page of the application.
+const globalMiddleware = ['locale', 'check-auth']
 
 const routeMiddleware = resolveMiddleware(
   require.context('./middleware', false, /.*\.js$/)
 )
 
-const router = make()
+const router = createRouter()
 
 sync(store, router)
 
@@ -24,98 +26,131 @@ export default router
  *
  * @return {Router}
  */
-function make () {
+function createRouter () {
   const router = new Router({
+    routes,
     scrollBehavior,
-    mode: 'history',
-    routes: routes.map(beforeEnter)
+    mode: 'history'
   })
 
-  // Register before guard.
-  router.beforeEach(async (to, from, next) => {
-    await loadMessages(store.getters['lang/locale'])
-
-    if (!store.getters['auth/check'] && store.getters['auth/token']) {
-      try {
-        await store.dispatch('auth/fetchUser')
-      } catch (e) { }
-    }
-
-    await setLayout(to)
-    next()
-  })
-
-  // Register after hook.
-  router.afterEach((to, from) => {
-    router.app.$nextTick(() => {
-      router.app.$loading.finish()
-    })
-  })
+  router.beforeEach(globalGuard)
+  router.afterEach(afterHook)
 
   return router
 }
 
 /**
- * Add beforeEnter guard to the route.
- *
- * @param {Object} route
- * @param {Object}
- */
-function beforeEnter (route) {
-  if (route.children) {
-    route.children.forEach(beforeEnter)
-  }
-
-  if (!route.middleware) {
-    return route
-  }
-
-  route.beforeEnter = (...args) => {
-    if (!Array.isArray(route.middleware)) {
-      route.middleware = [route.middleware]
-    }
-
-    route.middleware.forEach(middleware => {
-      if (typeof middleware === 'function') {
-        middleware(...args)
-      } else if (routeMiddleware[middleware]) {
-        routeMiddleware[middleware](...args)
-      } else {
-        throw Error(`Undefined middleware [${middleware}]`)
-      }
-    })
-  }
-
-  return route
-}
-
-/**
- * Set the application layout from the matched page component.
+ * Global router guard.
  *
  * @param {Route} to
+ * @param {Route} from
+ * @param {Function} next
  */
-async function setLayout (to) {
-  // Get the first matched component.
-  let [component] = router.getMatchedComponents({ ...to })
+async function globalGuard (to, from, next) {
+  // Get the matched components and resolve them.
+  const components = await resolveComponents(
+    router.getMatchedComponents({ ...to })
+  )
 
-  if (component) {
-    await router.app.$nextTick()
-
-    if (typeof component === 'function') {
-      component = await component()
-    }
-
-    // Start the page loading bar.
-    if (component.loading !== false) {
-      router.app.$loading.start()
-    }
-
-    // Set application layout.
-    router.app.setLayout(component.layout || '')
+  if (components.length === 0) {
+    return next()
   }
+
+  // Start the loading bar.
+  router.app.$nextTick(() => router.app.$loading.start())
+
+  // Get the middleware for all the matched components.
+  const middleware = getMiddleware(components)
+
+  // Call each middleware.
+  callMiddleware(middleware, to, from, next)
 }
 
 /**
+ * Call each middleware.
+ *
+ * @param {Array} middleware
+ * @param {Route} to
+ * @param {Route} from
+ * @param {Function} next
+ */
+function callMiddleware (middleware, to, from, next) {
+  const stack = middleware.reverse()
+
+  const _next = (...args) => {
+    // Stop if "_next" was called with an argument or the stack is empty.
+    if (args.length > 0 || stack.length === 0) {
+      if (args.length > 0) {
+        router.app.$loading.finish()
+      }
+
+      return next(...args)
+    }
+
+    const middleware = stack.pop()
+
+    if (typeof middleware === 'function') {
+      middleware(to, from, _next)
+    } else if (routeMiddleware[middleware]) {
+      routeMiddleware[middleware](to, from, _next)
+    } else {
+      throw Error(`Undefined middleware [${middleware}]`)
+    }
+  }
+
+  _next()
+}
+
+/**
+ * Resolve async components.
+ *
+ * @param  {Array} components
+ * @return {Array}
+ */
+async function resolveComponents (components) {
+  return await Promise.all(components.map(async component => {
+    return typeof component === 'function' ? await component() : component
+  }))
+}
+
+/**
+ * Merge the the global middleware with the components middleware.
+ *
+ * @param  {Array} components
+ * @return {Array}
+ */
+function getMiddleware (components) {
+  const middleware = [...globalMiddleware]
+
+  components.filter(c => c.middleware).forEach(component => {
+    if (Array.isArray(component.middleware)) {
+      middleware.push(...component.middleware)
+    } else {
+      middleware.push(component.middleware)
+    }
+  })
+
+  return middleware
+}
+
+/**
+ * Global after hook.
+ *
+ * @param {Route} to
+ * @param {Route} from
+ * @param {Function} next
+ */
+async function afterHook (to, from, next) {
+  await router.app.$nextTick()
+
+  router.app.$loading.finish()
+}
+
+/**
+ * Scroll Behavior
+ *
+ * @link https://router.vuejs.org/en/advanced/scroll-behavior.html
+ *
  * @param  {Route} to
  * @param  {Route} from
  * @param  {Object|undefined} savedPosition

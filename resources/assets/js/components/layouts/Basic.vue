@@ -1,17 +1,17 @@
 <template>
-  <div class="default-layout d-flex align-items-center justify-content-center m-0 bg-white">
-    <child/>
+  <div class="basic-layout d-flex align-items-center justify-content-center m-0 bg-white">
+    <slot/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'default-layout'
+  name: 'BasicLayout'
 }
 </script>
 
 <style lang="scss">
-.default-layout {
+.basic-layout {
   color: #636b6f;
   height: 100vh;
   font-weight: 100;

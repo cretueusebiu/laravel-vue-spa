@@ -1,9 +1,9 @@
 <template>
-  <div class="app-layout">
-    <navbar></navbar>
+  <div class="main-layout">
+    <navbar/>
 
     <div class="container mt-4">
-      <child/>
+      <slot/>
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
 import Navbar from '~/components/Navbar'
 
 export default {
-  name: 'app-layout',
+  name: 'MainLayout',
 
   components: {
     Navbar
