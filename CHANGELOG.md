@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.0 - 2018-01-22
+
+- Removed `layout` property from pages in favor of explicit layout components
+- Improved middleware system, you can either define it on a route or directly on a component
+- Reorganized components
+- Change jwt token ttl to one day
+- Fixed  hot module replacement
+
 ## 2.2.1 - 2018-01-19
 
 - Upgrade to Bootstrap 4
