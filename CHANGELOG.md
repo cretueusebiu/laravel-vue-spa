@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0 - 2018-01-23
+
+- Brought back the `layout` property in pages that was removed in 3.0. By default it's set to `default` (`~/layouts/default.vue`).
+
 ## 3.0.1 - 2018-01-22
 
 - Removed middleware from routes, since they don't work when you press the back button. Now you have to use the `middleware` property in pages.

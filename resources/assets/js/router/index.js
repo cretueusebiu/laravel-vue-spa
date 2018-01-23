@@ -66,7 +66,14 @@ async function beforeEach (to, from, next) {
   const middleware = getMiddleware(components)
 
   // Call each middleware.
-  callMiddleware(middleware, to, from, next)
+  callMiddleware(middleware, to, from, (...args) => {
+    // Set the application layout only if "next()" was called with no args.
+    if (args.length === 0) {
+      router.app.setLayout(components[0].layout || '')
+    }
+
+    next(...args)
+  })
 }
 
 /**

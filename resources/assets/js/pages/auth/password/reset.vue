@@ -1,54 +1,52 @@
 <template>
-  <main-layout>
-    <div class="row">
-      <div class="col-lg-8 m-auto">
-        <card :title="$t('reset_password')">
-          <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
-            <alert-success :form="form" :message="status"/>
+  <div class="row">
+    <div class="col-lg-8 m-auto">
+      <card :title="$t('reset_password')">
+        <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
+          <alert-success :form="form" :message="status"/>
 
-            <!-- Email -->
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-              <div class="col-md-7">
-                <input v-model="form.email" type="email" name="email" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('email') }" readonly>
-                <has-error :form="form" field="email"/>
-              </div>
+          <!-- Email -->
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
+            <div class="col-md-7">
+              <input v-model="form.email" type="email" name="email" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('email') }" readonly>
+              <has-error :form="form" field="email"/>
             </div>
+          </div>
 
-            <!-- Password -->
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
-              <div class="col-md-7">
-                <input v-model="form.password" type="password" name="password" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('password') }">
-                <has-error :form="form" field="password"/>
-              </div>
+          <!-- Password -->
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
+            <div class="col-md-7">
+              <input v-model="form.password" type="password" name="password" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('password') }">
+              <has-error :form="form" field="password"/>
             </div>
+          </div>
 
-            <!-- Password Confirmation -->
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label text-md-right">{{ $t('confirm_password') }}</label>
-              <div class="col-md-7">
-                <input v-model="form.password_confirmation" type="password" name="password_confirmation" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('password_confirmation') }">
-                <has-error :form="form" field="password_confirmation"/>
-              </div>
+          <!-- Password Confirmation -->
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('confirm_password') }}</label>
+            <div class="col-md-7">
+              <input v-model="form.password_confirmation" type="password" name="password_confirmation" class="form-control"
+                :class="{ 'is-invalid': form.errors.has('password_confirmation') }">
+              <has-error :form="form" field="password_confirmation"/>
             </div>
+          </div>
 
-            <!-- Submit Button -->
-            <div class="form-group row">
-              <div class="col-md-9 ml-md-auto">
-                <v-button :loading="form.busy">
-                  {{ $t('reset_password') }}
-                </v-button>
-              </div>
+          <!-- Submit Button -->
+          <div class="form-group row">
+            <div class="col-md-9 ml-md-auto">
+              <v-button :loading="form.busy">
+                {{ $t('reset_password') }}
+              </v-button>
             </div>
-          </form>
-        </card>
-      </div>
+          </div>
+        </form>
+      </card>
     </div>
-  </main-layout>
+  </div>
 </template>
 
 <script>

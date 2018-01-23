@@ -3,7 +3,7 @@
     <navbar/>
 
     <div class="container mt-4">
-      <slot/>
+      <child/>
     </div>
   </div>
 </template>

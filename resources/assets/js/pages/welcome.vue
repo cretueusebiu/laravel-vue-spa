@@ -1,5 +1,5 @@
 <template>
-  <basic-layout>
+  <div>
     <div class="top-right links">
       <template v-if="authenticated">
         <router-link :to="{ name: 'home' }">
@@ -29,13 +29,15 @@
         <a href="https://github.com/laravel/laravel">GitHub</a>
       </div>
     </div>
-  </basic-layout>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
 export default {
+  layout: 'basic',
+
   metaInfo () {
     return { title: this.$t('home') }
   },
