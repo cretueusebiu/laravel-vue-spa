@@ -12,7 +12,7 @@
 
 ## Features
 
-- Laravel 5.5 
+- Laravel 5.6 
 - Vue + VueRouter + Vuex + VueI18n
 - Pages with custom layouts 
 - Login, register and password reset
