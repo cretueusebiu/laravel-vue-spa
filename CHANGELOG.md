@@ -1,9 +1,5 @@
 # Changelog
 
-## 4.0.1 - 2018-02-07
-
-- Upgrade to Laravel 5.6.
-
 ## 4.0.0 - 2018-01-23
 
 - Brought back the `layout` property in pages that was removed in 3.0. By default it's set to `default` (`~/layouts/default.vue`).

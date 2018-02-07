@@ -7,7 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.6.*",
+        "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "tymon/jwt-auth": "^1.0.0-rc.1"
@@ -15,9 +15,9 @@
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
-        "laravel/dusk": "^3.0",
+        "laravel/dusk": "^2.0",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~7.0"
+        "phpunit/phpunit": "~6.0"
     },
     "autoload": {
         "classmap": [
