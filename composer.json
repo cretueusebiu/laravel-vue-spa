@@ -6,11 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "fideloper/proxy": "~3.3",
+        "fideloper/proxy": "~4.0",
         "laravel/framework": "5.6.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "tymon/jwt-auth": "^1.0.0-rc.1"
+        "tymon/jwt-auth": "^1.0.0-rc.2"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
