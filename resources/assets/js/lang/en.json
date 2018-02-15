@@ -1,6 +1,6 @@
 {
   "ok": "Ok",
-  "cancel": "Cancelar",
+  "cancel": "Cancel",
   "error_alert_title": "Oops...",
   "error_alert_text": "Something went wrong! Please try again.",
   "token_expired_alert_title": "Session Expired!",
