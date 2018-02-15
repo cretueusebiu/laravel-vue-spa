@@ -23,11 +23,11 @@ export default {
     locales: 'lang/locales'
   }),
 
+  
   methods: {
     setLocale (locale) {
       if (this.$i18n.locale !== locale) {
         loadMessages(locale)
-
         this.$store.dispatch('lang/setLocale', { locale })
       }
     }
