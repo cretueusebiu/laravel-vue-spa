@@ -78,12 +78,13 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt-br',
 
     'locales' => [
         'en' => 'EN',
         'zh-CN' => '中文',
         'es' => 'ES',
+        'pt-br' => 'PT-BR',
     ],
 
     /*
