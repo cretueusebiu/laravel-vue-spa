@@ -12,9 +12,9 @@
 
 ## Features
 
-- Laravel 5.5 
-- Vue + VueRouter + Vuex + VueI18n
-- Pages with custom layouts 
+- Laravel 5.6 
+- Vue + VueRouter + Vuex + VueI18n + ESlint
+- Pages with dynamic import and custom layouts
 - Login, register and password reset
 - Authentication with JWT
 - Socialite integration

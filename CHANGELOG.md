@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.1.0 - 2018-03-14
+
+- Upgrade to Laravel 5.6
+- Update npm dependencies
+- Enabled Mix [esModule](https://github.com/JeffreyWay/laravel-mix/pull/1526#issuecomment-373044182) by default
+- Lint with eslint-plugin-vue and eslint-config-standard 
+
 ## 4.0.0 - 2018-01-23
 
 - Brought back the `layout` property in pages that was removed in 3.0. By default it's set to `default` (`~/layouts/default.vue`).
