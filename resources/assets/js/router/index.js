@@ -130,9 +130,9 @@ function callMiddleware (middleware, to, from, next) {
  * @param  {Array} components
  * @return {Array}
  */
-async function resolveComponents (components) {
-  return await Promise.all(components.map(async component => {
-    return typeof component === 'function' ? await component() : component
+function resolveComponents (components) {
+  return Promise.all(components.map(component => {
+    return typeof component === 'function' ? component() : component
   }))
 }
 

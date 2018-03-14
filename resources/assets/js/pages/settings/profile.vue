@@ -7,8 +7,7 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>
         <div class="col-md-7">
-          <input v-model="form.name" type="text" name="name" class="form-control"
-            :class="{ 'is-invalid': form.errors.has('name') }">
+          <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" class="form-control" type="text" name="name">
           <has-error :form="form" field="name"/>
         </div>
       </div>
@@ -17,8 +16,7 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
         <div class="col-md-7">
-          <input v-model="form.email" type="email" name="email" class="form-control"
-            :class="{ 'is-invalid': form.errors.has('email') }">
+          <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
           <has-error :form="form" field="email" />
         </div>
       </div>
@@ -26,7 +24,7 @@
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <v-button type="success" :loading="form.busy">{{ $t('update') }}</v-button>
+          <v-button :loading="form.busy" type="success">{{ $t('update') }}</v-button>
         </div>
       </div>
     </form>

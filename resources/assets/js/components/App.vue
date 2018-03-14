@@ -3,7 +3,7 @@
     <loading ref="loading"/>
 
     <transition name="page" mode="out-in">
-      <component v-if="layout" :is="layout"></component>
+      <component v-if="layout" :is="layout"/>
     </transition>
   </div>
 </template>

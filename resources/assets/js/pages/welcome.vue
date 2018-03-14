@@ -42,12 +42,12 @@ export default {
     return { title: this.$t('home') }
   },
 
-  computed: mapGetters({
-    authenticated: 'auth/check'
-  }),
-
   data: () => ({
     title: window.config.appName
+  }),
+
+  computed: mapGetters({
+    authenticated: 'auth/check'
   })
 }
 </script>

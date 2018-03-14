@@ -1,14 +1,13 @@
 <template>
-  <div class="custom-control custom-checkbox">
+  <div class="custom-control custom-checkbox d-flex">
     <input
-      type="checkbox"
       :name="name"
-      @click="handleClick"
       :checked="internalValue"
+      :id="id || name"
+      type="checkbox"
       class="custom-control-input"
-      :id="id || name || 'checkbox'"
-    >
-    <label class="custom-control-label" :for="id || name || 'checkbox'">
+      @click="handleClick">
+    <label :for="id || name" class="custom-control-label my-auto">
       <slot/>
     </label>
   </div>
@@ -19,23 +18,15 @@ export default {
   name: 'Checkbox',
 
   props: {
-    id: String,
-    name: String,
-    value: Boolean,
-    checked: Boolean
+    id: { type: String, default: null },
+    name: { type: String, default: 'checkbox' },
+    value: { type: Boolean, default: false },
+    checked: { type: Boolean, default: false }
   },
 
   data: () => ({
     internalValue: false
   }),
-
-  created () {
-    this.internalValue = this.value
-
-    if ('checked' in this.$options.propsData) {
-      this.internalValue = this.checked
-    }
-  },
 
   watch: {
     value (val) {
@@ -50,6 +41,14 @@ export default {
       if (val !== oldVal) {
         this.$emit('input', val)
       }
+    }
+  },
+
+  created () {
+    this.internalValue = this.value
+
+    if ('checked' in this.$options.propsData) {
+      this.internalValue = this.checked
     }
   },
 
