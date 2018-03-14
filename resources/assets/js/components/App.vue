@@ -19,7 +19,7 @@ const layouts = requireContext.keys()
     [file.replace(/(^.\/)|(\.vue$)/g, ''), requireContext(file)]
   )
   .reduce((components, [name, component]) => {
-    components[name] = component
+    components[name] = component.default || component
     return components
   }, {})
 
