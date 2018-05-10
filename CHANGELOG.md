@@ -4,6 +4,7 @@
 
 - Fixed oauth popup
 - Fixed session expired alert
+- Update npm dependencies
 
 ## 4.1.0 - 2018-03-14
 
