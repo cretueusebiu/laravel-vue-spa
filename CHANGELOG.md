@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1.1 - 2018-05-10
+
+- Fixed oauth popup
+- Fixed session expired alert
+
 ## 4.1.0 - 2018-03-14
 
 - Upgrade to Laravel 5.6
