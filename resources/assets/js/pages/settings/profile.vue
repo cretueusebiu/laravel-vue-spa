@@ -7,7 +7,10 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>
         <div class="col-md-7">
-          <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" class="form-control" type="text" name="name">
+          <input v-model="form.name"
+              :class="{ 'is-invalid': form.errors.has('name') }"
+              class="form-control"
+              type="text" name="name">
           <has-error :form="form" field="name"/>
         </div>
       </div>
@@ -24,7 +27,11 @@
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">{{ $t('update') }}</v-button>
+          <v-button
+              :loading="form.busy"
+              :disabled="!formChanged"
+              type="success">
+            {{ $t('update') }}</v-button>
         </div>
       </div>
     </form>
@@ -43,11 +50,16 @@ export default {
   },
 
   data: () => ({
+    formChanged: false,
     form: new Form({
       name: '',
       email: ''
     })
   }),
+
+  updated () {
+    this.formChanged = true
+  },
 
   computed: mapGetters({
     user: 'auth/user'

@@ -1,6 +1,7 @@
 <template>
   <card :title="$t('your_password')">
     <form @submit.prevent="update" @keydown="form.onKeydown($event)">
+
       <alert-success :form="form" :message="$t('password_updated')"/>
 
       <!-- Password -->
@@ -24,7 +25,12 @@
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">{{ $t('update') }}</v-button>
+          <v-button
+              :loading="form.busy"
+              :disabled="!formValid"
+              type="success">
+            {{ $t('update') }}
+          </v-button>
         </div>
       </div>
     </form>
@@ -45,8 +51,19 @@ export default {
     form: new Form({
       password: '',
       password_confirmation: ''
-    })
+    }),
+    formValid: false
   }),
+
+  updated () {
+    if (this.form.password
+    && this.form.password_confirmation
+    && this.form.password === this.form.password_confirmation) {
+      this.formValid = true
+    } else {
+      this.formValid = false
+    }
+  },
 
   methods: {
     async update () {
