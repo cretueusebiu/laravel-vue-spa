@@ -5,11 +5,9 @@
         {{ appName }}
       </router-link>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
-        <span class="navbar-toggler-icon"/>
-      </button>
+      <b-btn class="navbar-toggler" @click="areaExpanded = !areaExpanded"><fa icon="bars"/></b-btn>
 
-      <div id="navbarToggler" class="collapse navbar-collapse">
+      <b-collapse id="navbarToggler" v-model="areaExpanded" class=" navbar-collapse">
         <ul class="navbar-nav">
           <locale-dropdown/>
           <!-- <li class="nav-item">
@@ -52,7 +50,7 @@
             </li>
           </template>
         </ul>
-      </div>
+      </b-collapse>
     </div>
   </nav>
 </template>
@@ -67,7 +65,8 @@ export default {
   },
 
   data: () => ({
-    appName: window.config.appName
+    appName: window.config.appName,
+    areaExpanded: false
   }),
 
   computed: mapGetters({
@@ -81,6 +80,15 @@ export default {
 
       // Redirect to login.
       this.$router.push({ name: 'login' })
+    }
+  },
+
+  watch: {
+    /**
+     * This will close open mobile nav on route change.
+     */
+    '$route' (to, from) {
+      this.areaExpanded = false
     }
   }
 }
