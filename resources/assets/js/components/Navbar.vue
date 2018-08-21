@@ -5,9 +5,11 @@
         {{ appName }}
       </router-link>
 
-      <b-btn class="navbar-toggler" @click="areaExpanded = !areaExpanded"><fa icon="bars"/></b-btn>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
+        <span class="navbar-toggler-icon"/>
+      </button>
 
-      <b-collapse id="navbarToggler" v-model="areaExpanded" class=" navbar-collapse">
+      <div id="navbarToggler" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <locale-dropdown/>
           <!-- <li class="nav-item">
@@ -24,13 +26,13 @@
               {{ user.name }}
             </a>
             <div class="dropdown-menu">
-              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
+              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3" data-toggle="collapse" data-target="#navbarToggler">
                 <fa icon="cog" fixed-width/>
                 {{ $t('settings') }}
               </router-link>
 
               <div class="dropdown-divider"/>
-              <a href="#" class="dropdown-item pl-3" @click.prevent="logout">
+              <a href="#" class="dropdown-item pl-3" @click.prevent="logout" data-toggle="collapse" data-target="#navbarToggler">
                 <fa icon="sign-out-alt" fixed-width/>
                 {{ $t('logout') }}
               </a>
@@ -39,18 +41,18 @@
           <!-- Guest -->
           <template v-else>
             <li class="nav-item">
-              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
+              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active" data-toggle="collapse" data-target="#navbarToggler">
                 {{ $t('login') }}
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
+              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active" data-toggle="collapse" data-target="#navbarToggler">
                 {{ $t('register') }}
               </router-link>
             </li>
           </template>
         </ul>
-      </b-collapse>
+      </div>
     </div>
   </nav>
 </template>
@@ -65,8 +67,7 @@ export default {
   },
 
   data: () => ({
-    appName: window.config.appName,
-    areaExpanded: false
+    appName: window.config.appName
   }),
 
   computed: mapGetters({
@@ -80,15 +81,6 @@ export default {
 
       // Redirect to login.
       this.$router.push({ name: 'login' })
-    }
-  },
-
-  watch: {
-    /**
-     * This will close open mobile nav on route change.
-     */
-    '$route' (to, from) {
-      this.areaExpanded = false
     }
   }
 }
