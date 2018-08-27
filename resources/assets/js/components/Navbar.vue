@@ -26,13 +26,13 @@
               {{ user.name }}
             </a>
             <div class="dropdown-menu">
-              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3" data-toggle="collapse" data-target="#navbarToggler">
+              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
                 <fa icon="cog" fixed-width/>
                 {{ $t('settings') }}
               </router-link>
 
               <div class="dropdown-divider"/>
-              <a href="#" class="dropdown-item pl-3" @click.prevent="logout" data-toggle="collapse" data-target="#navbarToggler">
+              <a href="#" class="dropdown-item pl-3" @click.prevent="logout">
                 <fa icon="sign-out-alt" fixed-width/>
                 {{ $t('logout') }}
               </a>
@@ -41,12 +41,12 @@
           <!-- Guest -->
           <template v-else>
             <li class="nav-item">
-              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active" data-toggle="collapse" data-target="#navbarToggler">
+              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
                 {{ $t('login') }}
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active" data-toggle="collapse" data-target="#navbarToggler">
+              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
                 {{ $t('register') }}
               </router-link>
             </li>
