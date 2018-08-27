@@ -82,6 +82,18 @@ export default {
       // Redirect to login.
       this.$router.push({ name: 'login' })
     }
+  },
+
+  watch: {
+    /**
+     * This will close open mobile nav on route change.
+     */
+    '$route' (to, from) {
+      let targetMenuElement = document.getElementById('navbarToggler')
+      if (targetMenuElement && targetMenuElement.classList.contains('show')) {
+        targetMenuElement.classList.remove('show')
+      }
+    }
   }
 }
 </script>
