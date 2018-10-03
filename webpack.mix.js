@@ -5,8 +5,8 @@ const mix = require('laravel-mix')
 mix.config.vue.esModule = true
 
 mix
-  .js('resources/assets/js/app.js', 'public/js')
-  .sass('resources/assets/sass/app.scss', 'public/css')
+  .js('resources/js/app.js', 'public/js')
+  .sass('resources/sass/app.scss', 'public/css')
 
   .sourceMaps()
   .disableNotifications()
@@ -40,7 +40,7 @@ mix.webpackConfig({
   resolve: {
     extensions: ['.js', '.json', '.vue'],
     alias: {
-      '~': path.join(__dirname, './resources/assets/js')
+      '~': path.join(__dirname, './resources/js')
     }
   },
   output: {
