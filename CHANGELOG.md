@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.0 - 2018-10-04
+
+- Upgrade to Laravel 5.7
+
 ## 4.1.1 - 2018-05-10
 
 - Fixed oauth popup
