@@ -28,8 +28,8 @@ if (mix.inProduction()) {
     'vue-router',
     'sweetalert2',
     'vuex-router-sync',
-    '@fortawesome/fontawesome',
-    '@fortawesome/vue-fontawesome'
+    '@fortawesome/vue-fontawesome',
+    'fortawesome/fontawesome-svg-core'
   ])
 }
 
