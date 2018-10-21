@@ -26,7 +26,7 @@
 - Edit `.env` and set your database connection details
 - (When installed via git clone or download, run `php artisan key:generate` and `php artisan jwt:secret`)
 - `php artisan migrate`
-- `yarn` (Install [Yarn](https://yarnpkg.com/en/docs/install) if you don't have it.)
+- `npm install` or `yarn`
 
 ## Usage
 
