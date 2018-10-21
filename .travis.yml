@@ -18,7 +18,7 @@ before_install:
 install:
   - cp .env.dusk.testing .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - yarn
+  - yarn --ignore-engines
   - npm run production
 
 before_script:
