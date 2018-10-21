@@ -12,7 +12,7 @@ import {
   faGithub
 } from '@fortawesome/free-brands-svg-icons'
 
-fontawesome.library.add(
+library.add(
   faUser, faLock, faSignOutAlt, faCog, faGithub
 )
 
