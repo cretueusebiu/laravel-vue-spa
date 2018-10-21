@@ -7,7 +7,7 @@
   },
   "extends": [
     "plugin:vue/recommended",
-    "@vue/standard"
+    "standard"
   ],
   "rules": {
     "vue/max-attributes-per-line": "off"
