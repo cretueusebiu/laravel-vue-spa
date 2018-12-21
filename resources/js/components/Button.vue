@@ -4,8 +4,9 @@
     'btn-block': block,
     'btn-lg': large,
     'btn-loading': loading
-  }" class="btn">
-    <slot/>
+  }" class="btn"
+  >
+    <slot />
   </button>
 </template>
 
