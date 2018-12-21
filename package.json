@@ -41,11 +41,11 @@
         "eslint-plugin-promise": "^4.0.1",
         "eslint-plugin-standard": "^4.0.0",
         "eslint-plugin-vue": "^5.0.0-beta.3",
-        "laravel-mix": "^4.0.12",
+        "laravel-mix": "^2.1.11",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue-template-compiler": "^2.5.16",
+        "vue-template-compiler": "^2.5.21",
         "webpack-bundle-analyzer": "^2.11.2"
     }
 }
