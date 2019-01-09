@@ -1,3 +1,4 @@
+import 'es6-shim'
 import Vue from 'vue'
 import store from '~/store'
 import router from '~/router'
