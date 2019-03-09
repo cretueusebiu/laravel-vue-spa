@@ -17,8 +17,9 @@ class Register extends Page
     /**
      * Submit the form with the given data.
      *
-     * @param  \Laravel\Dusk\Browser $browser
-     * @param  array $data
+     * @param \Laravel\Dusk\Browser $browser
+     * @param array                 $data
+     *
      * @return void
      */
     public function submit($browser, array $data = [])

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\OAuthProvider;
-use App\Http\Controllers\Controller;
 use App\Exceptions\EmailTakenException;
-use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Controller;
+use App\OAuthProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Facades\Socialite;
 
 class OAuthController extends Controller
 {
@@ -28,7 +28,8 @@ class OAuthController extends Controller
     /**
      * Redirect the user to the provider authentication page.
      *
-     * @param  string $provider
+     * @param string $provider
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function redirectToProvider($provider)
@@ -41,7 +42,8 @@ class OAuthController extends Controller
     /**
      * Obtain the user information from the provider.
      *
-     * @param  string $driver
+     * @param string $driver
+     *
      * @return \Illuminate\Http\Response
      */
     public function handleProviderCallback($provider)
@@ -54,15 +56,16 @@ class OAuthController extends Controller
         );
 
         return view('oauth/callback', [
-            'token' => $token,
+            'token'      => $token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->getPayload()->get('exp') - time(),
         ]);
     }
 
     /**
-     * @param  string $provider
-     * @param  \Laravel\Socialite\Contracts\User $sUser
+     * @param string                            $provider
+     * @param \Laravel\Socialite\Contracts\User $sUser
+     *
      * @return \App\User|false
      */
     protected function findOrCreateUser($provider, $user)
@@ -73,7 +76,7 @@ class OAuthController extends Controller
 
         if ($oauthProvider) {
             $oauthProvider->update([
-                'access_token' => $user->token,
+                'access_token'  => $user->token,
                 'refresh_token' => $user->refreshToken,
             ]);
 
@@ -81,29 +84,30 @@ class OAuthController extends Controller
         }
 
         if (User::where('email', $user->getEmail())->exists()) {
-            throw new EmailTakenException;
+            throw new EmailTakenException();
         }
 
         return $this->createUser($provider, $user);
     }
 
     /**
-     * @param  string $provider
-     * @param  \Laravel\Socialite\Contracts\User $sUser
+     * @param string                            $provider
+     * @param \Laravel\Socialite\Contracts\User $sUser
+     *
      * @return \App\User
      */
     protected function createUser($provider, $sUser)
     {
         $user = User::create([
-            'name' => $sUser->getName(),
+            'name'  => $sUser->getName(),
             'email' => $sUser->getEmail(),
         ]);
 
         $user->oauthProviders()->create([
-            'provider' => $provider,
+            'provider'         => $provider,
             'provider_user_id' => $sUser->getId(),
-            'access_token' => $sUser->token,
-            'refresh_token' => $sUser->refreshToken,
+            'access_token'     => $sUser->token,
+            'refresh_token'    => $sUser->refreshToken,
         ]);
 
         return $user;

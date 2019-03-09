@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\User;
-use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class SettingsTest extends TestCase
 {
@@ -23,15 +23,15 @@ class SettingsTest extends TestCase
     {
         $this->actingAs($this->user)
             ->patchJson('/api/settings/profile', [
-                'name' => 'Test User',
+                'name'  => 'Test User',
                 'email' => 'test@test.app',
             ])
             ->assertSuccessful()
             ->assertJsonStructure(['id', 'name', 'email']);
 
         $this->assertDatabaseHas('users', [
-            'id' => $this->user->id,
-            'name' => 'Test User',
+            'id'    => $this->user->id,
+            'name'  => 'Test User',
             'email' => 'test@test.app',
         ]);
     }
@@ -41,7 +41,7 @@ class SettingsTest extends TestCase
     {
         $this->actingAs($this->user)
             ->patchJson('/api/settings/password', [
-                'password' => 'updated',
+                'password'              => 'updated',
                 'password_confirmation' => 'updated',
             ])
             ->assertSuccessful();

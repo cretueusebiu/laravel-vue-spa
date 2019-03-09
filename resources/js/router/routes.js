@@ -19,13 +19,15 @@ export default [
   { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset },
 
   { path: '/home', name: 'home', component: Home },
-  { path: '/settings',
+  {
+    path: '/settings',
     component: Settings,
     children: [
       { path: '', redirect: { name: 'settings.profile' } },
       { path: 'profile', name: 'settings.profile', component: SettingsProfile },
       { path: 'password', name: 'settings.password', component: SettingsPassword }
-    ] },
+    ]
+  },
 
   { path: '*', component: NotFound }
 ]

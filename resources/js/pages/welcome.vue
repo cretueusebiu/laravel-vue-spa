@@ -2,24 +2,16 @@
   <div>
     <div class="top-right links">
       <template v-if="authenticated">
-        <router-link :to="{ name: 'home' }">
-          {{ $t('home') }}
-        </router-link>
+        <router-link :to="{ name: 'home' }">{{ $t('home') }}</router-link>
       </template>
       <template v-else>
-        <router-link :to="{ name: 'login' }">
-          {{ $t('login') }}
-        </router-link>
-        <router-link :to="{ name: 'register' }">
-          {{ $t('register') }}
-        </router-link>
+        <router-link :to="{ name: 'login' }">{{ $t('login') }}</router-link>
+        <router-link :to="{ name: 'register' }">{{ $t('register') }}</router-link>
       </template>
     </div>
 
     <div class="text-center">
-      <div class="title mb-4">
-        {{ title }}
-      </div>
+      <div class="title mb-4">{{ title }}</div>
 
       <div class="links">
         <a href="https://laravel.com/docs">Documentation</a>
@@ -33,13 +25,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
-  layout: 'basic',
+  layout: "basic",
 
-  metaInfo () {
-    return { title: this.$t('home') }
+  metaInfo() {
+    return { title: this.$t("home") };
   },
 
   data: () => ({
@@ -47,9 +39,9 @@ export default {
   }),
 
   computed: mapGetters({
-    authenticated: 'auth/check'
+    authenticated: "auth/check"
   })
-}
+};
 </script>
 
 <style scoped>

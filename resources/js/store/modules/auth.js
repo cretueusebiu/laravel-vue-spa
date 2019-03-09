@@ -17,39 +17,39 @@ export const getters = {
 
 // mutations
 export const mutations = {
-  [types.SAVE_TOKEN] (state, { token, remember }) {
+  [types.SAVE_TOKEN](state, { token, remember }) {
     state.token = token
     Cookies.set('token', token, { expires: remember ? 365 : null })
   },
 
-  [types.FETCH_USER_SUCCESS] (state, { user }) {
+  [types.FETCH_USER_SUCCESS](state, { user }) {
     state.user = user
   },
 
-  [types.FETCH_USER_FAILURE] (state) {
+  [types.FETCH_USER_FAILURE](state) {
     state.token = null
     Cookies.remove('token')
   },
 
-  [types.LOGOUT] (state) {
+  [types.LOGOUT](state) {
     state.user = null
     state.token = null
 
     Cookies.remove('token')
   },
 
-  [types.UPDATE_USER] (state, { user }) {
+  [types.UPDATE_USER](state, { user }) {
     state.user = user
   }
 }
 
 // actions
 export const actions = {
-  saveToken ({ commit, dispatch }, payload) {
+  saveToken({ commit, dispatch }, payload) {
     commit(types.SAVE_TOKEN, payload)
   },
 
-  async fetchUser ({ commit }) {
+  async fetchUser({ commit }) {
     try {
       const { data } = await axios.get('/api/user')
 
@@ -59,11 +59,11 @@ export const actions = {
     }
   },
 
-  updateUser ({ commit }, payload) {
+  updateUser({ commit }, payload) {
     commit(types.UPDATE_USER, payload)
   },
 
-  async logout ({ commit }) {
+  async logout({ commit }) {
     try {
       await axios.post('/api/logout')
     } catch (e) { }
@@ -71,7 +71,7 @@ export const actions = {
     commit(types.LOGOUT)
   },
 
-  async fetchOauthUrl (ctx, { provider }) {
+  async fetchOauthUrl(ctx, { provider }) {
     const { data } = await axios.post(`/api/oauth/${provider}`)
 
     return data.url
