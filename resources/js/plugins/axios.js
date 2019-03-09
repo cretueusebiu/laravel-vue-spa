@@ -1,29 +1,29 @@
-import axios from 'axios'
-import store from '~/store'
-import router from '~/router'
-import swal from 'sweetalert2'
-import i18n from '~/plugins/i18n'
+import axios from 'axios';
+import store from '~/store';
+import router from '~/router';
+import swal from 'sweetalert2';
+import i18n from '~/plugins/i18n';
 
 // Request interceptor
 axios.interceptors.request.use(request => {
-  const token = store.getters['auth/token']
+  const token = store.getters['auth/token'];
   if (token) {
-    request.headers.common['Authorization'] = `Bearer ${token}`
+    request.headers.common['Authorization'] = `Bearer ${token}`;
   }
 
-  const locale = store.getters['lang/locale']
+  const locale = store.getters['lang/locale'];
   if (locale) {
-    request.headers.common['Accept-Language'] = locale
+    request.headers.common['Accept-Language'] = locale;
   }
 
   // request.headers['X-Socket-Id'] = Echo.socketId()
 
-  return request
-})
+  return request;
+});
 
 // Response interceptor
 axios.interceptors.response.use(response => response, error => {
-  const { status } = error.response
+  const { status } = error.response;
 
   if (status >= 500) {
     swal({
@@ -33,7 +33,7 @@ axios.interceptors.response.use(response => response, error => {
       reverseButtons: true,
       confirmButtonText: i18n.t('ok'),
       cancelButtonText: i18n.t('cancel')
-    })
+    });
   }
 
   if (status === 401 && store.getters['auth/check']) {
@@ -45,11 +45,11 @@ axios.interceptors.response.use(response => response, error => {
       confirmButtonText: i18n.t('ok'),
       cancelButtonText: i18n.t('cancel')
     }).then(() => {
-      store.commit('auth/LOGOUT')
+      store.commit('auth/LOGOUT');
 
-      router.push({ name: 'login' })
-    })
+      router.push({ name: 'login' });
+    });
   }
 
-  return Promise.reject(error)
-})
+  return Promise.reject(error);
+});

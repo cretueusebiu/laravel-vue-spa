@@ -6,7 +6,6 @@
 /.idea
 /.vagrant
 .env
-.phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
@@ -16,3 +15,5 @@ yarn-error.log
 /public/css
 /public/mix-manifest.json
 phpunit.dusk.xml
+*.lock
+*.cache

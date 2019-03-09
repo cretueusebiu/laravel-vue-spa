@@ -2,8 +2,14 @@
   <div class="row">
     <div class="col-lg-8 m-auto">
       <card :title="$t('reset_password')">
-        <form @submit.prevent="send" @keydown="form.onKeydown($event)">
-          <alert-success :form="form" :message="status"/>
+        <form
+          @submit.prevent="send"
+          @keydown="form.onKeydown($event)"
+        >
+          <alert-success
+            :form="form"
+            :message="status"
+          />
 
           <!-- Email -->
           <div class="form-group row">
@@ -16,14 +22,19 @@
                 type="email"
                 name="email"
               >
-              <has-error :form="form" field="email"/>
+              <has-error
+                :form="form"
+                field="email"
+              />
             </div>
           </div>
 
           <!-- Submit Button -->
           <div class="form-group row">
             <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">{{ $t('send_password_reset_link') }}</v-button>
+              <v-button :loading="form.busy">
+                {{ $t('send_password_reset_link') }}
+              </v-button>
             </div>
           </div>
         </form>
@@ -33,25 +44,25 @@
 </template>
 
 <script>
-import Form from "vform";
+import Form from 'vform';
 
 export default {
-  middleware: "guest",
+  middleware: 'guest',
 
-  metaInfo() {
-    return { title: this.$t("reset_password") };
+  metaInfo () {
+    return { title: this.$t('reset_password') };
   },
 
   data: () => ({
-    status: "",
+    status: '',
     form: new Form({
-      email: ""
+      email: ''
     })
   }),
 
   methods: {
-    async send() {
-      const { data } = await this.form.post("/api/password/email");
+    async send () {
+      const { data } = await this.form.post('/api/password/email');
 
       this.status = data.status;
 

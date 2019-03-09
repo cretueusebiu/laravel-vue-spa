@@ -8,19 +8,22 @@
       class="custom-control-input"
       @click="handleClick"
     >
-    <label :for="id || name" class="custom-control-label my-auto">
-      <slot/>
+    <label
+      :for="id || name"
+      class="custom-control-label my-auto"
+    >
+      <slot />
     </label>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Checkbox",
+  name: 'Checkbox',
 
   props: {
     id: { type: String, default: null },
-    name: { type: String, default: "checkbox" },
+    name: { type: String, default: 'checkbox' },
     value: { type: Boolean, default: false },
     checked: { type: Boolean, default: false }
   },
@@ -30,32 +33,32 @@ export default {
   }),
 
   watch: {
-    value(val) {
+    value (val) {
       this.internalValue = val;
     },
 
-    checked(val) {
+    checked (val) {
       this.internalValue = val;
     },
 
-    internalValue(val, oldVal) {
+    internalValue (val, oldVal) {
       if (val !== oldVal) {
-        this.$emit("input", val);
+        this.$emit('input', val);
       }
     }
   },
 
-  created() {
+  created () {
     this.internalValue = this.value;
 
-    if ("checked" in this.$options.propsData) {
+    if ('checked' in this.$options.propsData) {
       this.internalValue = this.checked;
     }
   },
 
   methods: {
-    handleClick(e) {
-      this.$emit("click", e);
+    handleClick (e) {
+      this.$emit('click', e);
 
       if (!e.isPropagationStopped) {
         this.internalValue = e.target.checked;

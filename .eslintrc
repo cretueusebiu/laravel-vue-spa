@@ -1,15 +1,48 @@
 {
   "root": true,
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jquery": true,
+    "node": true
+  },
   "parserOptions": {
     "parser": "babel-eslint",
-    "ecmaVersion": 2017,
-    "sourceType": "module"
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "extends": [
     "plugin:vue/recommended",
-    "standard"
+    "eslint:recommended"
   ],
+  "globals": {},
   "rules": {
-    "vue/max-attributes-per-line": "off"
+    "no-extra-semi": "warn",
+    "no-undef": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "space-before-blocks": [
+      "warn",
+      {
+        "functions": "always"
+      }
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ]
   }
 }

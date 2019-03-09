@@ -1,7 +1,13 @@
 <template>
   <card :title="$t('your_password')">
-    <form @submit.prevent="update" @keydown="form.onKeydown($event)">
-      <alert-success :form="form" :message="$t('password_updated')"/>
+    <form
+      @submit.prevent="update"
+      @keydown="form.onKeydown($event)"
+    >
+      <alert-success
+        :form="form"
+        :message="$t('password_updated')"
+      />
 
       <!-- Password -->
       <div class="form-group row">
@@ -14,7 +20,10 @@
             type="password"
             name="password"
           >
-          <has-error :form="form" field="password"/>
+          <has-error
+            :form="form"
+            field="password"
+          />
         </div>
       </div>
 
@@ -29,14 +38,22 @@
             type="password"
             name="password_confirmation"
           >
-          <has-error :form="form" field="password_confirmation"/>
+          <has-error
+            :form="form"
+            field="password_confirmation"
+          />
         </div>
       </div>
 
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">{{ $t('update') }}</v-button>
+          <v-button
+            :loading="form.busy"
+            type="success"
+          >
+            {{ $t('update') }}
+          </v-button>
         </div>
       </div>
     </form>
@@ -44,25 +61,25 @@
 </template>
 
 <script>
-import Form from "vform";
+import Form from 'vform';
 
 export default {
   scrollToTop: false,
 
-  metaInfo() {
-    return { title: this.$t("settings") };
+  metaInfo () {
+    return { title: this.$t('settings') };
   },
 
   data: () => ({
     form: new Form({
-      password: "",
-      password_confirmation: ""
+      password: '',
+      password_confirmation: ''
     })
   }),
 
   methods: {
-    async update() {
-      await this.form.patch("/api/settings/password");
+    async update () {
+      await this.form.patch('/api/settings/password');
 
       this.form.reset();
     }
