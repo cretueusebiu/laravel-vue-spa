@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.0 - 2018-04-xx
+
+- Upgrade to Laravel 5.8
+
 ## 4.2.0 - 2018-10-04
 
 - Upgrade to Laravel 5.7

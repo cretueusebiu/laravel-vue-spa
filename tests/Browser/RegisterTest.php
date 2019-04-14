@@ -9,7 +9,7 @@ use Tests\Browser\Pages\Register;
 
 class RegisterTest extends DuskTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setup();
 
@@ -24,8 +24,8 @@ class RegisterTest extends DuskTestCase
                 ->submit([
                     'name' => 'Test User',
                     'email' => 'test@test.app',
-                    'password' => 'secret',
-                    'password_confirmation' => 'secret',
+                    'password' => 'password',
+                    'password_confirmation' => 'password',
                 ])
                 ->assertPageIs(Home::class);
         });
@@ -41,8 +41,8 @@ class RegisterTest extends DuskTestCase
                 ->submit([
                     'name' => 'Test User',
                     'email' => $user->email,
-                    'password' => 'secret',
-                    'password_confirmation' => 'secret',
+                    'password' => 'password',
+                    'password_confirmation' => 'password',
                 ])
                 ->assertSee('The email has already been taken.');
         });
