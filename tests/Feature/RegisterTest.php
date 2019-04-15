@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-
 use App\User;
+use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
