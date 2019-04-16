@@ -37,10 +37,6 @@ class SetLocale
             return $locale;
         }
 
-        if (array_key_exists($locale, $locales)) {
-            return $locale;
-        }
-
         $locale = substr($locale, 0, 2);
         if (array_key_exists($locale, $locales)) {
             return $locale;
