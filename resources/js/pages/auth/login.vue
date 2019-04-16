@@ -8,7 +8,7 @@
             <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
             <div class="col-md-7">
               <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-              <has-error :form="form" field="email"/>
+              <has-error :form="form" field="email" />
             </div>
           </div>
 
@@ -17,13 +17,13 @@
             <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
             <div class="col-md-7">
               <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
-              <has-error :form="form" field="password"/>
+              <has-error :form="form" field="password" />
             </div>
           </div>
 
           <!-- Remember Me -->
           <div class="form-group row">
-            <div class="col-md-3"/>
+            <div class="col-md-3" />
             <div class="col-md-7 d-flex">
               <checkbox v-model="remember" name="remember">
                 {{ $t('remember_me') }}
@@ -43,7 +43,7 @@
               </v-button>
 
               <!-- GitHub Login Button -->
-              <login-with-github/>
+              <login-with-github />
             </div>
           </div>
         </form>
