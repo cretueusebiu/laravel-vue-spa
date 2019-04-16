@@ -1,8 +1,10 @@
 # Changelog
 
-## 5.0.0 - 2018-04-xx
+## 4.3.0 - 2018-04-xx
 
 - Upgrade to Laravel 5.8
+- Update npm dependencies
+- Removed yarn.lock in favor of package-lock.json
 
 ## 4.2.0 - 2018-10-04
 
