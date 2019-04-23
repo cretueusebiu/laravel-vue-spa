@@ -6,6 +6,11 @@
 - Update npm dependencies
 - Removed yarn.lock in favor of package-lock.json
 
+## 4.3.0 - 2018-10-21
+
+- Fixed npm install
+- Update fontawesome
+
 ## 4.2.0 - 2018-10-04
 
 - Upgrade to Laravel 5.7
