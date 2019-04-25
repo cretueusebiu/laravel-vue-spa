@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80a914968f80265d4587f285d0f2de74",
+    "content-hash": "e15a9fafdda90a1b73760bfa452493fb",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -5362,6 +5362,51 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2016-10-03T07:35:21+00:00"
+        },
+        {
+            "name": "staudenmeir/dusk-updater",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/dusk-updater.git",
+                "reference": "4eb28b72ab0f61cb45fa0d433fd05b017353c574"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/dusk-updater/zipball/4eb28b72ab0f61cb45fa0d433fd05b017353c574",
+                "reference": "4eb28b72ab0f61cb45fa0d433fd05b017353c574",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "ext-zip": "*",
+                "php": ">=5.6.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Staudenmeir\\DuskUpdater\\DuskServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\DuskUpdater\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Updater for Laravel Dusk ChromeDriver binaries",
+            "time": "2019-04-24T16:38:02+00:00"
         },
         {
             "name": "theseer/tokenizer",
