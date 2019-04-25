@@ -21,7 +21,7 @@
     "jquery": "^3.4.0",
     "js-cookie": "^2.2.0",
     "popper.js": "^1.15.0",
-    "sweetalert2": "^7.19.3",
+    "sweetalert2": "^8.8.7",
     "vform": "^1.0.0",
     "vue": "^2.6.10",
     "vue-i18n": "^8.10.0",
