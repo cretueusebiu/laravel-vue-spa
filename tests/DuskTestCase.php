@@ -14,8 +14,8 @@ Browser::macro('assertPageIs', function ($page) {
     if (! $page instanceof Page) {
         $page = new $page;
     }
-
-    return $this->assertPathIs($page->url());
+    // waiting for location before asserting, because window.location.pathname may be updated asynchronously
+    return $this->waitForLocation($page->url())->assertPathIs($page->url());
 });
 
 abstract class DuskTestCase extends BaseTestCase

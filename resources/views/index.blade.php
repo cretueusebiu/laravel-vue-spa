@@ -38,7 +38,9 @@ $polyfills = [
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features={{ implode(',', $polyfills) }}"></script>
 
   {{-- Load the application scripts --}}
-  @if (app()->isLocal())
+  {{-- Include only app.js, because we disabled mix.extract(), until JeffreyWay/laravel-mix/issues/1889 fixed --}}
+  {{-- @if (!app()->isLocal()) --}}
+  @if (true)
     <script src="{{ mix('js/app.js') }}"></script>
   @else
     <script src="{{ mix('js/manifest.js') }}"></script>
