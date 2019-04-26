@@ -2,6 +2,12 @@ sudo: required
 language: php
 dist: trusty
 
+# Keep the cache between builds to speed up installs
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.npm
+
 addons:
   chrome: stable
 
@@ -15,6 +21,9 @@ services:
 
 before_install:
   - mysql -e 'CREATE DATABASE laravel_vue_spa;'
+  - travis_retry composer self-update && composer --version
+  - nvm install 'lts/*'
+  - npm i -g npm
 
 install:
   - cp .env.dusk.testing .env
