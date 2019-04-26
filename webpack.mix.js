@@ -1,6 +1,7 @@
 const path = require('path')
 const mix = require('laravel-mix')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 mix
   .js('resources/js/app.js', 'public/js')
@@ -10,7 +11,20 @@ mix
   .disableNotifications()
 
 if (mix.inProduction()) {
-  mix.extract()
+  mix.webpackConfig({
+    plugins: [
+      new CleanWebpackPlugin({
+        // dry: true,
+        // verbose: true,
+        cleanOnceBeforeBuildPatterns: [
+          'css/*',
+          'js/*'
+        ]
+      })
+    ]
+  })
+  // Disabled until resolved: https://github.com/JeffreyWay/laravel-mix/issues/1889
+  // mix.extract()
   mix.version()
 }
 
