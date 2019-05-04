@@ -44,6 +44,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
     "laravel-mix": "^4.0.15",
+    "laravel-mix-versionhash": "^1.0.7",
+    "readdirp": "^3.0.1",
     "resolve-url-loader": "^2.3.1",
     "sass": "^1.19.0",
     "sass-loader": "^7.1.0",
