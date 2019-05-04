@@ -1,31 +1,28 @@
-const Welcome = () => import('~/pages/welcome').then(m => m.default || m)
-const Login = () => import('~/pages/auth/login').then(m => m.default || m)
-const Register = () => import('~/pages/auth/register').then(m => m.default || m)
-const PasswordEmail = () => import('~/pages/auth/password/email').then(m => m.default || m)
-const PasswordReset = () => import('~/pages/auth/password/reset').then(m => m.default || m)
-const NotFound = () => import('~/pages/errors/404').then(m => m.default || m)
-
-const Home = () => import('~/pages/home').then(m => m.default || m)
-const Settings = () => import('~/pages/settings/index').then(m => m.default || m)
-const SettingsProfile = () => import('~/pages/settings/profile').then(m => m.default || m)
-const SettingsPassword = () => import('~/pages/settings/password').then(m => m.default || m)
+// Helper function for lazy loading routes using Webpack dynamic imports
+// See: https://router.vuejs.org/guide/advanced/lazy-loading.html#grouping-components-in-the-same-chunk
+// See: https://webpack.js.org/guides/code-splitting/
+function page (name) {
+  return () => import(
+    /* webpackChunkName: 'view-' */ `~/pages/${name}.vue`
+  ).then(module => module.default || module)
+}
 
 export default [
-  { path: '/', name: 'welcome', component: Welcome },
+  { path: '/', name: 'welcome', component: page('welcome') },
 
-  { path: '/login', name: 'login', component: Login },
-  { path: '/register', name: 'register', component: Register },
-  { path: '/password/reset', name: 'password.request', component: PasswordEmail },
-  { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset },
+  { path: '/login', name: 'login', component: page('auth/login') },
+  { path: '/register', name: 'register', component: page('auth/register') },
+  { path: '/password/reset', name: 'password.request', component: page('auth/password/email') },
+  { path: '/password/reset/:token', name: 'password.reset', component: page('auth/password/reset') },
 
-  { path: '/home', name: 'home', component: Home },
+  { path: '/home', name: 'home', component: page('home') },
   { path: '/settings',
-    component: Settings,
+    component: page('settings/index'),
     children: [
       { path: '', redirect: { name: 'settings.profile' } },
-      { path: 'profile', name: 'settings.profile', component: SettingsProfile },
-      { path: 'password', name: 'settings.password', component: SettingsPassword }
+      { path: 'profile', name: 'settings.profile', component: page('settings/profile') },
+      { path: 'password', name: 'settings.password', component: page('settings/password') }
     ] },
 
-  { path: '*', component: NotFound }
+  { path: '*', component: page('errors/404') }
 ]
