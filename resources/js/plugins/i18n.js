@@ -14,7 +14,7 @@ const i18n = new VueI18n({
  */
 export async function loadMessages (locale) {
   if (Object.keys(i18n.getLocaleMessage(locale)).length === 0) {
-    const messages = await import(/* webpackChunkName: "lang-[request]" */ `~/lang/${locale}`)
+    const messages = await import(/* webpackChunkName: '' */ `~/lang/${locale}`)
     i18n.setLocaleMessage(locale, messages)
   }
 
