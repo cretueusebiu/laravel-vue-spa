@@ -48,10 +48,19 @@ function createRouter () {
  * @param {Function} next
  */
 async function beforeEach (to, from, next) {
-  // Get the matched components and resolve them.
-  const components = await resolveComponents(
-    router.getMatchedComponents({ ...to })
-  )
+  let components = []
+
+  try {
+    // Get the matched components and resolve them.
+    components = await resolveComponents(
+      router.getMatchedComponents({ ...to })
+    )
+  } catch (error) {
+    if (/^Loading( CSS)? chunk (\d)+ failed\./.test(error.message)) {
+      window.location.reload(true)
+      return
+    }
+  }
 
   if (components.length === 0) {
     return next()
