@@ -51,17 +51,3 @@ function publishAseets () {
   fs.copySync(path.join(publicDir, 'build', 'dist'), path.join(publicDir, 'dist'))
   fs.removeSync(path.join(publicDir, 'build'))
 }
-
-// async function publishAseets () {
-//   const publicDir = path.resolve(__dirname, './public/')
-//   const entries = await readdirp.promise(path.join(publicDir, 'dist'))
-
-//   fs.copySync(path.join(publicDir, 'build', 'dist'), path.join(publicDir, 'dist'))
-
-//   if (mix.inProduction() && entries.length) {
-//     entries.forEach(file => fs.removeSync(file.fullPath))
-//     fs.copySync(path.join(publicDir, 'build', 'dist'), path.join(publicDir, 'dist'), { overwrite: false })
-//   }
-
-//   fs.removeSync(path.join(publicDir, 'build'))
-// }
