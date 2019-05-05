@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '~/store'
 import router from '~/router'
-import swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 import i18n from '~/plugins/i18n'
 
 // Request interceptor
@@ -26,7 +26,7 @@ axios.interceptors.response.use(response => response, error => {
   const { status } = error.response
 
   if (status >= 500) {
-    swal({
+    Swal.fire({
       type: 'error',
       title: i18n.t('error_alert_title'),
       text: i18n.t('error_alert_text'),
@@ -37,7 +37,7 @@ axios.interceptors.response.use(response => response, error => {
   }
 
   if (status === 401 && store.getters['auth/check']) {
-    swal({
+    Swal.fire({
       type: 'warning',
       title: i18n.t('token_expired_alert_title'),
       text: i18n.t('token_expired_alert_text'),
