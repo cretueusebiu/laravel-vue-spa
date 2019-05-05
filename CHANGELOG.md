@@ -5,6 +5,7 @@
 - Upgrade to Laravel 5.8
 - Update npm dependencies
 - Removed yarn.lock in favor of package-lock.json
+- Fixed `laravel-mix` (HMR, versioning, build cleanup), thanks to [TemaSM](https://github.com/TemaSM)
 
 ## 4.3.0 - 2018-10-21
 
