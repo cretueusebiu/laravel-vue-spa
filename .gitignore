@@ -4,7 +4,7 @@
 /storage/*.key
 /vendor
 /public/dist
-/public/assets
+/public/build
 /public/mix-manifest.json
 .env
 .phpunit.result.cache

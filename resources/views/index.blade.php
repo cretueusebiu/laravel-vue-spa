@@ -26,26 +26,20 @@ $polyfills = [
 
   <title>{{ config('app.name') }}</title>
 
-  <link rel="stylesheet" href="{{ mix('assets/css/app.css') }}">
+  <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
 </head>
 <body>
   <div id="app"></div>
 
   {{-- Global configuration object --}}
-  <script>window.config = @json($config);</script>
+  <script>
+    window.config = @json($config);
+  </script>
 
   {{-- Polyfill JS features via polyfill.io --}}
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features={{ implode(',', $polyfills) }}"></script>
 
   {{-- Load the application scripts --}}
-  {{-- Include only app.js, because we disabled mix.extract(), until JeffreyWay/laravel-mix/issues/1889 fixed --}}
-  {{-- @if (!app()->isLocal()) --}}
-  @if (true)
-    <script src="{{ mix('assets/js/app.js') }}"></script>
-  @else
-    <script src="{{ mix('assets/js/manifest.js') }}"></script>
-    <script src="{{ mix('assets/js/vendor.js') }}"></script>
-    <script src="{{ mix('assets/js/app.js') }}"></script>
-  @endif
+  <script src="{{ mix('dist/js/app.js') }}"></script>
 </body>
 </html>
