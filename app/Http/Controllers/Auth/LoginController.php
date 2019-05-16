@@ -43,7 +43,6 @@ class LoginController extends Controller
         $this->guard()->setToken($token);
 
         return true;
-
     }
 
     /**
