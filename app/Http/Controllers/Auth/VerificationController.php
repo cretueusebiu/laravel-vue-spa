@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\URL;
 
 class VerificationController extends Controller
 {
@@ -65,13 +65,13 @@ class VerificationController extends Controller
 
         if (is_null($user)) {
             throw ValidationException::withMessages([
-                'email' => ['We can\'t find a user with that e-mail address.']
+                'email' => ['We can\'t find a user with that e-mail address.'],
             ]);
         }
 
         if ($user->hasVerifiedEmail()) {
             throw ValidationException::withMessages([
-                'email' => ['The email is already verified.']
+                'email' => ['The email is already verified.'],
             ]);
         }
 
