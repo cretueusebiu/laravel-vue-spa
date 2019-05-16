@@ -30,5 +30,10 @@
   "password_updated": "Your password has been updated!",
   "new_password": "New Password",
   "login_with": "Login with",
-  "register_with": "Register with"
+  "register_with": "Register with",
+  "verify_email": "Verify Email",
+  "send_verification_link": "Send Verification Link",
+  "resend_verification_link": "Resend Verification Link ?",
+  "failed_to_verify_email": "Failed to verify email.",
+  "verify_email_address": "We sent you an email with an the verification link."
 }

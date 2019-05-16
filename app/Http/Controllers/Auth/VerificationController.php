@@ -65,13 +65,13 @@ class VerificationController extends Controller
 
         if (is_null($user)) {
             throw ValidationException::withMessages([
-                'email' => ['We can\'t find a user with that e-mail address.'],
+                'email' => [__('We can\'t find a user with that e-mail address.')],
             ]);
         }
 
         if ($user->hasVerifiedEmail()) {
             throw ValidationException::withMessages([
-                'email' => ['The email is already verified.'],
+                'email' => [__('The email is already verified.')],
             ]);
         }
 

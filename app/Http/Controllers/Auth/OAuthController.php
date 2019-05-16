@@ -97,6 +97,7 @@ class OAuthController extends Controller
         $user = User::create([
             'name' => $sUser->getName(),
             'email' => $sUser->getEmail(),
+            'email_verified_at' => now(),
         ]);
 
         $user->oauthProviders()->create([

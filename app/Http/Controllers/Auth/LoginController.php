@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Exceptions\VerifyEmailException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -30,20 +32,25 @@ class LoginController extends Controller
     {
         $token = $this->guard()->attempt($this->credentials($request));
 
-        if ($token) {
-            $this->guard()->setToken($token);
-
-            return true;
+        if (! $token) {
+            return false;
         }
 
-        return false;
+        if (! $this->guard()->user()->hasVerifiedEmail()) {
+            return false;
+        }
+
+        $this->guard()->setToken($token);
+
+        return true;
+
     }
 
     /**
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -52,11 +59,31 @@ class LoginController extends Controller
         $token = (string) $this->guard()->getToken();
         $expiration = $this->guard()->getPayload()->get('exp');
 
-        return [
+        return response()->json([
             'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $expiration - time(),
-        ];
+        ]);
+    }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $user = $this->guard()->user();
+        if ($user && ! $user->hasVerifiedEmail()) {
+            throw VerifyEmailException::forUser($user);
+        }
+
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
     }
 
     /**
