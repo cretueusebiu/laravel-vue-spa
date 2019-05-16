@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Exceptions\VerifyEmailException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class LoginController extends Controller
 {
@@ -36,7 +37,8 @@ class LoginController extends Controller
             return false;
         }
 
-        if (! $this->guard()->user()->hasVerifiedEmail()) {
+        $user = $this->guard()->user();
+        if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
             return false;
         }
 
@@ -76,7 +78,7 @@ class LoginController extends Controller
     protected function sendFailedLoginResponse(Request $request)
     {
         $user = $this->guard()->user();
-        if ($user && ! $user->hasVerifiedEmail()) {
+        if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
             throw VerifyEmailException::forUser($user);
         }
 
