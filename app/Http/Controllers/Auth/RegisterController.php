@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class RegisterController extends Controller
 {
@@ -26,12 +27,20 @@ class RegisterController extends Controller
      * The user has been registered.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\JsonResponse
      */
-    protected function registered(Request $request, $user)
+    protected function registered(Request $request, User $user)
     {
-        return $user;
+        if ($user instanceof MustVerifyEmail) {
+            $user->sendEmailVerificationNotification();
+
+            return response()->json([
+                'status' => __('We have e-mailed your verification link!'),
+            ]);
+        }
+
+        return response()->json($user);
     }
 
     /**
@@ -53,7 +62,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return User
+     * @return \App\User
      */
     protected function create(array $data)
     {
