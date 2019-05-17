@@ -15,7 +15,7 @@
 - Laravel 5.8 
 - Vue + VueRouter + Vuex + VueI18n + ESlint
 - Pages with dynamic import and custom layouts
-- Login, register and password reset
+- Login, register, email verification and password reset
 - Authentication with JWT
 - Socialite integration
 - Bootstrap 4 + Font Awesome 5
@@ -45,6 +45,10 @@ npm run hot
 ```bash
 npm run production
 ```
+
+## Email Verification
+
+To enable email verification make sure that your `App\User` model implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract.
 
 ## Changelog
 
