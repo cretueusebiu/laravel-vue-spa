@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 4.4.0 - 2019-05-17
 
 - Upgrade to Laravel 5.8
 - Update npm dependencies
