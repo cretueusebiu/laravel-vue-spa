@@ -35,9 +35,7 @@ class RegisterController extends Controller
         if ($user instanceof MustVerifyEmail) {
             $user->sendEmailVerificationNotification();
 
-            return response()->json([
-                'status' => __('We have e-mailed your verification link!'),
-            ]);
+            return response()->json(['status' => trans('verification.sent')]);
         }
 
         return response()->json($user);
