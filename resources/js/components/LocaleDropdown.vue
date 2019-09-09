@@ -1,12 +1,16 @@
 <template>
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+    <a
+      v-on-clickaway="away"
+      class="nav-link dropdown-toggle"
+      @click="show = !show"
     >
       {{ locales[locale] }}
     </a>
-    <div class="dropdown-menu">
-      <a v-for="(value, key) in locales" :key="key" class="dropdown-item" href="#"
+    <div v-show="show" class="dropdown-menu">
+      <a v-for="(value, key) in locales"
+         :key="key"
+         class="dropdown-item"
          @click.prevent="setLocale(key)"
       >
         {{ value }}
@@ -15,18 +19,37 @@
   </li>
 </template>
 
+<style scoped>
+  .dropdown-menu {
+    display: unset;
+  }
+</style>
+
 <script>
 import { mapGetters } from 'vuex'
 import { loadMessages } from '~/plugins/i18n'
+import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
+  mixins: [clickaway],
+  data () {
+    return {
+      show: false
+    }
+  },
+
   computed: mapGetters({
     locale: 'lang/locale',
     locales: 'lang/locales'
   }),
 
   methods: {
+    away () {
+      this.show = false
+    },
     setLocale (locale) {
+      this.show = false
+
       if (this.$i18n.locale !== locale) {
         loadMessages(locale)
 

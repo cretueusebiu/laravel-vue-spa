@@ -1,3 +1,3 @@
 import './axios'
 import './fontawesome'
-import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.css'
