@@ -15,7 +15,6 @@
     },
     "require-dev": {
         "facade/ignition": "^1.4",
-        "laravel/ui": "^1.0",
         "beyondcode/laravel-dump-server": "^1.0",
         "doctrine/dbal": "^2.9",
         "fzaninotto/faker": "^1.4",
