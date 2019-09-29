@@ -11,6 +11,7 @@ class WelcomeTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->visit('/')
+                ->waitFor('.title', 1)
                 ->assertSee('Laravel');
         });
     }

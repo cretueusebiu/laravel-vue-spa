@@ -28,6 +28,6 @@ class Register extends Page
         }
 
         $browser->press('Register')
-            ->pause(500);
+            ->pause(1000);
     }
 }
