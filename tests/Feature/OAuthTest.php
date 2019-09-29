@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\User;
-use Illuminate\Support\Str;
 use Mockery as m;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Illuminate\Foundation\Testing\TestResponse;
