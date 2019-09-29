@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.0 - 2019-09-29
+
+- Upgrade to Laravel 6
+
 ## 4.4.0 - 2019-05-17
 
 - Upgrade to Laravel 5.8
