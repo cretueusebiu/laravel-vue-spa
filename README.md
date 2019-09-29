@@ -12,7 +12,7 @@
 
 ## Features
 
-- Laravel 5.8 
+- Laravel 6.0
 - Vue + VueRouter + Vuex + VueI18n + ESlint
 - Pages with dynamic import and custom layouts
 - Login, register, email verification and password reset
