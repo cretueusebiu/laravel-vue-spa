@@ -5,14 +5,16 @@ import * as types from '../mutation-types'
 // state
 export const state = {
   user: null,
-  token: Cookies.get('token')
+  token: Cookies.get('token'),
+  preLoginRoute: null
 }
 
 // getters
 export const getters = {
   user: state => state.user,
   token: state => state.token,
-  check: state => state.user !== null
+  check: state => state.user !== null,
+  hasPreLoginRoute: state => state.preLoginRoute !== null
 }
 
 // mutations
@@ -40,6 +42,10 @@ export const mutations = {
 
   [types.UPDATE_USER] (state, { user }) {
     state.user = user
+  },
+
+  [types.SET_PRE_LOGIN_ROUTE] (state, { route }) {
+    state.preLoginRoute = route
   }
 }
 
@@ -75,5 +81,9 @@ export const actions = {
     const { data } = await axios.post(`/api/oauth/${provider}`)
 
     return data.url
+  },
+
+  setPreLoginRoute ({ commit }, payload) {
+    commit(types.SET_PRE_LOGIN_ROUTE, { route: payload })
   }
 }

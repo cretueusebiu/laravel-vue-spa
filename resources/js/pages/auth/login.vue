@@ -89,9 +89,16 @@ export default {
       // Fetch the user.
       await this.$store.dispatch('auth/fetchUser')
 
-      // Redirect home.
-      this.$router.push({ name: 'home' })
+      // Login successful, redirect to where user came from, or home.
+      let route = { name: 'home' }
+      if (this.$store.getters['auth/hasPreLoginRoute']) {
+        route = this.$store.state.auth.preLoginRoute
+        this.$store.dispatch('auth/setPreLoginRoute', null)
+      }
+      this.$router.push(route)
+
     }
   }
+
 }
 </script>
