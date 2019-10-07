@@ -106,8 +106,8 @@ async function afterEach (to, from, next) {
  * @param {Route} from
  * @param {Function} next
  */
-function callMiddleware (middleware, to, from, next) {
-  const stack = middleware.reverse()
+function callMiddleware (middlewares, to, from, next) {
+  const stack = middlewares.reverse()
 
   const _next = (...args) => {
     // Stop if "_next" was called with an argument or the stack is empty.
@@ -119,12 +119,16 @@ function callMiddleware (middleware, to, from, next) {
       return next(...args)
     }
 
-    const middleware = stack.pop()
+    // Allow middleware to have parameters.  Separate params from middleware
+    // name with a :, and multiple params from each other with a |.
+    const middleware = stack.pop().split(':')
+    const middleware_name = middleware.shift()
+    const middleware_params = middleware.length ? middleware.shift().split('|') : null
 
-    if (typeof middleware === 'function') {
-      middleware(to, from, _next)
-    } else if (routeMiddleware[middleware]) {
-      routeMiddleware[middleware](to, from, _next)
+    if (typeof middleware_name === 'function') {
+      middleware_name(to, from, _next, middleware_params)
+    } else if (routeMiddleware[middleware_name]) {
+      routeMiddleware[middleware_name](to, from, _next, middleware_params)
     } else {
       throw Error(`Undefined middleware [${middleware}]`)
     }
