@@ -5,6 +5,11 @@ $config = [
     'locales' => config('app.locales'),
     'githubAuth' => config('services.github.client_id'),
 ];
+
+if ( isset ( $_COOKIE['locale'] ) AND ! array_key_exists( $_COOKIE['locale'] ,  $config['locales'] ) ) {
+    setcookie ( 'locale', $config['locale'], time() + ( 86400 ), "/");
+}
+
 @endphp
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
