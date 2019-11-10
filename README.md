@@ -1,4 +1,4 @@
-# Laravel-Vue SPA 
+# Laravel-Vue SPA
 
 <a href="https://travis-ci.org/cretueusebiu/laravel-vue-spa"><img src="https://travis-ci.org/cretueusebiu/laravel-vue-spa.svg?branch=master" alt="Build Status"></a>
 <a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/d/total.svg" alt="Total Downloads"></a>
@@ -33,6 +33,10 @@
 #### Development
 
 ```bash
+# start build-in development server
+php artisan serve
+
+# then one of those:
 # build and watch
 npm run watch
 
