@@ -9,7 +9,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/dusk": "^5.1",
         "laravel/framework": "^6.0",
-        "laravel/socialite": "^4.2",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^1.0",
         "tymon/jwt-auth": "^1.0.0-rc.5"
     },
