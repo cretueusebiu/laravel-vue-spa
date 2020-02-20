@@ -4,9 +4,9 @@ namespace Tests\Browser;
 
 use App\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Tests\DuskTestCase;
 use Tests\Browser\Pages\Home;
 use Tests\Browser\Pages\Register;
+use Tests\DuskTestCase;
 
 class RegisterTest extends DuskTestCase
 {
