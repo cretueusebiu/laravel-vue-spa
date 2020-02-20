@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use App\User;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Tests\DuskTestCase;
 use Tests\Browser\Pages\Home;
 use Tests\Browser\Pages\Register;
@@ -27,7 +28,7 @@ class RegisterTest extends DuskTestCase
                     'password' => 'password',
                     'password_confirmation' => 'password',
                 ])
-                ->assertPageIs(Home::class);
+                ->assertPageIs(new User instanceof MustVerifyEmail ? Register::class : Home::class);
         });
     }
 

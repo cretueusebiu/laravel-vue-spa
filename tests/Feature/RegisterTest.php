@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -17,7 +18,7 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'secret',
         ])
         ->assertSuccessful()
-        ->assertJsonStructure(['id', 'name', 'email']);
+        ->assertJsonStructure(new User instanceof MustVerifyEmail ? ['status'] : ['id', 'name', 'email']);
     }
 
     /** @test */
