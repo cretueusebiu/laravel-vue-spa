@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Moved laravel/dusk dependency to requrie-dev
+
 ## 4.5.0 - 2019-09-29
 
 - Upgrade to Laravel 6
