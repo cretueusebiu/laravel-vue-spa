@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\User;
-use Mockery as m;
-use Tests\TestCase;
 use Illuminate\Support\Str;
-use Laravel\Socialite\Facades\Socialite;
-use PHPUnit\Framework\Assert as PHPUnit;
 use Illuminate\Testing\TestResponse;
+use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
+use Mockery as m;
+use PHPUnit\Framework\Assert as PHPUnit;
+use Tests\TestCase;
 
 class OAuthTest extends TestCase
 {
