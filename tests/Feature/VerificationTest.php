@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use App\User;
-use Tests\TestCase;
 use App\Notifications\VerifyEmail;
-use Illuminate\Support\Facades\URL;
+use App\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\URL;
+use Tests\TestCase;
 
 class VerificationTest extends TestCase
 {
