@@ -7,12 +7,10 @@ use Illuminate\Support\Facades\Route;
 | SPA Routes
 |--------------------------------------------------------------------------
 |
-| Here is where the SPA frontend route is registered. This
-| route is loaded by the RouteServiceProvider within a group which
-| contains the "spa" middleware group.
+| Here is where you can register SPA routes for your frontend. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "spa" middleware group.
 |
 */
 
-Route::get('{path}', function () {
-    return view('index');
-})->where('path', '(.*)');
+Route::get('{path}', 'SpaController')->where('path', '(.*)');

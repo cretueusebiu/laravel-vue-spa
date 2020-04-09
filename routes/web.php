@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,4 +13,6 @@
 |
 */
 
-Route::get('{path}', 'SpaController@index')->where('path', '(.*)');
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// });

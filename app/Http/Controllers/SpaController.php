@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 class SpaController extends Controller
 {
     /**
-     * Get SPA frontend.
+     * Get the SPA view.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __invoke()
     {
-        return view('index');
+        return view('spa');
     }
 }
