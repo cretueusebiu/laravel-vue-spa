@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.6.0 - 2020-03-25
+
+- Upgrade to Laravel 7
+
 ## 4.5.0 - 2019-09-29
 
 - Upgrade to Laravel 6
