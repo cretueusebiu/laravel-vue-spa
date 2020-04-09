@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.7.0 - 2020-04-09
+
+- Added `routes/spa.php` and `spa` middleware for serving the frontend [#249](https://github.com/cretueusebiu/laravel-vue-spa/pull/249)
+- Added controllers for user and spa view to fix route caching [#248](https://github.com/cretueusebiu/laravel-vue-spa/pull/248)
+
 ## 4.6.0 - 2020-03-25
 
 - Upgrade to Laravel 7
