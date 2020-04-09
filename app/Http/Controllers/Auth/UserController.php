@@ -11,10 +11,10 @@ class UserController extends Controller
      * Get authenticated user.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \App\User
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function self(Request $request)
+    public function current(Request $request)
     {
-        return $request->user();
+        return response()->json($request->user());
     }
 }
