@@ -1,5 +1,5 @@
 <template>
-  <li class="nav-item dropdown" v-if="locales.length>1">
+  <li class="nav-item dropdown" v-if="locales.length > 1">
     <a class="nav-link dropdown-toggle" href="#" role="button"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
     >
