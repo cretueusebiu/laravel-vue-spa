@@ -119,18 +119,32 @@ function callMiddleware (middleware, to, from, next) {
       return next(...args)
     }
 
-    const middleware = stack.pop()
+    const { middleware, params } = parseMiddleware(stack.pop())
 
     if (typeof middleware === 'function') {
-      middleware(to, from, _next)
+      middleware(to, from, _next, params)
     } else if (routeMiddleware[middleware]) {
-      routeMiddleware[middleware](to, from, _next)
+      routeMiddleware[middleware](to, from, _next, params)
     } else {
       throw Error(`Undefined middleware [${middleware}]`)
     }
   }
 
   _next()
+}
+
+/**
+ * @param  {String|Function} middleware
+ * @return {Object}
+ */
+function parseMiddleware (middleware) {
+  if (typeof middleware === 'function') {
+    return { middleware }
+  }
+
+  const [name, params] = middleware.split(':')
+
+  return { middleware: name, params }
 }
 
 /**
@@ -190,7 +204,11 @@ function scrollBehavior (to, from, savedPosition) {
     return {}
   }
 
-  return { x: 0, y: 0 }
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ x: 0, y: 0 })
+    }, 190)
+  })
 }
 
 /**

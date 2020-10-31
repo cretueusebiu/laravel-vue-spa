@@ -1,6 +1,6 @@
 # Laravel-Vue SPA 
 
-<a href="https://travis-ci.org/cretueusebiu/laravel-vue-spa"><img src="https://travis-ci.org/cretueusebiu/laravel-vue-spa.svg?branch=master" alt="Build Status"></a>
+<a href="https://github.com/cretueusebiu/laravel-vue-spa/actions"><img src="https://github.com/cretueusebiu/laravel-vue-spa/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/v/stable.svg" alt="Latest Stable Version"></a>
 
@@ -12,7 +12,7 @@
 
 ## Features
 
-- Laravel 7
+- Laravel 8
 - Vue + VueRouter + Vuex + VueI18n + ESlint
 - Pages with dynamic import and custom layouts
 - Login, register, email verification and password reset
@@ -33,10 +33,10 @@
 #### Development
 
 ```bash
-# build and watch
+# Build and watch
 npm run watch
 
-# serve with hot reloading
+# Serve with hot reloading (not working)
 npm run hot
 ```
 
@@ -59,6 +59,16 @@ For other providers you may need to set the appropriate keys in `config/services
 ## Email Verification
 
 To enable email verification make sure that your `App\User` model implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract.
+
+## Testing
+
+```bash
+# Run unit and feature tests
+vendor/bin/phpunit
+
+# Run Dusk browser tests
+php artisan dusk
+```
 
 ## Changelog
 

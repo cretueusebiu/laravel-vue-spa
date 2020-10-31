@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.0.0 - 2020-10-31
+
+- Upgrade to Laravel 8
+- Update dependencies
+- Fixed locale cookie fallback [#221](https://github.com/cretueusebiu/laravel-vue-spa/pull/221)
+- Added scroll delay [#220](https://github.com/cretueusebiu/laravel-vue-spa/pull/220)
+- Added redirect to intended url [#208](https://github.com/cretueusebiu/laravel-vue-spa/pull/208)
+- Added middleware parameter [#124](https://github.com/cretueusebiu/laravel-vue-spa/pull/124)
+
 ## 4.7.0 - 2020-04-09
 
 - Added `routes/spa.php` and `spa` middleware for serving the frontend [#249](https://github.com/cretueusebiu/laravel-vue-spa/pull/249)

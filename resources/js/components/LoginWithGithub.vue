@@ -11,7 +11,7 @@ export default {
 
   computed: {
     githubAuth: () => window.config.githubAuth,
-    url: () => `/api/oauth/github`
+    url: () => '/api/oauth/github'
   },
 
   mounted () {

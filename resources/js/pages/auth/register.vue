@@ -66,11 +66,11 @@ import Form from 'vform'
 import LoginWithGithub from '~/components/LoginWithGithub'
 
 export default {
-  middleware: 'guest',
-
   components: {
     LoginWithGithub
   },
+
+  middleware: 'guest',
 
   metaInfo () {
     return { title: this.$t('register') }

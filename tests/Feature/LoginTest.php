@@ -2,37 +2,29 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use App\Models\User;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    /** @var \App\User */
-    protected $user;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = factory(User::class)->create();
-    }
-
     /** @test */
     public function authenticate()
     {
+        $user = User::factory()->create();
+
         $this->postJson('/api/login', [
-            'email' => $this->user->email,
+            'email' => $user->email,
             'password' => 'password',
         ])
-        ->assertSuccessful()
-        ->assertJsonStructure(['token', 'expires_in'])
-        ->assertJson(['token_type' => 'bearer']);
+            ->assertSuccessful()
+            ->assertJsonStructure(['token', 'expires_in'])
+            ->assertJson(['token_type' => 'bearer']);
     }
 
     /** @test */
     public function fetch_the_current_user()
     {
-        $this->actingAs($this->user)
+        $this->actingAs(User::factory()->create())
             ->getJson('/api/user')
             ->assertSuccessful()
             ->assertJsonStructure(['id', 'name', 'email']);
@@ -42,7 +34,7 @@ class LoginTest extends TestCase
     public function log_out()
     {
         $token = $this->postJson('/api/login', [
-            'email' => $this->user->email,
+            'email' => User::factory()->create()->email,
             'password' => 'password',
         ])->json()['token'];
 

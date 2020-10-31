@@ -16,4 +16,4 @@ library.add(
   faUser, faLock, faSignOutAlt, faCog, faGithub
 )
 
-Vue.component('fa', FontAwesomeIcon)
+Vue.component('Fa', FontAwesomeIcon)
