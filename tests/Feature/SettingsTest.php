@@ -8,20 +8,10 @@ use Tests\TestCase;
 
 class SettingsTest extends TestCase
 {
-    /** @var \App\User */
-    protected $user;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->make();
-    }
-
     /** @test */
     public function update_profile_info()
     {
-        $this->actingAs($this->user)
+        $this->actingAs($user = User::factory()->create())
             ->patchJson('/api/settings/profile', [
                 'name' => 'Test User',
                 'email' => 'test@test.app',
@@ -30,7 +20,7 @@ class SettingsTest extends TestCase
             ->assertJsonStructure(['id', 'name', 'email']);
 
         $this->assertDatabaseHas('users', [
-            'id' => $this->user->id,
+            'id' => $user->id,
             'name' => 'Test User',
             'email' => 'test@test.app',
         ]);
@@ -39,13 +29,13 @@ class SettingsTest extends TestCase
     /** @test */
     public function update_password()
     {
-        $this->actingAs($this->user)
+        $this->actingAs($user = User::factory()->create())
             ->patchJson('/api/settings/password', [
                 'password' => 'updated',
                 'password_confirmation' => 'updated',
             ])
             ->assertSuccessful();
 
-        $this->assertTrue(Hash::check('updated', $this->user->password));
+        $this->assertTrue(Hash::check('updated', $user->password));
     }
 }
