@@ -11,11 +11,28 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+          image: mysql:5.7
+          env:
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+            MYSQL_DATABASE: laravel
+          ports:
+            - 3306
+          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Prepare the environment
         run: cp .env.example .env
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: composer-${{ hashFiles('composer.json') }}
 
       - name: Install composer dependencies
         run: composer install -q --no-ansi --no-interaction --no-progress --no-suggest --prefer-dist --optimize-autoloader
@@ -32,11 +49,6 @@ jobs:
       - name: Build client
         run: npm run production
 
-      - name: Create database
-        run: |
-          sudo systemctl start mysql
-          mysql -h 127.0.0.1 --user="root" --password="secret" -e "CREATE DATABASE 'laravel' character set UTF8mb4 collate utf8mb4_bin;"
-
       - name: Upgrade Chrome driver
         run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
 
@@ -49,7 +61,7 @@ jobs:
       - name: Run Dusk tests
         env:
           APP_URL: "http://127.0.0.1:8000"
-          DB_PASSWORD: "secret"
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
         run: php artisan dusk
 
       - name: Upload screenshots
