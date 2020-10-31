@@ -31,7 +31,7 @@ class OAuthController extends Controller
      * @param  string $provider
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirectToProvider($provider)
+    public function redirect($provider)
     {
         return [
             'url' => Socialite::driver($provider)->stateless()->redirect()->getTargetUrl(),
@@ -44,7 +44,7 @@ class OAuthController extends Controller
      * @param  string $driver
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback($provider)
+    public function handleCallback($provider)
     {
         $user = Socialite::driver($provider)->stateless()->user();
         $user = $this->findOrCreateUser($provider, $user);
