@@ -4,6 +4,8 @@
 
 - Upgrade to Laravel 8
 - Update dependencies
+- Fixed locale cookie fallback [#221](https://github.com/cretueusebiu/laravel-vue-spa/pull/221)
+- Added scroll delay [#220](https://github.com/cretueusebiu/laravel-vue-spa/pull/220)
 
 ## 4.7.0 - 2020-04-09
 
