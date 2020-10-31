@@ -8,35 +8,35 @@ on:
 
 jobs:
   tests:
-    
+
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Prepare the environment
         run: cp .env.example .env
-    
+
       - name: Install composer dependencies
         run: composer install -q --no-ansi --no-interaction --no-progress --no-suggest --prefer-dist --optimize-autoloader
- 
+
       - name: Directory permissions
         run: chmod -R 777 storage bootstrap/cache
-    
+
       - name: Run tests (Unit and Feature)
         run: vendor/bin/phpunit
-      
+
       - name: Install npm dependencies
         run: npm install --no-audit --no-progress --quiet
-      
+
       - name: Build client
         run: npm run production
 
       - name: Create database
         run: |
           sudo systemctl start mysql
-          mysql --user="root" --password="secret" -e "CREATE DATABASE 'laravel' character set UTF8mb4 collate utf8mb4_bin;"
-          
+          mysql -h 127.0.0.1 --user="root" --password="secret" -e "CREATE DATABASE 'laravel' character set UTF8mb4 collate utf8mb4_bin;"
+
       - name: Upgrade Chrome driver
         run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
 
