@@ -33,10 +33,10 @@
 #### Development
 
 ```bash
-# build and watch
+# Build and watch
 npm run watch
 
-# serve with hot reloading
+# Serve with hot reloading (not working)
 npm run hot
 ```
 
@@ -59,6 +59,16 @@ For other providers you may need to set the appropriate keys in `config/services
 ## Email Verification
 
 To enable email verification make sure that your `App\User` model implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract.
+
+## Testing
+
+```bash
+# Run unit and feature tests
+vendor/bin/phpunit
+
+# Run Dusk browser tests
+php artisan dusk
+```
 
 ## Changelog
 
