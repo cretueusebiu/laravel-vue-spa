@@ -3,19 +3,9 @@ import * as types from '../mutation-types'
 
 const { locale, locales } = window.config
 
-function validateCookieLocale () {
-  const cookieLocale = Cookies.get('locale') || locale
-  if (locales.hasOwnProperty(cookieLocale)) {
-    return cookieLocale
-  } else {
-    Cookies.set('locale', locale, { expires: 365 })
-    return locale
-  }
-}
-
 // state
 export const state = {
-  locale: validateCookieLocale(),
+  locale: getLocale(locales, locale),
   locales: locales
 }
 
@@ -39,4 +29,21 @@ export const actions = {
 
     Cookies.set('locale', locale, { expires: 365 })
   }
+}
+
+/**
+ * @param  {String[]} locales
+ * @param  {String} fallback
+ * @return {String}
+ */
+function getLocale (locales, fallback) {
+  const locale = Cookies.get('locale')
+
+  if (Object.prototype.hasOwnProperty.call(locales, locale)) {
+    return locale
+  } else if (locale) {
+    Cookies.remove('locale')
+  }
+
+  return fallback
 }
