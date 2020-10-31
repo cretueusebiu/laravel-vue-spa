@@ -35,7 +35,7 @@ jobs:
       - name: Create database
         run: |
           sudo systemctl start mysql
-          mysql --user="root" -e "CREATE DATABASE 'laravel' character set UTF8mb4 collate utf8mb4_bin;"
+          mysql --user="root" --password="secret" -e "CREATE DATABASE 'laravel' character set UTF8mb4 collate utf8mb4_bin;"
           
       - name: Upgrade Chrome driver
         run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
@@ -49,6 +49,7 @@ jobs:
       - name: Run Dusk tests
         env:
           APP_URL: "http://127.0.0.1:8000"
+          DB_PASSWORD: "secret"
         run: php artisan dusk
 
       - name: Upload screenshots
