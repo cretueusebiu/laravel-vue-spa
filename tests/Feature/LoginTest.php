@@ -13,9 +13,9 @@ class LoginTest extends TestCase
         $user = User::factory()->create();
 
         $this->postJson('/api/login', [
-                'email' => $user->email,
-                'password' => 'password',
-            ])
+            'email' => $user->email,
+            'password' => 'password',
+        ])
             ->assertSuccessful()
             ->assertJsonStructure(['token', 'expires_in'])
             ->assertJson(['token_type' => 'bearer']);
