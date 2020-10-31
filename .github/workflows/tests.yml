@@ -47,7 +47,7 @@ jobs:
         run: vendor/bin/phpunit
 
       - name: Install npm dependencies
-        run: npm install --no-audit --no-progress --quiet
+        run: npm install --no-audit --no-progress --silent
 
       - name: Build client
         run: npm run production
