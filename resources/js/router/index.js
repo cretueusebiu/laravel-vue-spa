@@ -190,7 +190,11 @@ function scrollBehavior (to, from, savedPosition) {
     return {}
   }
 
-  return { x: 0, y: 0 }
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ x: 0, y: 0 })
+    }, 190)
+  })
 }
 
 /**
