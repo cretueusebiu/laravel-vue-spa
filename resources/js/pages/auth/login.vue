@@ -54,6 +54,7 @@
 
 <script>
 import Form from 'vform'
+import Cookies from 'js-cookie'
 import LoginWithGithub from '~/components/LoginWithGithub'
 
 export default {
@@ -90,7 +91,18 @@ export default {
       await this.$store.dispatch('auth/fetchUser')
 
       // Redirect home.
-      this.$router.push({ name: 'home' })
+      this.redirect()
+    },
+
+    redirect () {
+      const intendedUrl = Cookies.get('intended_url')
+
+      if (intendedUrl) {
+        Cookies.remove('intended_url')
+        this.$router.push({ path: intendedUrl })
+      } else {
+        this.$router.push({ name: 'home' })
+      }
     }
   }
 }

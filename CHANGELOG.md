@@ -6,6 +6,7 @@
 - Update dependencies
 - Fixed locale cookie fallback [#221](https://github.com/cretueusebiu/laravel-vue-spa/pull/221)
 - Added scroll delay [#220](https://github.com/cretueusebiu/laravel-vue-spa/pull/220)
+- Added redirect to intended url [#208](https://github.com/cretueusebiu/laravel-vue-spa/pull/208)
 
 ## 4.7.0 - 2020-04-09
 
