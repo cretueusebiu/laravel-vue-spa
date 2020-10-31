@@ -58,6 +58,9 @@ jobs:
       - name: Start Chrome driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux &
 
+      - name: Create database
+        run: touch database/dusk.sqlite
+
       - name: Run Laravel server
         run: php artisan serve &
 
