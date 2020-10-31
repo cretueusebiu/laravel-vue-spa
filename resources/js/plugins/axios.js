@@ -8,7 +8,7 @@ import i18n from '~/plugins/i18n'
 axios.interceptors.request.use(request => {
   const token = store.getters['auth/token']
   if (token) {
-    request.headers.common['Authorization'] = `Bearer ${token}`
+    request.headers.common.Authorization = `Bearer ${token}`
   }
 
   const locale = store.getters['lang/locale']
