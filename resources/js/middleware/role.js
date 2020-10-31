@@ -1,21 +1,21 @@
 import store from '~/store'
 
 /**
- * Middleware to check for a given role.  Not currently used anywhere in this
- * project, but here as an example of middleware functions that accept a
- * parameter.  Add this to your component with
+ * This is middleware to check the current user role.
  *
- * middleware: 'role:admin|manager|supervisor'
- *
- * ... to restrict a component to users which one of those three roles.
+ * middleware: 'role:admin,manager',
  */
+
 export default (to, from, next, roles) => {
-  if(roles && Array.isArray(roles)){
-    for (var i = 0; i < roles.length; i++){
-      if ( ! store.getters['auth/hasRole'](roles[i])) {
-        next('/404')
-      }
-    }
+  // Grab the user
+  const user = store.getters['auth/user']
+
+  // Split roles into an array
+  roles = roles.split(',')
+
+  // Check if the user has one of the required roles...
+  if (!roles.includes(user.role)) {
+    next('/unauthorized')
   }
 
   next()
