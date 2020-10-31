@@ -27,7 +27,7 @@ axios.interceptors.response.use(response => response, error => {
 
   if (status >= 500) {
     Swal.fire({
-      type: 'error',
+      icon: 'error',
       title: i18n.t('error_alert_title'),
       text: i18n.t('error_alert_text'),
       reverseButtons: true,
@@ -38,7 +38,7 @@ axios.interceptors.response.use(response => response, error => {
 
   if (status === 401 && store.getters['auth/check']) {
     Swal.fire({
-      type: 'warning',
+      icon: 'warning',
       title: i18n.t('token_expired_alert_title'),
       text: i18n.t('token_expired_alert_text'),
       reverseButtons: true,
