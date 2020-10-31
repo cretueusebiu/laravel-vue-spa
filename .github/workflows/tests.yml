@@ -8,14 +8,60 @@ on:
 
 jobs:
   tests:
-
+    
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v2
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: vendor/bin/phpunit
+      - name: Checkout code
+      - uses: actions/checkout@v2
+      
+      - name: Prepare the environment
+        run: cp .env.example .env
+    
+      - name: Install composer dependencies
+        run: composer install -q --no-ansi --no-interaction --no-progress --no-suggest --prefer-dist --optimize-autoloader
+ 
+      - name: Directory permissions
+        run: chmod -R 777 storage bootstrap/cache
+    
+      - name: Run tests (Unit and Feature)
+        run: vendor/bin/phpunit
+      
+      - name: Install npm dependencies
+        run: npm install --no-audit --no-progress --quiet
+      
+      - name: Build client
+        run: npm run production
+
+      - name: Create database
+        run: |
+          sudo systemctl start mysql
+          mysql --user="root" -e "CREATE DATABASE 'laravel' character set UTF8mb4 collate utf8mb4_bin;"
+          
+      - name: Upgrade Chrome driver
+        run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
+
+      - name: Start Chrome driver
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+
+      - name: Run Laravel server
+        run: php artisan serve &
+
+      - name: Run Dusk tests
+        env:
+          APP_URL: "http://127.0.0.1:8000"
+        run: php artisan dusk
+
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: tests/Browser/screenshots
+
+      - name: Upload console logs
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: console
+          path: tests/Browser/console
