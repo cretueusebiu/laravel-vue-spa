@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use App\Models\User;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -23,7 +23,7 @@ class RegisterTest extends TestCase
     /** @test */
     public function can_not_register_with_existing_email()
     {
-        factory(User::class)->create(['email' => 'test@test.app']);
+        User::factory()->make(['email' => 'test@test.app']);
 
         $this->postJson('/api/register', [
             'name' => 'Test User',

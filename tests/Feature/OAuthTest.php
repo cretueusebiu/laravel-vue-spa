@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 use Laravel\Socialite\Facades\Socialite;
@@ -74,7 +74,7 @@ class OAuthTest extends TestCase
     /** @test */
     public function update_user_and_return_token()
     {
-        $user = factory(User::class)->create(['email' => 'test@example.com']);
+        $user = User::factory()->make(['email' => 'test@example.com']);
         $user->oauthProviders()->create([
             'provider' => 'github',
             'provider_user_id' => '123',
@@ -101,7 +101,7 @@ class OAuthTest extends TestCase
     /** @test */
     public function can_not_create_user_if_email_is_taken()
     {
-        factory(User::class)->create(['email' => 'test@example.com']);
+        User::factory()->make(['email' => 'test@example.com']);
 
         $this->mockSocialite('github', ['email' => 'test@example.com']);
 

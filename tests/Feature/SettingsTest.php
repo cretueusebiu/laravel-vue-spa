@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -15,7 +15,7 @@ class SettingsTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->make();
     }
 
     /** @test */

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Notifications\VerifyEmail;
-use App\User;
+use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
@@ -15,7 +15,7 @@ class VerificationTest extends TestCase
     /** @test */
     public function can_verify_email()
     {
-        $user = factory(User::class)->create(['email_verified_at' => null]);
+        $user = User::factory()->make(['email_verified_at' => null]);
         $url = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['user' => $user->id]);
 
         Event::fake();
@@ -32,7 +32,7 @@ class VerificationTest extends TestCase
     /** @test */
     public function can_not_verify_if_already_verified()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->make();
         $url = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['user' => $user->id]);
 
         $this->postJson($url)
@@ -43,7 +43,7 @@ class VerificationTest extends TestCase
     /** @test */
     public function can_not_verify_if_url_has_invalid_signature()
     {
-        $user = factory(User::class)->create(['email_verified_at' => null]);
+        $user = User::factory()->make(['email_verified_at' => null]);
 
         $this->postJson("/api/email/verify/{$user->id}")
             ->assertStatus(400)
@@ -53,7 +53,7 @@ class VerificationTest extends TestCase
     /** @test */
     public function resend_verification_notification()
     {
-        $user = factory(User::class)->create(['email_verified_at' => null]);
+        $user = User::factory()->make(['email_verified_at' => null]);
 
         Notification::fake();
 
@@ -74,7 +74,7 @@ class VerificationTest extends TestCase
     /** @test */
     public function can_not_resend_verification_notification_if_email_already_verified()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->make();
 
         Notification::fake();
 
