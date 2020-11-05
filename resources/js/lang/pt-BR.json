@@ -1,6 +1,6 @@
 {
   "ok": "Ok",
-  "cancel": "Cencelar",
+  "cancel": "Cancelar",
   "error_alert_title": "Oops...",
   "error_alert_text": "Algo deu errado! Por favor, tente novamente.",
   "token_expired_alert_title": "Sessão expirada!",
@@ -35,5 +35,5 @@
   "send_verification_link": "Enviar link de verificação",
   "resend_verification_link": "Reenviar link de verificação?",
   "failed_to_verify_email": "Falha ao verificar o email.",
-  "verify_email_address": "Enviámos um e-mail com o link de verificação."
+  "verify_email_address": "Enviamos um e-mail com o link de verificação."
 }
