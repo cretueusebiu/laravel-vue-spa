@@ -8,8 +8,8 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
-use Tests\TestCase;
 use App\Providers\RouteServiceProvider;
+use Tests\TestCase;
 
 class VerificationTest extends TestCase
 {
@@ -46,7 +46,7 @@ class VerificationTest extends TestCase
     {
         $user = User::factory()->create(['email_verified_at' => null]);
 
-        $this->postJson(RouteServiceProvider::API_BASE_URL . "/email/verify/{$user->id}")
+        $this->postJson(RouteServiceProvider::API_BASE_URL."/email/verify/{$user->id}")
             ->assertStatus(400)
             ->assertJsonFragment(['status' => 'The verification link is invalid.']);
     }
@@ -58,7 +58,7 @@ class VerificationTest extends TestCase
 
         Notification::fake();
 
-        $this->postJson(RouteServiceProvider::API_BASE_URL . '/email/resend', ['email' => $user->email])
+        $this->postJson(RouteServiceProvider::API_BASE_URL.'/email/resend', ['email' => $user->email])
             ->assertSuccessful();
 
         Notification::assertSentTo($user, VerifyEmail::class);
@@ -67,7 +67,7 @@ class VerificationTest extends TestCase
     /** @test */
     public function can_not_resend_verification_notification_if_email_does_not_exist()
     {
-        $this->postJson(RouteServiceProvider::API_BASE_URL . '/email/resend', ['email' => 'foo@bar.com'])
+        $this->postJson(RouteServiceProvider::API_BASE_URL.'/email/resend', ['email' => 'foo@bar.com'])
             ->assertStatus(422)
             ->assertJsonFragment(['errors' => ['email' => ['We can\'t find a user with that e-mail address.']]]);
     }
@@ -79,7 +79,7 @@ class VerificationTest extends TestCase
 
         Notification::fake();
 
-        $this->postJson(RouteServiceProvider::API_BASE_URL . '/email/resend', ['email' => $user->email])
+        $this->postJson(RouteServiceProvider::API_BASE_URL.'/email/resend', ['email' => $user->email])
             ->assertStatus(422)
             ->assertJsonFragment(['errors' => ['email' => ['The email is already verified.']]]);
 

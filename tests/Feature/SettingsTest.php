@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Tests\TestCase;
 use App\Providers\RouteServiceProvider;
+use Tests\TestCase;
 
 class SettingsTest extends TestCase
 {
@@ -13,7 +13,7 @@ class SettingsTest extends TestCase
     public function update_profile_info()
     {
         $this->actingAs($user = User::factory()->create())
-            ->patchJson(RouteServiceProvider::API_BASE_URL . '/settings/profile', [
+            ->patchJson(RouteServiceProvider::API_BASE_URL.'/settings/profile', [
                 'name' => 'Test User',
                 'email' => 'test@test.app',
             ])
@@ -31,7 +31,7 @@ class SettingsTest extends TestCase
     public function update_password()
     {
         $this->actingAs($user = User::factory()->create())
-            ->patchJson(RouteServiceProvider::API_BASE_URL . '/settings/password', [
+            ->patchJson(RouteServiceProvider::API_BASE_URL.'/settings/password', [
                 'password' => 'updated',
                 'password_confirmation' => 'updated',
             ])
