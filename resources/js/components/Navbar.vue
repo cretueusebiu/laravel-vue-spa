@@ -78,7 +78,7 @@ export default {
   methods: {
     async logout () {
       // Log out the user.
-      await this.$store.dispatch('auth/logout')
+      await this.$store.dispatch('auth/logout', { baseUrl: this.$store.getters['core/baseUrl'] })
 
       // Redirect to login.
       this.$router.push({ name: 'login' })

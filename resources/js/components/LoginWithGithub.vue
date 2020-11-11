@@ -11,7 +11,7 @@ export default {
 
   computed: {
     githubAuth: () => window.config.githubAuth,
-    url: () => '/api/oauth/github'
+    url: () => this.$store.getters['core/baseUrl'] + 'oauth/github'
   },
 
   mounted () {
@@ -27,7 +27,8 @@ export default {
       const newWindow = openWindow('', this.$t('login'))
 
       const url = await this.$store.dispatch('auth/fetchOauthUrl', {
-        provider: 'github'
+        provider: 'github',
+        baseUrl: this.$store.getters['core/baseUrl']
       })
 
       newWindow.location.href = url

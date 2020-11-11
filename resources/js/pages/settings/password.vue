@@ -52,7 +52,7 @@ export default {
 
   methods: {
     async update () {
-      await this.form.patch('/api/settings/password')
+      await this.form.patch(this.$store.getters['core/baseUrl'] + 'settings/password')
 
       this.form.reset()
     }

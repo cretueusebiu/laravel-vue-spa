@@ -79,7 +79,7 @@ export default {
   methods: {
     async login () {
       // Submit the form.
-      const { data } = await this.form.post('/api/login')
+      const { data } = await this.form.post(this.$store.getters['core/baseUrl'] + 'login')
 
       // Save the token.
       this.$store.dispatch('auth/saveToken', {
@@ -88,7 +88,7 @@ export default {
       })
 
       // Fetch the user.
-      await this.$store.dispatch('auth/fetchUser')
+      await this.$store.dispatch('auth/fetchUser', { baseUrl: this.$store.getters['core/baseUrl'] })
 
       // Redirect home.
       this.redirect()
