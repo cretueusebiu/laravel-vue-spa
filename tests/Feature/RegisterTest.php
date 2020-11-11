@@ -4,13 +4,14 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Tests\TestCase;
+use App\Providers\RouteServiceProvider;
 
 class RegisterTest extends TestCase
 {
     /** @test */
     public function can_register()
     {
-        $this->postJson('/api/register', [
+        $this->postJson(RouteServiceProvider::API_BASE_URL . '/register', [
             'name' => 'Test User',
             'email' => 'test@test.app',
             'password' => 'secret',
@@ -25,7 +26,7 @@ class RegisterTest extends TestCase
     {
         User::factory()->create(['email' => 'test@test.app']);
 
-        $this->postJson('/api/register', [
+        $this->postJson(RouteServiceProvider::API_BASE_URL . '/register', [
             'name' => 'Test User',
             'email' => 'test@test.app',
             'password' => 'secret',

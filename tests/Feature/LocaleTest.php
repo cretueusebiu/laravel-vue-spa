@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Providers\RouteServiceProvider;
 
 class LocaleTest extends TestCase
 {
@@ -10,7 +11,7 @@ class LocaleTest extends TestCase
     public function set_locale_from_header()
     {
         $this->withHeaders(['Accept-Language' => 'zh-CN'])
-            ->postJson('/api/login');
+            ->postJson(RouteServiceProvider::API_BASE_URL . '/login');
 
         $this->assertEquals('zh-CN', $this->app->getLocale());
     }
@@ -19,7 +20,7 @@ class LocaleTest extends TestCase
     public function set_locale_from_header_short()
     {
         $this->withHeaders(['Accept-Language' => 'en-US'])
-            ->postJson('/api/login');
+            ->postJson(RouteServiceProvider::API_BASE_URL . '/login');
 
         $this->assertEquals('en', $this->app->getLocale());
     }
