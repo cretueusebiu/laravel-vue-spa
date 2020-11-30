@@ -1,7 +1,15 @@
 import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
 
-const { locale, locales } = window.config
+const locales = {
+    'en': 'EN' ,
+    'es': 'ES',
+    'fr': 'FR',
+    'pt-BR': 'BR',
+    'zh-CN': '中文'
+};
+
+const locale = process.env.MIX_APP_DEFAULT_LOCALE
 
 // state
 export const state = {
