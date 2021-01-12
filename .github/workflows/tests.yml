@@ -9,6 +9,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [7.3, 7.4, 8.0]
+
+    name: PHP ${{ matrix.php }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -32,11 +39,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, mbstring, pdo, sqlite, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+
       - name: Prepare the environment
         run: cp .env.example .env
 
       - name: Install composer dependencies
-        run: composer install -q --no-ansi --no-interaction --no-progress --no-suggest --prefer-dist --optimize-autoloader
+        run: composer install --prefer-dist --no-interaction --no-progress --ignore-platform-reqs --optimize-autoloader
 
       - name: Directory permissions
         run: chmod -R 777 storage bootstrap/cache
