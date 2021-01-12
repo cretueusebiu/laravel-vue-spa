@@ -22,5 +22,7 @@ class PasswordController extends Controller
         $request->user()->update([
             'password' => bcrypt($request->password),
         ]);
+
+        return response()->json(null, 204);
     }
 }
