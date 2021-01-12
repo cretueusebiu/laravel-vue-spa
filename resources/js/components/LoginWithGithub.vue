@@ -6,12 +6,14 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+import i18n from '~/plugins/i18n'
+
 export default {
   name: 'LoginWithGithub',
 
   computed: {
-    githubAuth: () => window.config.githubAuth,
-    url: () => '/api/oauth/github'
+    githubAuth: () => window.config.githubAuth
   },
 
   mounted () {
@@ -24,28 +26,30 @@ export default {
 
   methods: {
     async login () {
-      const newWindow = openWindow('', this.$t('login'))
-
-      const url = await this.$store.dispatch('auth/fetchOauthUrl', {
-        provider: 'github'
-      })
-
-      newWindow.location.href = url
+      openWindow('/oauth/github', this.$t('login'))
     },
 
     /**
      * @param {MessageEvent} e
      */
-    onMessage (e) {
-      if (e.origin !== window.origin || !e.data.token) {
+    async onMessage (e) {
+      if (e.origin !== window.origin) {
         return
       }
 
-      this.$store.dispatch('auth/saveToken', {
-        token: e.data.token
-      })
+      if (e.data.success) {
+        await this.$store.dispatch('auth/fetchUser')
 
-      this.$router.push({ name: 'home' })
+        this.$router.push({ name: 'home' })
+      } else if (e.data.error) {
+        Swal.fire({
+          icon: 'error',
+          title: i18n.t('error_alert_title'),
+          text: e.data.error,
+          reverseButtons: true,
+          confirmButtonText: i18n.t('ok')
+        })
+      }
     }
   }
 }

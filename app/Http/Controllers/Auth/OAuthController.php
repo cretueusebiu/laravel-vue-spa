@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OAuthProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class OAuthController extends Controller
@@ -33,30 +34,40 @@ class OAuthController extends Controller
      */
     public function redirect($provider)
     {
-        return [
-            'url' => Socialite::driver($provider)->stateless()->redirect()->getTargetUrl(),
-        ];
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
      * Obtain the user information from the provider.
      *
+     * @param  \Illuminate\Http\Request $request
      * @param  string $driver
      * @return \Illuminate\Http\Response
      */
-    public function handleCallback($provider)
+    public function callback(Request $request, $provider)
     {
-        $user = Socialite::driver($provider)->stateless()->user();
+        $user = Socialite::driver($provider)->user();
         $user = $this->findOrCreateUser($provider, $user);
 
-        $this->guard()->setToken(
-            $token = $this->guard()->login($user)
-        );
+        $this->guard()->login($user);
 
-        return view('oauth/callback', [
-            'token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $this->guard()->getPayload()->get('exp') - time(),
+        return $this->sendLoginResponse($request);
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return view('postMessage', [
+            'payload' => ['success' => true],
         ]);
     }
 

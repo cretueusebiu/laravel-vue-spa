@@ -14,6 +14,8 @@ class EmailTakenException extends Exception
      */
     public function render($request)
     {
-        return response()->view('oauth.emailTaken', [], 400);
+        return response()->view('postMessage', [
+            'payload' => ['error' => __('validation.unique', ['attribute' => 'email'])],
+        ]);
     }
 }

@@ -4,6 +4,9 @@ $config = [
     'locale' => $locale = app()->getLocale(),
     'locales' => config('app.locales'),
     'githubAuth' => config('services.github.client_id'),
+    'data' => [
+      'user' => Auth::user(),
+    ],
 ];
 @endphp
 <!DOCTYPE html>

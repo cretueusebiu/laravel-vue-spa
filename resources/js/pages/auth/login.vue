@@ -25,7 +25,7 @@
           <div class="form-group row">
             <div class="col-md-3" />
             <div class="col-md-7 d-flex">
-              <checkbox v-model="remember" name="remember">
+              <checkbox v-model="form.remember" name="remember">
                 {{ $t('remember_me') }}
               </checkbox>
 
@@ -71,21 +71,15 @@ export default {
   data: () => ({
     form: new Form({
       email: '',
-      password: ''
-    }),
-    remember: false
+      password: '',
+      remember: false
+    })
   }),
 
   methods: {
     async login () {
       // Submit the form.
-      const { data } = await this.form.post('/api/login')
-
-      // Save the token.
-      this.$store.dispatch('auth/saveToken', {
-        token: data.token,
-        remember: this.remember
-      })
+      await this.form.post('/login')
 
       // Fetch the user.
       await this.$store.dispatch('auth/fetchUser')

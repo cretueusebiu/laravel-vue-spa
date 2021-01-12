@@ -40,11 +40,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'spa' => [
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-
         'api' => [
+            \App\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\OAuthController;
+use App\Http\Controllers\SpaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/welcome', function () {
-//     return view('welcome');
-// });
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout']);
+
+Route::get('oauth/{driver}', [OAuthController::class, 'redirect']);
+Route::get('oauth/{driver}/callback', [OAuthController::class, 'callback'])->name('oauth.callback');
+
+Route::get('{path}', SpaController::class)->where('path', '(.*)');

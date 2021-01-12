@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
+    use AuthenticatesUsers { attemptLogin as parentAttemptLogin; }
 
     /**
      * Create a new controller instance.
@@ -31,40 +31,17 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        $token = $this->guard()->attempt($this->credentials($request));
-
-        if (! $token) {
+        if (! $this->parentAttemptLogin($request)) {
             return false;
         }
 
         $user = $this->guard()->user();
+
         if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
             return false;
         }
 
-        $this->guard()->setToken($token);
-
         return true;
-    }
-
-    /**
-     * Send the response after the user was authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function sendLoginResponse(Request $request)
-    {
-        $this->clearLoginAttempts($request);
-
-        $token = (string) $this->guard()->getToken();
-        $expiration = $this->guard()->getPayload()->get('exp');
-
-        return response()->json([
-            'token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $expiration - time(),
-        ]);
     }
 
     /**
@@ -78,6 +55,7 @@ class LoginController extends Controller
     protected function sendFailedLoginResponse(Request $request)
     {
         $user = $this->guard()->user();
+
         if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
             throw VerifyEmailException::forUser($user);
         }
@@ -85,16 +63,5 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
         ]);
-    }
-
-    /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
     }
 }

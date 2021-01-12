@@ -4,13 +4,12 @@ import router from '~/router'
 import Swal from 'sweetalert2'
 import i18n from '~/plugins/i18n'
 
+window.axios = axios
+
+// axios.defaults.withCredentials = true
+
 // Request interceptor
 axios.interceptors.request.use(request => {
-  const token = store.getters['auth/token']
-  if (token) {
-    request.headers.common.Authorization = `Bearer ${token}`
-  }
-
   const locale = store.getters['lang/locale']
   if (locale) {
     request.headers.common['Accept-Language'] = locale
@@ -31,8 +30,7 @@ axios.interceptors.response.use(response => response, error => {
       title: i18n.t('error_alert_title'),
       text: i18n.t('error_alert_text'),
       reverseButtons: true,
-      confirmButtonText: i18n.t('ok'),
-      cancelButtonText: i18n.t('cancel')
+      confirmButtonText: i18n.t('ok')
     })
   }
 
@@ -42,8 +40,7 @@ axios.interceptors.response.use(response => response, error => {
       title: i18n.t('token_expired_alert_title'),
       text: i18n.t('token_expired_alert_text'),
       reverseButtons: true,
-      confirmButtonText: i18n.t('ok'),
-      cancelButtonText: i18n.t('cancel')
+      confirmButtonText: i18n.t('ok')
     }).then(() => {
       store.commit('auth/LOGOUT')
 
