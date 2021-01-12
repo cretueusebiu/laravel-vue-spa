@@ -13,9 +13,9 @@ class LoginTest extends TestCase
         $user = User::factory()->create();
 
         $this->postJson('/login', [
-                'email' => $user->email,
-                'password' => 'password',
-            ])
+            'email' => $user->email,
+            'password' => 'password',
+        ])
             ->assertSuccessful();
 
         $this->assertAuthenticated();
@@ -34,7 +34,7 @@ class LoginTest extends TestCase
     public function log_out()
     {
         $this->actingAs(User::factory()->create())
-            ->postJson("/logout")
+            ->postJson('/logout')
             ->assertSuccessful();
 
         $this->assertGuest();
