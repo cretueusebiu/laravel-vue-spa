@@ -9,11 +9,11 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.12",
-        "laravel/socialite": "^5.0",
-        "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.0",
-        "tymon/jwt-auth": "^1.0.1"
+        "laravel/framework": "^8.34",
+        "laravel/socialite": "^5.2",
+        "laravel/tinker": "^2.6",
+        "laravel/ui": "^3.2",
+        "tymon/jwt-auth": "^1.0.2"
     },
     "require-dev": {
         "doctrine/dbal": "^2.12",
