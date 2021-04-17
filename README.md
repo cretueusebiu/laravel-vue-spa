@@ -10,6 +10,10 @@
 <img src="https://i.imgur.com/NHFTsGt.png">
 </p>
 
+
+> I'm planning to launch a premium starter kit this summer and I'd like to know your input.<br>
+> Consider answering this short questionnaire: https://forms.gle/rb2oh24WhNzWiEveA
+
 ## Features
 
 - Laravel 8
