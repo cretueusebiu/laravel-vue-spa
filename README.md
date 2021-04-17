@@ -11,7 +11,7 @@
 </p>
 
 
-> I'm planning to launch a premium starter kit this summer and I'd like to know your input.<br>
+> I'm planning to launch a premium starter kit this summer and I'd like your input.<br>
 > Consider answering this short questionnaire: https://forms.gle/rb2oh24WhNzWiEveA
 
 ## Features
