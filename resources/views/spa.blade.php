@@ -25,6 +25,12 @@ $config = [
   </script>
 
   {{-- Load the application scripts --}}
+  @if(config('app.mix_extract'))
+  <script src="{{ mix('dist/js/manifest.js') }}"></script>
+  <script src="{{ mix('dist/js/vendor.js') }}"></script>
   <script src="{{ mix('dist/js/app.js') }}"></script>
+  @else
+  <script src="{{ mix('dist/js/app.js') }}"></script>
+  @endif
 </body>
 </html>
