@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.1 - 2021-05-13
+
+- Added modal with server error.
+
 ## 5.0.0 - 2020-10-31
 
 - Upgrade to Laravel 8
