@@ -2,9 +2,9 @@
 
 namespace App\Exceptions;
 
-use Throwable;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -41,7 +41,7 @@ class Handler extends ExceptionHandler
                     : redirect()->guest(url('/login'));
     }
 
-        /**
+    /**
      * Prepare a JSON response for the given exception.
      *
      * @param  \Illuminate\Http\Request  $request
