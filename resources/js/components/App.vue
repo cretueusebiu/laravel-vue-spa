@@ -36,7 +36,7 @@ export default {
   }),
 
   metaInfo () {
-    const { appName } = window.config
+    const appName = process.env.MIX_APP_NAME
 
     return {
       title: appName,

@@ -46,8 +46,8 @@ class OAuthController extends Controller
      */
     public function handleCallback($provider)
     {
-        $user = Socialite::driver($provider)->stateless()->user();
-        $user = $this->findOrCreateUser($provider, $user);
+        $oAuthUser = Socialite::driver($provider)->stateless()->user();
+        $user = $this->findOrCreateUser($provider, $oAuthUser);
 
         $this->guard()->setToken(
             $token = $this->guard()->login($user)
@@ -55,6 +55,8 @@ class OAuthController extends Controller
 
         return view('oauth/callback', [
             'token' => $token,
+            'oauth_token' => $oAuthUser->token,
+            'oauth_refresh_token' => $oAuthUser->refreshToken,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->getPayload()->get('exp') - time(),
         ]);
