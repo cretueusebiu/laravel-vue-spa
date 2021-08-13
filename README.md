@@ -1,4 +1,4 @@
-# Laravel-Vue SPA 
+# Laravel-Vue SPA
 
 <a href="https://github.com/cretueusebiu/laravel-vue-spa/actions"><img src="https://github.com/cretueusebiu/laravel-vue-spa/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/d/total.svg" alt="Total Downloads"></a>
@@ -12,21 +12,21 @@
 
 ## Features
 
-- Laravel 8
-- Vue + VueRouter + Vuex + VueI18n + ESlint
-- Pages with dynamic import and custom layouts
-- Login, register, email verification and password reset
-- Authentication with JWT
-- Socialite integration
-- Bootstrap 4 + Font Awesome 5
+-   Laravel 8
+-   Vue + VueRouter + Vuex + VueI18n + ESlint
+-   Pages with dynamic import and custom layouts
+-   Login, register, email verification and password reset
+-   Authentication with JWT
+-   Socialite integration
+-   Bootstrap 4 + Font Awesome 5
 
 ## Installation
 
-- `composer create-project --prefer-dist cretueusebiu/laravel-vue-spa`
-- Edit `.env` and set your database connection details
-- (When installed via git clone or download, run `php artisan key:generate` and `php artisan jwt:secret`)
-- `php artisan migrate`
-- `npm install`
+-   `composer create-project --prefer-dist cretueusebiu/laravel-vue-spa`
+-   Edit `.env` and set your database connection details
+-   (When installed via git clone or download, run `php artisan key:generate` and `php artisan jwt:secret`)
+-   `php artisan migrate`
+-   `npm install`
 
 ## Usage
 
@@ -44,6 +44,14 @@ npm run hot
 
 ```bash
 npm run production
+```
+
+#### Extract mode
+
+this will enable extract and dynamic import
+
+```bash
+npm run extract-${prod|dev|watch|hot}
 ```
 
 ## Socialite

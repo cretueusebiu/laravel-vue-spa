@@ -8,7 +8,17 @@
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "lint": "eslint --fix --ext .js,.vue resources/js"
+    "lint": "eslint --fix --ext .js,.vue resources/js",
+    "extract-dev": "concurrently \"npm run extract-dev-css\" \"npm run extract-dev-js\" --kill-others-on-fail",
+    "extract-watch": "concurrently \"npm run extract-dev-css -- --watch\" \"npm run extract-dev-js -- --watch\" --kill-others-on-fail",
+    "extract-hot": "concurrently \"npm run extract-hot-css\" \"npm run extract-hot-js\" --kill-others-on-fail",
+    "extract-prod": "concurrently \"npm run extract-prod-css\" \"npm run extract-prod-js\" --kill-others-on-fail",
+    "extract-dev-js": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --env.mixfile=webpack/extract.js --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "extract-hot-js": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --env.mixfile=webpack/extract.js --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "extract-prod-js": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --env.mixfile=webpack/extract.js --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "extract-dev-css": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --env.mixfile=webpack/extract-css.js --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "extract-hot-css": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --env.mixfile=webpack/extract-css.js --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "extract-prod-css": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --env.mixfile=webpack/extract-css.js --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -35,6 +45,7 @@
     "@babel/eslint-parser": "^7.12.1",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.12.1",
+    "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.12.1",
     "eslint-config-standard": "^16.0.1",
@@ -44,11 +55,13 @@
     "eslint-plugin-standard": "^4.0.2",
     "eslint-plugin-vue": "^7.1.0",
     "laravel-mix": "^5.0.7",
+    "laravel-mix-merge-manifest": "^0.1.2",
     "laravel-mix-versionhash": "^1.1.7",
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.28.0",
     "sass-loader": "^10.0.4",
     "vue-template-compiler": "^2.6.12",
-    "webpack-bundle-analyzer": "^3.9.0"
+    "webpack-bundle-analyzer": "^3.9.0",
+    "webpack-chunk-rename-plugin": "^1.0.3"
   }
 }
