@@ -20,11 +20,6 @@
 - Socialite integration
 - Bootstrap 4 + Font Awesome 5
 
-## 
-
-[![questionnaire](https://i.imgur.com/8UtUnH2.png)](https://forms.gle/rb2oh24WhNzWiEveA)
-
-
 ## Installation
 
 - `composer create-project --prefer-dist cretueusebiu/laravel-vue-spa`
