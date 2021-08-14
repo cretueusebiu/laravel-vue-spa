@@ -1,16 +1,9 @@
 .server-error-modal {
   height: 100%;
 
-  .swal2-modal {
-    padding: 0;
-    width: calc(100% - 60px);
-    height: calc(100% - 60px);
-  }
-
-  .swal2-content,
   .swal2-html-container {
-    padding: 0;
-    height: 100%;
+    margin: 0;
+    overflow: hidden;
   }
 
   iframe {

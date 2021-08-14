@@ -35,7 +35,7 @@ class Home extends Page
     public function elements()
     {
         return [
-            '@dropdown-toggle' => '.navbar-nav.ml-auto .dropdown-toggle',
+            '@dropdown-toggle' => '.navbar-nav.ms-auto .dropdown-toggle',
             '@dropdown-menu' => '.dropdown-menu.show',
         ];
     }

@@ -63,7 +63,7 @@ jobs:
         run: npm install --no-audit --no-progress --silent
 
       - name: Build client
-        run: npm run production
+        run: npm run build
 
       - name: Upgrade Chrome driver
         run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`

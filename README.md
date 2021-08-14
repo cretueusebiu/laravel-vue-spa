@@ -18,7 +18,7 @@
 - Login, register, email verification and password reset
 - Authentication with JWT
 - Socialite integration
-- Bootstrap 4 + Font Awesome 5
+- Bootstrap 5 + Font Awesome 5
 
 ## Installation
 
@@ -33,17 +33,13 @@
 #### Development
 
 ```bash
-# Build and watch
-npm run watch
-
-# Serve with hot reloading (not working)
-npm run hot
+npm run dev
 ```
 
 #### Production
 
 ```bash
-npm run production
+npm run build
 ```
 
 ## Socialite
