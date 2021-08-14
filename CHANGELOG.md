@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.0 - 2021-08-14
+
+- Upgrade to Bootstrap 5
+- Upgrade to Mix 6
+- Update dependencies
+
 ## 5.0.3 - 2021-05-13
 
 - Added modal with server error.
