@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-lg-8 m-auto">
+    <div class="col-lg-7 m-auto">
       <card :title="$t('verify_email')">
         <template v-if="success">
           <div class="alert alert-success" role="alert">
@@ -16,7 +16,7 @@
             {{ error || $t('failed_to_verify_email') }}
           </div>
 
-          <router-link :to="{ name: 'verification.resend' }" class="small float-right">
+          <router-link :to="{ name: 'verification.resend' }" class="small float-end">
             {{ $t('resend_verification_link') }}
           </router-link>
         </template>

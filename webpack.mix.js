@@ -1,11 +1,13 @@
-const path = require('path')
-const fs = require('fs-extra')
+const { join, resolve } = require('path')
+const { copySync, removeSync } = require('fs-extra')
 const mix = require('laravel-mix')
 require('laravel-mix-versionhash')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 mix
-  .js('resources/js/app.js', 'public/dist/js')
+  .js('resources/js/app.js', 'public/dist/js').vue({
+    extractStyles: true
+  })
   .sass('resources/sass/app.scss', 'public/dist/css')
 
   .disableNotifications()
@@ -26,14 +28,12 @@ mix.webpackConfig({
   resolve: {
     extensions: ['.js', '.json', '.vue'],
     alias: {
-      '~': path.join(__dirname, './resources/js')
+      '~': join(__dirname, './resources/js')
     }
   },
   output: {
     chunkFilename: 'dist/js/[chunkhash].js',
-    path: mix.config.hmr
-      ? '/'
-      : path.resolve(__dirname, mix.inProduction() ? './public/build' : './public')
+    path: resolve(__dirname, mix.inProduction() ? './public/build' : './public')
   }
 })
 
@@ -44,9 +44,9 @@ mix.then(() => {
 })
 
 function publishAseets () {
-  const publicDir = path.resolve(__dirname, './public')
+  const publicDir = resolve(__dirname, './public')
 
-  fs.removeSync(path.join(publicDir, 'dist'))
-  fs.copySync(path.join(publicDir, 'build', 'dist'), path.join(publicDir, 'dist'))
-  fs.removeSync(path.join(publicDir, 'build'))
+  removeSync(join(publicDir, 'dist'))
+  copySync(join(publicDir, 'build', 'dist'), join(publicDir, 'dist'))
+  removeSync(join(publicDir, 'build'))
 }

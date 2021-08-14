@@ -1,7 +1,7 @@
 <template>
   <li v-if="Object.keys(locales).length > 1" class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" role="button"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
     >
       {{ locales[locale] }}
     </a>

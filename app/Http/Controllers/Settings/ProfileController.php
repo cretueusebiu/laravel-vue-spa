@@ -9,9 +9,6 @@ class ProfileController extends Controller
 {
     /**
      * Update the user's profile information.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
@@ -22,6 +19,8 @@ class ProfileController extends Controller
             'email' => 'required|email|unique:users,email,'.$user->id,
         ]);
 
-        return tap($user)->update($request->only('name', 'email'));
+        $user->update($request->only('name', 'email'));
+
+        return response()->json($user);
     }
 }

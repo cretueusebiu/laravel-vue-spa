@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OAuthProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Laravel\Socialite\Facades\Socialite;
 
 class OAuthController extends Controller
@@ -15,8 +16,6 @@ class OAuthController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -27,24 +26,18 @@ class OAuthController extends Controller
 
     /**
      * Redirect the user to the provider authentication page.
-     *
-     * @param  string $provider
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function redirect($provider)
+    public function redirect(string $provider)
     {
-        return [
+        return response()->json([
             'url' => Socialite::driver($provider)->stateless()->redirect()->getTargetUrl(),
-        ];
+        ]);
     }
 
     /**
      * Obtain the user information from the provider.
-     *
-     * @param  string $driver
-     * @return \Illuminate\Http\Response
      */
-    public function handleCallback($provider)
+    public function handleCallback(string $provider)
     {
         $user = Socialite::driver($provider)->stateless()->user();
         $user = $this->findOrCreateUser($provider, $user);
@@ -61,11 +54,9 @@ class OAuthController extends Controller
     }
 
     /**
-     * @param  string $provider
-     * @param  \Laravel\Socialite\Contracts\User $sUser
-     * @return \App\Models\User
+     * Find or create a user.
      */
-    protected function findOrCreateUser($provider, $user)
+    protected function findOrCreateUser(string $provider, SocialiteUser $user): User
     {
         $oauthProvider = OAuthProvider::where('provider', $provider)
             ->where('provider_user_id', $user->getId())
@@ -88,11 +79,9 @@ class OAuthController extends Controller
     }
 
     /**
-     * @param  string $provider
-     * @param  \Laravel\Socialite\Contracts\User $sUser
-     * @return \App\Models\User
+     * Create a new user.
      */
-    protected function createUser($provider, $sUser)
+    protected function createUser(string $provider, SocialiteUser $sUser): User
     {
         $user = User::create([
             'name' => $sUser->getName(),

@@ -66,7 +66,9 @@ async function serverError (response) {
       html: iframe.outerHTML,
       showConfirmButton: false,
       customClass: { container: 'server-error-modal' },
-      didDestroy: () => { serverErrorModalShown = false }
+      didDestroy: () => { serverErrorModalShown = false },
+      grow: 'fullscreen',
+      padding: 0
     })
 
     serverErrorModalShown = true
