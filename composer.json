@@ -9,32 +9,20 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.34",
+        "laravel/framework": "^8.54",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.6",
-        "laravel/ui": "^3.2",
-        "tymon/jwt-auth": "^1.0.2"
+        "laravel/ui": "^3.3",
+        "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
-        "doctrine/dbal": "^2.12",
+        "doctrine/dbal": "^2.13",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
-        "laravel/dusk": "^6.8",
+        "laravel/dusk": "^6.17",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": [
-              "laravel/dusk"
-            ]
-        }
     },
     "autoload": {
         "psr-4": {
@@ -48,8 +36,6 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -62,5 +48,19 @@
             "@php artisan key:generate --ansi",
             "@php artisan jwt:secret --force --ansi"
         ]
-    }
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+              "laravel/dusk"
+            ]
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
