@@ -9,9 +9,6 @@ class UserController extends Controller
 {
     /**
      * Get authenticated user.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
     public function current(Request $request)
     {

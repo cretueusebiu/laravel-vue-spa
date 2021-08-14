@@ -12,8 +12,6 @@ class ResetPasswordController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -22,24 +20,16 @@ class ResetPasswordController extends Controller
 
     /**
      * Get the response for a successful password reset.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function sendResetResponse(Request $request, $response)
+    protected function sendResetResponse(Request $request, string $response)
     {
         return ['status' => trans($response)];
     }
 
     /**
      * Get the response for a failed password reset.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function sendResetFailedResponse(Request $request, $response)
+    protected function sendResetFailedResponse(Request $request, string $response)
     {
         return response()->json(['email' => trans($response)], 400);
     }
