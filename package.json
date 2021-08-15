@@ -4,7 +4,8 @@
     "dev": "mix watch --hot",
     "watch": "mix watch",
     "build": "mix --production",
-    "eslint": "eslint --fix --ext .js,.vue resources/js"
+    "eslint": "eslint --fix --ext .js,.vue resources/js",
+    "ssr-server": "node ssr/index.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -15,7 +16,10 @@
     "@popperjs/core": "^2.9.3",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
     "js-cookie": "^2.2.1",
+    "puppeteer": "^10.2.0",
     "sweetalert2": "^11.1.2",
     "vform": "^2.1.1",
     "vue": "^2.6.14",
