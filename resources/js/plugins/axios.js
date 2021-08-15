@@ -1,7 +1,7 @@
 import axios from 'axios'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 import store from '~/store'
 import router from '~/router'
-import Swal from 'sweetalert2'
 import i18n from '~/plugins/i18n'
 
 // Request interceptor
