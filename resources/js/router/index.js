@@ -74,6 +74,9 @@ async function beforeEach (to, from, next) {
   // Get the middleware for all the matched components.
   const middleware = getMiddleware(components)
 
+  // Load async data for all the matched components.
+  await asyncData(components)
+
   // Call each middleware.
   callMiddleware(middleware, to, from, (...args) => {
     // Set the application layout only if "next()" was called with no args.
@@ -83,6 +86,37 @@ async function beforeEach (to, from, next) {
 
     next(...args)
   })
+}
+
+/**
+ * @param  {Array} components
+ * @return {Promise<void>
+ */
+async function asyncData (components) {
+  for (let i = 0; i < components.length; i++) {
+    const component = components[i]
+
+    if (!component.asyncData) {
+      continue
+    }
+
+    const dataFn = component.data
+
+    try {
+      const asyncData = await component.asyncData()
+
+      component.data = function () {
+        return {
+          ...(dataFn ? dataFn.apply(this) : {}),
+          ...asyncData
+        }
+      }
+    } catch (e) {
+      component.layout = 'error'
+
+      console.error('Failed to load asyncData', e)
+    }
+  }
 }
 
 /**
