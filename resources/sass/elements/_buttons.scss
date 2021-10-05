@@ -23,3 +23,9 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(359deg); }
 }
+
+.swal2-actions .btn {
+  margin: 0.25em 0.5em;
+  padding: 0.4em 0.6em;
+  font-size: 1em;
+}

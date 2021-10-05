@@ -46,6 +46,13 @@
               <login-with-github />
             </div>
           </div>
+
+          <div v-if="config.env != 'production'" class="mb-3 row">
+            <div class="col-md-9 offset-md-3 d-flex">
+              email: admin@example.com<br>
+              password: 123456
+            </div>
+          </div>
         </form>
       </card>
     </div>
@@ -73,6 +80,7 @@ export default {
       email: '',
       password: ''
     }),
+    config: window.config,
     remember: false
   }),
 
