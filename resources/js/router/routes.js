@@ -13,6 +13,21 @@ export default [
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
   { path: '/home', name: 'home', component: page('home.vue') },
+
+  { path: '/customers', name: 'customers', component: page('customers/Customer.vue') },
+  { path: '/customers/add', name: 'customers.add', component: page('customers/customerform.vue') },
+  { path: '/customers/edit/:customerId', name: 'customers.edit', component: page('customers/customerform.vue'), props: true },
+
+  { path: '/employees', name: 'employees', component: page('employees/employees.vue') },
+  { path: '/employees/add', name: 'employees.add', component: page('employees/employeeform.vue') },
+  { path: '/employees/edit/:employeeId', name: 'employees.edit', component: page('employees/employeeform.vue'), props: true },
+
+  { path: '/items', name: 'items', component: page('items/index.vue') },
+  { path: '/items/add', name: 'items.add', component: page('items/itemform.vue') },
+  { path: '/items/edit/:itemId', name: 'items.edit', component: page('items/itemform.vue'), props: true },
+
+  { path: '/suppliers', name: 'suppliers', component: page('suppliers/Suppliers.vue') },
+  { path: '/suppliers/add', name: 'suppliers.add', component: page('suppliers/supplierform.vue') },
   {
     path: '/settings',
     component: page('settings/index.vue'),

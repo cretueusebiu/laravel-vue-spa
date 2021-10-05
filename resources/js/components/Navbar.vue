@@ -12,9 +12,26 @@
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <locale-dropdown />
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
+          <li class="nav-item">
+            <router-link :to="{ name: 'customers' }" class="nav-link">
+              Customers
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'items' }" class="nav-link">
+              Items
+            </router-link>
+          </li>
+          <li class="nav-supplier">
+            <router-link :to="{ name: 'suppliers' }" class="nav-link">
+              Suppliers
+            </router-link>
+          </li>
+          <li class="nav-employee">
+            <router-link :to="{ name: 'employees' }" class="nav-link">
+              Employee
+            </router-link>
+          </li>
         </ul>
 
         <ul class="navbar-nav ms-auto">
