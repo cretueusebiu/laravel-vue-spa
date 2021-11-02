@@ -1,7 +1,9 @@
 <template>
-  <div class="basic-layout d-flex align-items-center justify-content-center m-0 bg-white">
-    <child />
-  </div>
+  <v-main class="grey lighten-3">
+    <v-container>
+      <child />
+    </v-container>
+  </v-main>
 </template>
 
 <script>

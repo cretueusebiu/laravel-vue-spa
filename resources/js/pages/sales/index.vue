@@ -3,19 +3,19 @@
     <v-btn
       color="primary"
       class="ma-4"
-      :to="{ name : 'customers.add' }"
+      :to="{ name : 'sales.add' }"
     >
-      Add Customer
+      Add Sale
     </v-btn>
-    <customers-list />
+    <items-list />
   </div>
 </template>
 
 <script>
-import CustomersList from './customerslist.vue'
+import ItemsList from './itemslist.vue'
 
 export default {
-  components: { CustomersList },
+  components: { ItemsList },
   middleware: 'auth'
 }
 </script>

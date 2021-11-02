@@ -9,14 +9,15 @@ class Customer extends Model
 {
     use HasFactory;
 
+    protected $table = 'ospos_customers';
+    protected $primaryKey = 'person_id';
+
     protected $fillable = [
-        'name',
-        'email',
-        'gender',
-        'phone',
-        'city',
-        'address',
-        'province',
-        'comments',
+        'company_name',
     ];
+
+    public function person()
+    {
+        return $this->hasOne(Person::class, 'person_id', 'person_id');
+    }
 }

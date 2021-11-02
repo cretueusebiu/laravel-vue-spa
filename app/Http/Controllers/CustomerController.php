@@ -2,31 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\Claims\Custom;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customer = Customer::all()->toArray();
-        return array_reverse($customer);
+        $customers = [];
+        foreach(Customer::with('person')->get() as $customer){
+            $customers[] = [
+                'name' => $customer->person->first_name . ' ' . $customer->person->last_name,
+                'email' => $customer->person->email,
+                'phone' => $customer->person->phone,
+                'gender' => $customer->person->gender ? 'Male' : 'Female',
+            ];
+        }
+        return $customers;
     }
 
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        $this->validate($request, [
-
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'gender' => 'required',
-            'city' => 'required',
-            'address' => 'required',
-            'province' => 'required',
-            'comments' => 'required',
-        ]);
         $customer = new Customer($request->all());
         $customer->save();
         return response()->json(['status' => 'success', 'data' => ['customer_id' => $customer->id]]);
@@ -38,21 +34,10 @@ class CustomerController extends Controller
         return response()->json($customer);
     }
 
-    public function update($id, Request $request)
+    public function update($id, CustomerRequest $request)
     {
-        $this->validate($request, [
-            
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'gender' => 'required',
-            'city' => 'required',
-            'address' => 'required',
-            'province' => 'required',
-            'comments' => 'required',
-        ]);
-        $customer = new Customer($request->all());
-        $customer->save();
+        $customer = Customer::findOrFail($id);
+        $customer->update($request->all());
         return response()->json(['status' => 'success', 'data' => ['customer_id' => $customer->id]]);
     }
 

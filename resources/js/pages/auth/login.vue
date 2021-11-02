@@ -1,62 +1,34 @@
 <template>
-  <div class="row">
-    <div class="col-lg-7 m-auto">
-      <card :title="$t('login')">
-        <form @submit.prevent="login" @keydown="form.onKeydown($event)">
-          <!-- Email -->
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label text-md-end">{{ $t('email') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-              <has-error :form="form" field="email" />
-            </div>
-          </div>
+  <v-sheet
+    rounded
+    class="m-auto pa-8 loginBox"
+  >
+    <v-form @submit.prevent="login" @keydown="form.onKeydown($event)">
+      <v-text-field
+        v-model="form.email"
+        :error-messages="form.errors.get('email')"
+        :label="$t('email')"
+        required
+      />
+      <v-text-field
+        v-model="form.password"
+        :error-messages="form.errors.get('password')"
+        :label="$t('password')"
+        type="password"
+        required
+      />
+      <v-btn type="submit" color="primary" :loading="form.busy" class="mt-4">
+        {{ $t('login') }}
+      </v-btn>
 
-          <!-- Password -->
-          <div class="mb-3 row">
-            <label class="col-md-3 col-form-label text-md-end">{{ $t('password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
-              <has-error :form="form" field="password" />
-            </div>
-          </div>
-
-          <!-- Remember Me -->
-          <div class="mb-3 row">
-            <div class="col-md-3" />
-            <div class="col-md-7 d-flex">
-              <checkbox v-model="remember" name="remember">
-                {{ $t('remember_me') }}
-              </checkbox>
-
-              <router-link :to="{ name: 'password.request' }" class="small ms-auto my-auto">
-                {{ $t('forgot_password') }}
-              </router-link>
-            </div>
-          </div>
-
-          <div class="mb-3 row">
-            <div class="col-md-7 offset-md-3 d-flex">
-              <!-- Submit Button -->
-              <v-button :loading="form.busy">
-                {{ $t('login') }}
-              </v-button>
-
-              <!-- GitHub Login Button -->
-              <login-with-github />
-            </div>
-          </div>
-
-          <div v-if="config.env != 'production'" class="mb-3 row">
-            <div class="col-md-9 offset-md-3 d-flex">
-              email: admin@example.com<br>
-              password: 123456
-            </div>
-          </div>
-        </form>
-      </card>
-    </div>
-  </div>
+      <div v-if="config.env != 'production'" class="my-4">
+        <div style="cursor: pointer" @click="fillWithAdmin">
+          email: admin@example.com<br>
+          password: 123456
+        </div>
+      </div>
+    </v-form>
+  </v-sheet>
 </template>
 
 <script>
@@ -68,6 +40,7 @@ export default {
   components: {
     LoginWithGithub
   },
+  layout: 'basic',
 
   middleware: 'guest',
 
@@ -86,20 +59,24 @@ export default {
 
   methods: {
     async login () {
+      try {
       // Submit the form.
-      const { data } = await this.form.post('/api/login')
+        const { data } = await this.form.post('/api/login')
 
-      // Save the token.
-      this.$store.dispatch('auth/saveToken', {
-        token: data.token,
-        remember: this.remember
-      })
+        // Save the token.
+        this.$store.dispatch('auth/saveToken', {
+          token: data.token,
+          remember: this.remember
+        })
 
-      // Fetch the user.
-      await this.$store.dispatch('auth/fetchUser')
+        // Fetch the user.
+        await this.$store.dispatch('auth/fetchUser')
 
-      // Redirect home.
-      this.redirect()
+        // Redirect home.
+        this.redirect()
+      } catch (ex) {
+        console.log(ex)
+      }
     },
 
     redirect () {
@@ -111,7 +88,20 @@ export default {
       } else {
         this.$router.push({ name: 'home' })
       }
+    },
+
+    fillWithAdmin () {
+      this.form.fill({
+        email: 'admin@example.com',
+        password: '123456'
+      })
     }
   }
 }
 </script>
+
+<style scoped>
+.loginBox{
+  transform: translateY(50%);
+}
+</style>

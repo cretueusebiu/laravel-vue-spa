@@ -1,78 +1,43 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container">
-      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
-        {{ appName }}
-      </router-link>
+  <div>
+    <v-app-bar
+      app
+      color="white"
+      flat
+    >
+      <v-container class="py-0 fill-height">
+        <v-avatar
+          class="mr-10"
+          color="grey darken-1"
+          size="32"
+        />
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
-        <span class="navbar-toggler-icon" />
-      </button>
+        <v-btn v-if="user" to="/home" text>
+          Dashboard
+        </v-btn>
+        <v-btn v-if="user" :to="{ name: 'customers' }" text>
+          Customers
+        </v-btn>
+        <v-btn v-if="user" :to="{ name: 'suppliers' }" text>
+          Suppliers
+        </v-btn>
+        <v-btn v-if="user" :to="{ name: 'employees' }" text>
+          Employees
+        </v-btn>
+        <v-btn v-if="user" :to="{ name: 'items' }" text>
+          Items
+        </v-btn>
+        <v-btn v-if="user" :to="{ name: 'sales' }" text>
+          Sales
+        </v-btn>
 
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-          <locale-dropdown />
-          <li v-if="user" class="nav-item">
-            <router-link :to="{ name: 'customers' }" class="nav-link">
-              Customers
-            </router-link>
-          </li>
-          <li v-if="user" class="nav-item">
-            <router-link :to="{ name: 'items' }" class="nav-link">
-              Items
-            </router-link>
-          </li>
-          <li v-if="user" class="nav-supplier">
-            <router-link :to="{ name: 'suppliers' }" class="nav-link">
-              Suppliers
-            </router-link>
-          </li>
-          <li v-if="user" class="nav-employee">
-            <router-link :to="{ name: 'employees' }" class="nav-link">
-              Employee
-            </router-link>
-          </li>
-        </ul>
-
-        <ul class="navbar-nav ms-auto">
-          <!-- Authenticated -->
-          <li v-if="user" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark"
-               href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            >
-              <img :src="user.photo_url" class="rounded-circle profile-photo me-1">
-              {{ user.name }}
-            </a>
-            <div class="dropdown-menu">
-              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item ps-3">
-                <fa icon="cog" fixed-width />
-                {{ $t('settings') }}
-              </router-link>
-
-              <div class="dropdown-divider" />
-              <a href="#" class="dropdown-item ps-3" @click.prevent="logout">
-                <fa icon="sign-out-alt" fixed-width />
-                {{ $t('logout') }}
-              </a>
-            </div>
-          </li>
-          <!-- Guest -->
-          <template v-else>
-            <li class="nav-item">
-              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
-                {{ $t('login') }}
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
-                {{ $t('register') }}
-              </router-link>
-            </li>
-          </template>
-        </ul>
-      </div>
-    </div>
-  </nav>
+        <v-spacer />
+        <v-btn v-if="user" text @click.prevent="logout">
+          {{ $t('logout') }}
+        </v-btn>
+      </v-container>
+    </v-app-bar>
+  </div>
 </template>
 
 <script>
@@ -109,9 +74,5 @@ export default {
   width: 2rem;
   height: 2rem;
   margin: -.375rem 0;
-}
-
-.container {
-  max-width: 1100px;
 }
 </style>

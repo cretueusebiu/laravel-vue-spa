@@ -1,10 +1,20 @@
 <template>
-  <div class="main-layout">
+  <div>
     <navbar />
-
-    <div class="container-lg mt-4">
-      <child />
-    </div>
+    <v-main class="grey lighten-3">
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-sheet
+              min-height="80vh"
+              rounded="lg"
+            >
+              <child />
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
   </div>
 </template>
 

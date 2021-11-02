@@ -1,29 +1,23 @@
 <template>
-  <div>
+  <div class="home">
     <div class="top-right links">
       <template v-if="authenticated">
-        <router-link :to="{ name: 'home' }">
+        <v-btn :to="{ name: 'home' }" text>
           {{ $t('home') }}
-        </router-link>
+        </v-btn>
       </template>
       <template v-else>
-        <router-link :to="{ name: 'login' }">
+        <v-btn :to="{ name: 'login' }" text>
           {{ $t('login') }}
-        </router-link>
-        <router-link :to="{ name: 'register' }">
+        </v-btn>
+        <v-btn :to="{ name: 'register' }" text>
           {{ $t('register') }}
-        </router-link>
+        </v-btn>
       </template>
     </div>
 
-    <div class="text-center">
-      <div class="title mb-4">
-        {{ title }}
-      </div>
-
-      <div class="links">
-        <a href="https://github.com/cretueusebiu/laravel-vue-spa">github.com/cretueusebiu/laravel-vue-spa</a>
-      </div>
+    <div class="text-h1">
+      {{ title }}
     </div>
   </div>
 </template>
@@ -55,7 +49,10 @@ export default {
   top: 18px;
 }
 
-.title {
-  font-size: 85px;
+.home{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

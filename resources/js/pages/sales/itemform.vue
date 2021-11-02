@@ -13,7 +13,7 @@
         </v-icon>
       </v-btn>
 
-      <v-toolbar-title>{{ customerId ? "Update Customer" : "Add Customer" }}</v-toolbar-title>
+      <v-toolbar-title>{{ customerId ? "Update Customer" : "New Invoice" }}</v-toolbar-title>
     </v-app-bar>
     <v-form v-if="!loading">
       <v-container>
