@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Customer;
+use App\Models\Sale;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
 
-    $customers = Customer::with('person')->get()->toArray();
+    $customers = Sale::with('customer')->get()->toArray();
     dd($customers);
     return "Hello World";
 });

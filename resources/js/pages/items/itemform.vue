@@ -1,45 +1,91 @@
 <template>
-  <div class="row my-4">
-    <div class="col">
-      <form @submit.prevent="submitForm" @keydown="form.onKeyDown($event)">
-        <div class="card">
-          <div class="card-header">
-            {{ itemId ? 'Update Item' : 'Add Item' }}
-          </div>
-          <div v-if="!loading" class="card-body">
-            <AlertError :form="form">
-              There were some problems with your input.
-            </AlertError>
-            <div class="mb-3">
-              <label for="item_name" class="form-label">Item Name</label>
-              <input id="item_name" v-model="form.item_name" type="text" :class="{ 'is-invalid': form.errors.has('item_name') }" class="form-control">
-              <has-error :form="form" field="item_name" />
-            </div>
-            <div class="mb-3">
-              <label for="category" class="form-label">Category</label>
-              <input id="category" v-model="form.category" type="text" class="form-control">
-              <has-error :form="form" field="category" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="item_type">Item Type</label><br>
-              <input id="item_type_product" v-model="form.item_type" type="radio" value="product" class="form-check-input">
-              <label class="form-check-label" for="item_type_product">Product</label>
-              <input id="item_type_service" v-model="form.item_type" type="radio" value="service" class="form-check-input">
-              <label class="form-check-label" for="item_type_service">Service</label>
-              <has-error :form="form" field="item_type" />
-            </div>
-          </div>
-          <div class="card-footer">
-            <v-button :loading="form.busy" type="success" @click="submitForm">
+  <div>
+    <v-app-bar
+      dense
+      flat
+    >
+      <v-btn
+        class="mr-4"
+        text
+      >
+        <v-icon>
+          mdi-arrow-left
+        </v-icon>
+      </v-btn>
+
+      <v-toolbar-title>{{ itemId ? 'Update Item' : 'Add Item' }}</v-toolbar-title>
+    </v-app-bar>
+    <v-form v-if="!loading">
+      <v-container>
+        <v-alert v-if="form.errors.any()" type="error">
+          There were some problems with your input.
+        </v-alert>
+        <v-row>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="form.name"
+              :error-messages="form.errors.get('name')"
+              label="Item Name"
+              required
+            />
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="form.category"
+              :error-messages="form.errors.get('category')"
+              label="Category"
+              required
+            />
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="12"
+          >
+            <v-radio-group
+              v-model="form.stock_type"
+              :error-messages="form.errors.get('stock_type')"
+              row
+            >
+              <template #label>
+                <div>Stock Type</div>
+              </template>
+              <v-radio
+                label="Stock"
+                value="0"
+              />
+              <v-radio
+                label="Non-Stocked"
+                value="1"
+              />
+            </v-radio-group>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-btn
+              color="success"
+              class="mr-4"
+              :loading="form.busy"
+              :disabled="form.busy"
+              @click="submitForm"
+            >
               {{ itemId ? 'Update' : 'Submit' }}
-            </v-button>
-            <router-link :to="{ name : 'items' }" class="btn btn-danger float-end">
+            </v-btn>
+            <v-btn :to="{ name : 'items' }" color="error">
               Cancel
-            </router-link>
-          </div>
-        </div>
-      </form>
-    </div>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-form>
   </div>
 </template>
 
@@ -49,14 +95,14 @@ import axios from 'axios'
 
 export default {
   middleware: 'auth',
-  props: ['itemId'],
+  props: { itemId: String },
   data: function () {
     return {
       loading: false,
       form: new Form({
         item_name: '',
         category: '',
-        item_type: 'product'
+        stock_type: '0'
       })
     }
   },

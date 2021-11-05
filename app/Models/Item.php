@@ -9,9 +9,13 @@ class Item extends Model
 {
     use HasFactory;
 
+    protected $table = 'ospos_items';
+    protected $primaryKey = 'item_id';
+    public $timestamps = false;
+
     protected $fillable = [
-        'item_name',
+        'name',
         'category',
-        'item_type',
+        'stock_type',
     ];
 }

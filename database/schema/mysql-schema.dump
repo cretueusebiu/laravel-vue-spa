@@ -1,0 +1,835 @@
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` enum('male','female','other') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comments` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employees` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` enum('male','female','other') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comments` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `failed_jobs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `items` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `item_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `item_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `oauth_providers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oauth_providers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `provider` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `provider_user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `refresh_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_providers_user_id_foreign` (`user_id`),
+  KEY `oauth_providers_provider_user_id_index` (`provider_user_id`),
+  CONSTRAINT `oauth_providers_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_app_config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_app_config` (
+  `key` varchar(50) NOT NULL,
+  `value` varchar(500) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_attribute_definitions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_attribute_definitions` (
+  `definition_id` int(10) NOT NULL AUTO_INCREMENT,
+  `definition_name` varchar(255) NOT NULL,
+  `definition_type` varchar(45) NOT NULL,
+  `definition_unit` varchar(16) DEFAULT NULL,
+  `definition_flags` tinyint(4) NOT NULL,
+  `definition_fk` int(10) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`definition_id`),
+  KEY `definition_fk` (`definition_fk`),
+  CONSTRAINT `fk_ospos_attribute_definitions_ibfk_1` FOREIGN KEY (`definition_fk`) REFERENCES `ospos_attribute_definitions` (`definition_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_attribute_links`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_attribute_links` (
+  `attribute_id` int(11) DEFAULT NULL,
+  `definition_id` int(11) NOT NULL,
+  `item_id` int(11) DEFAULT NULL,
+  `sale_id` int(11) DEFAULT NULL,
+  `receiving_id` int(11) DEFAULT NULL,
+  UNIQUE KEY `attribute_links_uq1` (`attribute_id`,`definition_id`,`item_id`,`sale_id`,`receiving_id`),
+  KEY `attribute_id` (`attribute_id`),
+  KEY `definition_id` (`definition_id`),
+  KEY `item_id` (`item_id`),
+  KEY `sale_id` (`sale_id`),
+  KEY `receiving_id` (`receiving_id`),
+  CONSTRAINT `ospos_attribute_links_ibfk_1` FOREIGN KEY (`definition_id`) REFERENCES `ospos_attribute_definitions` (`definition_id`) ON DELETE CASCADE,
+  CONSTRAINT `ospos_attribute_links_ibfk_2` FOREIGN KEY (`attribute_id`) REFERENCES `ospos_attribute_values` (`attribute_id`) ON DELETE CASCADE,
+  CONSTRAINT `ospos_attribute_links_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `ospos_items` (`item_id`),
+  CONSTRAINT `ospos_attribute_links_ibfk_4` FOREIGN KEY (`receiving_id`) REFERENCES `ospos_receivings` (`receiving_id`) ON DELETE CASCADE,
+  CONSTRAINT `ospos_attribute_links_ibfk_5` FOREIGN KEY (`sale_id`) REFERENCES `ospos_sales` (`sale_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_attribute_values`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_attribute_values` (
+  `attribute_id` int(11) NOT NULL AUTO_INCREMENT,
+  `attribute_value` varchar(255) DEFAULT NULL,
+  `attribute_date` date DEFAULT NULL,
+  `attribute_decimal` decimal(7,3) DEFAULT NULL,
+  PRIMARY KEY (`attribute_id`),
+  UNIQUE KEY `attribute_value` (`attribute_value`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_cash_up`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_cash_up` (
+  `cashup_id` int(10) NOT NULL AUTO_INCREMENT,
+  `open_date` timestamp NULL DEFAULT current_timestamp(),
+  `close_date` timestamp NULL DEFAULT NULL,
+  `open_amount_cash` decimal(15,2) NOT NULL,
+  `transfer_amount_cash` decimal(15,2) NOT NULL,
+  `note` int(1) NOT NULL,
+  `closed_amount_cash` decimal(15,2) NOT NULL,
+  `closed_amount_card` decimal(15,2) NOT NULL,
+  `closed_amount_check` decimal(15,2) NOT NULL,
+  `closed_amount_total` decimal(15,2) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `open_employee_id` int(10) NOT NULL,
+  `close_employee_id` int(10) NOT NULL,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  `closed_amount_due` decimal(15,2) NOT NULL,
+  PRIMARY KEY (`cashup_id`),
+  KEY `open_employee_id` (`open_employee_id`),
+  KEY `close_employee_id` (`close_employee_id`),
+  CONSTRAINT `ospos_cash_up_ibfk_1` FOREIGN KEY (`open_employee_id`) REFERENCES `ospos_employees` (`person_id`),
+  CONSTRAINT `ospos_cash_up_ibfk_2` FOREIGN KEY (`close_employee_id`) REFERENCES `ospos_employees` (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_customers` (
+  `person_id` int(10) NOT NULL,
+  `company_name` varchar(255) DEFAULT NULL,
+  `account_number` varchar(255) DEFAULT NULL,
+  `taxable` int(1) NOT NULL DEFAULT 1,
+  `tax_id` varchar(32) NOT NULL DEFAULT '',
+  `sales_tax_code_id` int(11) DEFAULT NULL,
+  `discount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `discount_type` tinyint(2) NOT NULL DEFAULT 0,
+  `package_id` int(11) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `employee_id` int(10) NOT NULL,
+  `consent` int(1) NOT NULL DEFAULT 0,
+  `init_balance` double NOT NULL DEFAULT 0,
+  UNIQUE KEY `account_number` (`account_number`),
+  KEY `person_id` (`person_id`),
+  KEY `package_id` (`package_id`),
+  KEY `sales_tax_code_id` (`sales_tax_code_id`),
+  CONSTRAINT `ospos_customers_ibfk_3` FOREIGN KEY (`sales_tax_code_id`) REFERENCES `ospos_tax_codes` (`tax_code_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_customers_packages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_customers_packages` (
+  `package_id` int(11) NOT NULL AUTO_INCREMENT,
+  `package_name` varchar(255) DEFAULT NULL,
+  `points_percent` float NOT NULL DEFAULT 0,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`package_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_customers_points`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_customers_points` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `person_id` int(11) NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `sale_id` int(11) NOT NULL,
+  `points_earned` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `person_id` (`person_id`),
+  KEY `package_id` (`package_id`),
+  KEY `sale_id` (`sale_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_dinner_tables`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_dinner_tables` (
+  `dinner_table_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`dinner_table_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_employees` (
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `person_id` int(10) NOT NULL,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  `hash_version` int(1) NOT NULL DEFAULT 2,
+  `language` varchar(48) DEFAULT NULL,
+  `language_code` varchar(8) DEFAULT NULL,
+  UNIQUE KEY `username` (`username`),
+  KEY `person_id` (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_expense_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_expense_categories` (
+  `expense_category_id` int(10) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(255) DEFAULT NULL,
+  `category_description` varchar(255) NOT NULL,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`expense_category_id`),
+  UNIQUE KEY `category_name` (`category_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_expenses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_expenses` (
+  `expense_id` int(10) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NULL DEFAULT current_timestamp(),
+  `amount` decimal(15,2) NOT NULL,
+  `payment_type` varchar(40) NOT NULL,
+  `expense_category_id` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `employee_id` int(10) NOT NULL,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  `supplier_tax_code` varchar(255) DEFAULT NULL,
+  `tax_amount` decimal(15,2) DEFAULT NULL,
+  `supplier_id` int(10) DEFAULT NULL,
+  `is_monthly` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`expense_id`),
+  KEY `expense_category_id` (`expense_category_id`),
+  KEY `employee_id` (`employee_id`),
+  KEY `ospos_expenses_ibfk_3` (`supplier_id`),
+  KEY `date` (`date`),
+  CONSTRAINT `ospos_expenses_ibfk_1` FOREIGN KEY (`expense_category_id`) REFERENCES `ospos_expense_categories` (`expense_category_id`),
+  CONSTRAINT `ospos_expenses_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `ospos_employees` (`person_id`),
+  CONSTRAINT `ospos_expenses_ibfk_3` FOREIGN KEY (`supplier_id`) REFERENCES `ospos_suppliers` (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_giftcards`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_giftcards` (
+  `record_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
+  `giftcard_number` varchar(255) DEFAULT NULL,
+  `value` decimal(15,2) NOT NULL,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  `person_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`giftcard_id`),
+  UNIQUE KEY `giftcard_number` (`giftcard_number`),
+  KEY `person_id` (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_grants`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_grants` (
+  `permission_id` varchar(255) NOT NULL,
+  `person_id` int(10) NOT NULL,
+  `menu_group` varchar(32) DEFAULT 'home',
+  PRIMARY KEY (`permission_id`,`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_inventory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_inventory` (
+  `trans_id` int(11) NOT NULL AUTO_INCREMENT,
+  `trans_items` int(11) NOT NULL DEFAULT 0,
+  `trans_user` int(11) NOT NULL DEFAULT 0,
+  `trans_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `trans_comment` text NOT NULL,
+  `trans_location` int(11) NOT NULL,
+  `trans_inventory` decimal(15,3) NOT NULL DEFAULT 0.000,
+  `source` varchar(20) NOT NULL DEFAULT '',
+  `source_id` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`trans_id`),
+  KEY `trans_items` (`trans_items`),
+  KEY `trans_user` (`trans_user`),
+  KEY `trans_location` (`trans_location`),
+  KEY `trans_date` (`trans_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_item_kit_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_item_kit_items` (
+  `item_kit_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `quantity` decimal(15,3) NOT NULL,
+  `kit_sequence` int(3) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`item_kit_id`,`item_id`,`quantity`),
+  KEY `ospos_item_kit_items_ibfk_2` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_item_kits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_item_kits` (
+  `item_kit_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `item_id` int(10) NOT NULL DEFAULT 0,
+  `kit_discount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `kit_discount_type` tinyint(2) NOT NULL DEFAULT 0,
+  `price_option` tinyint(2) NOT NULL DEFAULT 0,
+  `print_option` tinyint(2) NOT NULL DEFAULT 0,
+  `description` varchar(255) NOT NULL,
+  PRIMARY KEY (`item_kit_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_item_quantities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_item_quantities` (
+  `item_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL,
+  `quantity` decimal(15,3) NOT NULL DEFAULT 0.000,
+  PRIMARY KEY (`item_id`,`location_id`),
+  KEY `item_id` (`item_id`),
+  KEY `location_id` (`location_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_items` (
+  `name` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `item_number` varchar(255) DEFAULT NULL,
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `cost_price` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `wsale_price` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `unit_price` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `reorder_level` decimal(15,3) NOT NULL DEFAULT 0.000,
+  `receiving_quantity` decimal(15,3) NOT NULL DEFAULT 1.000,
+  `item_id` int(10) NOT NULL AUTO_INCREMENT,
+  `pic_filename` varchar(255) DEFAULT NULL,
+  `allow_alt_description` tinyint(1) NOT NULL DEFAULT 0,
+  `is_serialized` tinyint(1) NOT NULL DEFAULT 0,
+  `stock_type` tinyint(2) NOT NULL DEFAULT 0,
+  `item_type` tinyint(2) NOT NULL DEFAULT 0,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  `tax_category_id` int(10) DEFAULT NULL,
+  `qty_per_pack` decimal(15,3) NOT NULL DEFAULT 1.000,
+  `pack_name` varchar(8) DEFAULT 'Each',
+  `low_sell_item_id` int(10) DEFAULT 0,
+  `hsn_code` varchar(32) NOT NULL DEFAULT '',
+  `percentage` float unsigned zerofill NOT NULL DEFAULT 000000000000,
+  `extra_percentage` float unsigned NOT NULL DEFAULT 0,
+  `bonus` varchar(10) NOT NULL DEFAULT '1-0',
+  PRIMARY KEY (`item_id`),
+  KEY `item_number` (`item_number`),
+  KEY `supplier_id` (`supplier_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_items_taxes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_items_taxes` (
+  `item_id` int(10) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `percent` decimal(15,3) NOT NULL,
+  PRIMARY KEY (`item_id`,`name`,`percent`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_labors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_labors` (
+  `person_id` int(10) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `employee_id` int(10) NOT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  KEY `person_id` (`person_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_labors_payments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_labors_payments` (
+  `payment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `labor_id` int(11) NOT NULL DEFAULT 0,
+  `credit` tinyint(1) unsigned NOT NULL DEFAULT 1,
+  `amount` double(22,0) NOT NULL,
+  `payment_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `reference` varchar(32) DEFAULT NULL,
+  `comments` mediumtext DEFAULT NULL,
+  PRIMARY KEY (`payment_id`) USING BTREE,
+  KEY `labor_id` (`labor_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_migrations` (
+  `version` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_modules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_modules` (
+  `name_lang_key` varchar(255) NOT NULL,
+  `desc_lang_key` varchar(255) NOT NULL,
+  `sort` int(10) NOT NULL,
+  `module_id` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`module_id`),
+  UNIQUE KEY `desc_lang_key` (`desc_lang_key`),
+  UNIQUE KEY `name_lang_key` (`name_lang_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_people`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_people` (
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `gender` int(1) DEFAULT NULL,
+  `phone_number` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `address_1` varchar(255) NOT NULL,
+  `address_2` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `zip` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `comments` text NOT NULL,
+  `person_id` int(10) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`person_id`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_permissions` (
+  `permission_id` varchar(255) NOT NULL,
+  `module_id` varchar(255) NOT NULL,
+  `location_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`permission_id`),
+  KEY `module_id` (`module_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_receivings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_receivings` (
+  `receiving_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `supplier_id` int(10) DEFAULT NULL,
+  `employee_id` int(10) NOT NULL DEFAULT 0,
+  `comment` text DEFAULT NULL,
+  `receiving_id` int(10) NOT NULL AUTO_INCREMENT,
+  `payment_type` varchar(20) DEFAULT NULL,
+  `reference` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`receiving_id`),
+  KEY `supplier_id` (`supplier_id`),
+  KEY `employee_id` (`employee_id`),
+  KEY `reference` (`reference`),
+  KEY `receiving_time` (`receiving_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_receivings_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_receivings_items` (
+  `receiving_id` int(10) NOT NULL DEFAULT 0,
+  `item_id` int(10) NOT NULL DEFAULT 0,
+  `description` varchar(30) DEFAULT NULL,
+  `serialnumber` varchar(30) DEFAULT NULL,
+  `line` int(3) NOT NULL,
+  `quantity_purchased` decimal(15,3) NOT NULL DEFAULT 0.000,
+  `item_cost_price` decimal(15,2) NOT NULL,
+  `item_unit_price` decimal(15,2) NOT NULL,
+  `discount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `discount_type` tinyint(2) NOT NULL DEFAULT 0,
+  `item_location` int(11) NOT NULL,
+  `receiving_quantity` decimal(15,3) NOT NULL DEFAULT 1.000,
+  PRIMARY KEY (`receiving_id`,`item_id`,`line`),
+  KEY `item_id` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_sales`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_sales` (
+  `sale_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `customer_id` int(10) DEFAULT NULL,
+  `employee_id` int(10) NOT NULL DEFAULT 0,
+  `comment` text DEFAULT NULL,
+  `invoice_number` varchar(32) DEFAULT NULL,
+  `quote_number` varchar(32) DEFAULT NULL,
+  `sale_id` int(10) NOT NULL AUTO_INCREMENT,
+  `sale_status` tinyint(2) NOT NULL DEFAULT 0,
+  `dinner_table_id` int(11) DEFAULT NULL,
+  `work_order_number` varchar(32) DEFAULT NULL,
+  `sale_type` tinyint(2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`sale_id`),
+  UNIQUE KEY `invoice_number` (`invoice_number`),
+  KEY `customer_id` (`customer_id`),
+  KEY `employee_id` (`employee_id`),
+  KEY `sale_time` (`sale_time`),
+  KEY `dinner_table_id` (`dinner_table_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_sales_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_sales_items` (
+  `sale_id` int(10) NOT NULL DEFAULT 0,
+  `item_id` int(10) NOT NULL DEFAULT 0,
+  `description` varchar(255) DEFAULT NULL,
+  `serialnumber` varchar(30) DEFAULT NULL,
+  `line` int(3) NOT NULL DEFAULT 0,
+  `quantity_purchased` decimal(15,3) NOT NULL DEFAULT 0.000,
+  `item_cost_price` decimal(15,2) NOT NULL,
+  `item_unit_price` decimal(15,2) NOT NULL,
+  `discount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `discount_type` tinyint(2) NOT NULL DEFAULT 0,
+  `item_location` int(11) NOT NULL,
+  `print_option` tinyint(2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`sale_id`,`item_id`,`line`),
+  KEY `sale_id` (`sale_id`),
+  KEY `item_id` (`item_id`),
+  KEY `item_location` (`item_location`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_sales_items_taxes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_sales_items_taxes` (
+  `sale_id` int(10) NOT NULL,
+  `item_id` int(10) NOT NULL,
+  `line` int(3) NOT NULL DEFAULT 0,
+  `name` varchar(255) NOT NULL,
+  `percent` decimal(15,4) NOT NULL DEFAULT 0.0000,
+  `tax_type` tinyint(2) NOT NULL DEFAULT 0,
+  `rounding_code` tinyint(2) NOT NULL DEFAULT 0,
+  `cascade_sequence` tinyint(2) NOT NULL DEFAULT 0,
+  `item_tax_amount` decimal(15,4) NOT NULL DEFAULT 0.0000,
+  `sales_tax_code_id` int(11) DEFAULT NULL,
+  `jurisdiction_id` int(11) DEFAULT NULL,
+  `tax_category_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`sale_id`,`item_id`,`line`,`name`,`percent`),
+  KEY `sale_id` (`sale_id`),
+  KEY `item_id` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_sales_payments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_sales_payments` (
+  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_id` int(10) NOT NULL,
+  `payment_type` varchar(40) NOT NULL,
+  `payment_amount` decimal(15,2) NOT NULL,
+  `cash_refund` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `employee_id` int(11) DEFAULT NULL,
+  `payment_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `reference_code` varchar(40) NOT NULL DEFAULT '',
+  PRIMARY KEY (`payment_id`),
+  KEY `payment_sale` (`sale_id`,`payment_type`),
+  KEY `employee_id` (`employee_id`),
+  KEY `payment_time` (`payment_time`),
+  CONSTRAINT `ospos_sales_payments_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `ospos_sales` (`sale_id`),
+  CONSTRAINT `ospos_sales_payments_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `ospos_employees` (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_sales_reward_points`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_sales_reward_points` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_id` int(11) NOT NULL,
+  `earned` float NOT NULL,
+  `used` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sale_id` (`sale_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_sales_taxes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_sales_taxes` (
+  `sales_taxes_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_id` int(10) NOT NULL,
+  `jurisdiction_id` int(11) DEFAULT NULL,
+  `tax_category_id` int(11) DEFAULT NULL,
+  `tax_type` smallint(2) NOT NULL,
+  `tax_group` varchar(32) NOT NULL,
+  `sale_tax_basis` decimal(15,4) NOT NULL,
+  `sale_tax_amount` decimal(15,4) NOT NULL,
+  `print_sequence` tinyint(2) NOT NULL DEFAULT 0,
+  `name` varchar(255) NOT NULL,
+  `tax_rate` decimal(15,4) NOT NULL,
+  `sales_tax_code_id` int(11) DEFAULT NULL,
+  `rounding_code` tinyint(2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`sales_taxes_id`),
+  KEY `print_sequence` (`sale_id`,`print_sequence`,`tax_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_sessions` (
+  `id` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT 0,
+  `data` blob NOT NULL,
+  KEY `ci_sessions_timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_stock_locations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_stock_locations` (
+  `location_id` int(11) NOT NULL AUTO_INCREMENT,
+  `location_name` varchar(255) DEFAULT NULL,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`location_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_suppliers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_suppliers` (
+  `person_id` int(10) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `agency_name` varchar(255) NOT NULL,
+  `account_number` varchar(255) DEFAULT NULL,
+  `tax_id` varchar(32) NOT NULL DEFAULT '',
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  `category` tinyint(4) NOT NULL,
+  `init_balance` double NOT NULL DEFAULT 0,
+  UNIQUE KEY `account_number` (`account_number`),
+  KEY `person_id` (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_suppliers_payments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_suppliers_payments` (
+  `supplier_payment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(11) NOT NULL DEFAULT 0,
+  `receiving_id` int(11) NOT NULL DEFAULT 0,
+  `amount_tendered` double NOT NULL,
+  `payment_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `reference` varchar(32) DEFAULT NULL,
+  `comments` text DEFAULT NULL,
+  PRIMARY KEY (`supplier_payment_id`),
+  KEY `person_id` (`supplier_id`),
+  KEY `receiving_id` (`receiving_id`),
+  CONSTRAINT `ospos_suppliers_payments_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `ospos_people` (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_tax_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_tax_categories` (
+  `tax_category_id` int(10) NOT NULL AUTO_INCREMENT,
+  `tax_category` varchar(32) NOT NULL,
+  `tax_group_sequence` tinyint(2) NOT NULL,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`tax_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_tax_codes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_tax_codes` (
+  `tax_code_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tax_code` varchar(32) NOT NULL,
+  `tax_code_name` varchar(255) NOT NULL DEFAULT '',
+  `city` varchar(255) NOT NULL DEFAULT '',
+  `state` varchar(255) NOT NULL DEFAULT '',
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`tax_code_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_tax_jurisdictions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_tax_jurisdictions` (
+  `jurisdiction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `jurisdiction_name` varchar(255) DEFAULT NULL,
+  `tax_group` varchar(32) NOT NULL,
+  `tax_type` smallint(2) NOT NULL,
+  `reporting_authority` varchar(255) DEFAULT NULL,
+  `tax_group_sequence` tinyint(2) NOT NULL DEFAULT 0,
+  `cascade_sequence` tinyint(2) NOT NULL DEFAULT 0,
+  `deleted` int(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`jurisdiction_id`),
+  UNIQUE KEY `tax_jurisdictions_uq1` (`tax_group`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ospos_tax_rates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ospos_tax_rates` (
+  `tax_rate_id` int(11) NOT NULL AUTO_INCREMENT,
+  `rate_tax_code_id` int(11) NOT NULL,
+  `rate_tax_category_id` int(10) NOT NULL,
+  `rate_jurisdiction_id` int(11) NOT NULL,
+  `tax_rate` decimal(15,4) NOT NULL DEFAULT 0.0000,
+  `tax_rounding_code` tinyint(2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`tax_rate_id`),
+  KEY `rate_tax_category_id` (`rate_tax_category_id`),
+  KEY `rate_tax_code_id` (`rate_tax_code_id`),
+  KEY `rate_jurisdiction_id` (`rate_jurisdiction_id`),
+  CONSTRAINT `ospos_tax_rates_ibfk_1` FOREIGN KEY (`rate_tax_category_id`) REFERENCES `ospos_tax_categories` (`tax_category_id`),
+  CONSTRAINT `ospos_tax_rates_ibfk_2` FOREIGN KEY (`rate_tax_code_id`) REFERENCES `ospos_tax_codes` (`tax_code_id`),
+  CONSTRAINT `ospos_tax_rates_ibfk_3` FOREIGN KEY (`rate_jurisdiction_id`) REFERENCES `ospos_tax_jurisdictions` (`jurisdiction_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `password_resets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `suppliers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `suppliers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` enum('male','female','other') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comments` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1);
+INSERT INTO `migrations` VALUES (2,'2014_10_12_100000_create_password_resets_table',1);
+INSERT INTO `migrations` VALUES (3,'2017_12_07_122845_create_oauth_providers_table',1);
+INSERT INTO `migrations` VALUES (4,'2019_08_19_000000_create_failed_jobs_table',1);
+INSERT INTO `migrations` VALUES (5,'2021_08_17_045325_create_customers_table',1);
+INSERT INTO `migrations` VALUES (6,'2021_08_19_104503_create_items_table',1);
+INSERT INTO `migrations` VALUES (7,'2021_08_23_050359_create_suppliers_table',1);
+INSERT INTO `migrations` VALUES (8,'2021_09_10_174527_employee',1);

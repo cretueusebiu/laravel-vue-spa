@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col">
-        <router-link :to="{ name : 'items.add' }" class="btn btn-primary float-end">
-          Add Item
-        </router-link>
-      </div>
-    </div>
+    <v-btn
+      color="primary"
+      class="ma-4"
+      :to="{ name : 'items.add' }"
+    >
+      Add Item
+    </v-btn>
     <items-list />
   </div>
 </template>

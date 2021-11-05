@@ -139,7 +139,7 @@
             >
               Submit
             </v-btn>
-            <v-btn color="error">
+            <v-btn :to="{ name : 'customers' }" color="error">
               Cancel
             </v-btn>
           </v-col>

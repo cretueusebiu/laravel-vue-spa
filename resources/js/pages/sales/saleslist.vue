@@ -4,29 +4,25 @@
       <thead>
         <tr>
           <th class="text-left">
-            #
+            Inv #
           </th>
           <th class="text-left">
-            Item Name
+            Date
           </th>
           <th class="text-left">
-            Category
-          </th>
-          <th class="text-left">
-            Item Type
+            Customer
           </th>
           <th />
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in items" :key="item.id">
-          <th>{{ item.id }}</th>
-          <td>{{ item.name }}</td>
-          <td>{{ item.category }}</td>
-          <td>{{ item.item_type }}</td>
+        <tr v-for="sale in sales" :key="sale.id">
+          <td>{{ sale.id }}</td>
+          <td>{{ sale.sale_time }}</td>
+          <td>{{ sale.customer_name }}</td>
           <td>
             <v-btn
-              :to="`items/edit/${item.id}`"
+              :to="`sales/edit/${sale.id}`"
               class="mx-2"
               dark
               small
@@ -40,7 +36,7 @@
               dark
               small
               color="error"
-              @click="deleteItem(item.id)"
+              @click="deleteSale(item.id)"
             >
               <v-icon dark>
                 mdi-delete
@@ -58,7 +54,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      items: []
+      sales: []
     }
   },
   mounted () {
@@ -66,12 +62,12 @@ export default {
   },
   methods: {
     loadData: function () {
-      axios.get('/api/items').then(({ data }) => {
-        this.items = data
+      axios.get('/api/sales').then(({ data }) => {
+        this.sales = data
       })
     },
-    deleteItem: function (itemId) {
-      axios.delete(`/api/items/${itemId}`).then(() => {
+    deleteSale: function (saleId) {
+      axios.delete(`/api/sales/${saleId}`).then(() => {
         this.loadData()
       })
     }

@@ -35,9 +35,9 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'item_name' => 'required',
+            'name' => 'required',
             'category'  => 'required',
-            'item_type' => 'required'
+            'stock_type' => 'required'
         ]);
 
         $item = new Item($request->all());

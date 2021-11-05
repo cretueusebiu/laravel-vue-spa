@@ -7,15 +7,15 @@
     >
       Add Sale
     </v-btn>
-    <items-list />
+    <sales-list />
   </div>
 </template>
 
 <script>
-import ItemsList from './itemslist.vue'
+import SalesList from './saleslist.vue'
 
 export default {
-  components: { ItemsList },
+  components: { SalesList },
   middleware: 'auth'
 }
 </script>
