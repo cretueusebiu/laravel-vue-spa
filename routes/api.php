@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('customers/search', [CustomerController::class, 'search']);
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', [LoginController::class, 'logout']);
 
@@ -35,6 +36,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', [ProfileController::class, 'update']);
     Route::patch('settings/password', [PasswordController::class, 'update']);
 
+    Route::get('items/search', [ItemController::class, 'search']);
     Route::resource('items', ItemController::class);
     Route::resource('sales', SaleController::class);
     Route::resource('customers', CustomerController::class);

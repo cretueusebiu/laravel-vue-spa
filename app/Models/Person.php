@@ -13,6 +13,8 @@ class Person extends Model
 
     protected $primaryKey = 'person_id';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -26,4 +28,8 @@ class Person extends Model
         'country',
         'comments',
     ];
+
+    public function getNameAttribute(){
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
 }

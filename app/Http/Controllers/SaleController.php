@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaleRequest;
+use App\Http\Resources\SaleResource;
 use App\Models\Sale;
+use Exception;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -15,9 +18,10 @@ class SaleController extends Controller
     public function index()
     {
         $sales = [];
-        foreach(Sale::with('customer')->get() as $sale){
+        foreach(Sale::with('customer')->orderBy('sale_id', 'desc')->get() as $sale){
             $sales[] = [
-                'id'    => $sale->sale_id,
+                'id'            => $sale->sale_id,
+                'sale_time'     => $sale->sale_time,
                 'customer_name' => $sale->customer ? $sale->customer->person->first_name . ' ' . $sale->customer->person->last_name : 'No Cust',
             ];
         }
@@ -40,9 +44,35 @@ class SaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaleRequest $request)
     {
-        //
+        try{
+            $sale = new Sale();
+            $sale->customer_id = $request->input('customer_id') ?: NULL;
+            $sale->employee_id = auth()->id();
+            $sale->sale_time = $request->input('sale_time') ?: Date('Y-m-d H:i:s');
+            $items = $request->input('invoiceItems');
+            if(!$items){
+                return response()->json(['status' => 'error', 'data' => [], 'message' => 'One item required'], 422);
+            }
+            $sale->save();
+            $sale_items = [];
+            foreach($items as $item){
+                $sale_items[] = [
+                    'item_id'               => $item['item_id'],
+                    'quantity_purchased'    => $item['quantity'],
+                    'item_cost_price'       => 0,
+                    'item_unit_price'       => $item['price'],
+                ];
+            }
+            $sale->items()->createMany($sale_items);
+            return response()->json(['status' => 'success', 'data' => ['sale_id' => $sale->id]]);
+
+        }
+        catch(Exception $ex){
+            $sale->delete();
+            return response()->json(['status' => 'error', 'data' => [], 'message' => $ex->getMessage()], 422);
+        }
     }
 
     /**
@@ -53,7 +83,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        return new SaleResource($sale);
     }
 
     /**
@@ -87,6 +117,12 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        $sale->items()->delete();
+        $sale->delete();
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Invoice deleted successfully.',
+            'data'    => []
+        ]);
     }
 }

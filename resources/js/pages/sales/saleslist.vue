@@ -22,6 +22,17 @@
           <td>{{ sale.customer_name }}</td>
           <td>
             <v-btn
+              :to="`sales/view/${sale.id}`"
+              class="mx-2"
+              dark
+              small
+              color="primary"
+            >
+              <v-icon dark>
+                mdi-eye
+              </v-icon>
+            </v-btn>
+            <v-btn
               :to="`sales/edit/${sale.id}`"
               class="mx-2"
               dark
@@ -36,7 +47,7 @@
               dark
               small
               color="error"
-              @click="deleteSale(item.id)"
+              @click="deleteSale(sale.id)"
             >
               <v-icon dark>
                 mdi-delete
@@ -67,7 +78,8 @@ export default {
       })
     },
     deleteSale: function (saleId) {
-      axios.delete(`/api/sales/${saleId}`).then(() => {
+      axios.delete(`/api/sales/${saleId}`).then(({ data }) => {
+        this.$store.dispatch('snackbar/showMessage', data.message)
         this.loadData()
       })
     }

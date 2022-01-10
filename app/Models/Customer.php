@@ -11,6 +11,7 @@ class Customer extends Model
 
     protected $table = 'ospos_customers';
     protected $primaryKey = 'person_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'company_name',

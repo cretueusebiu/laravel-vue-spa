@@ -18,6 +18,17 @@ class ItemController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $items = Item::where('name', 'LIKE', '%' . $request->input('q') . '%')->get();
+        return response()->json($items);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

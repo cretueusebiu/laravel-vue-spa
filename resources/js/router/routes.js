@@ -1,5 +1,5 @@
 function page (path) {
-  return () => import(/* webpackChunkName: '' */ `~/pages/${path}`).then(m => m.default || m)
+  return () => import(`~/pages/${path}`).then(m => m.default || m)
 }
 
 export default [
@@ -27,8 +27,9 @@ export default [
   { path: '/items/edit/:itemId', name: 'items.edit', component: page('items/itemform.vue'), props: true },
 
   { path: '/sales', name: 'sales', component: page('sales/index.vue') },
-  { path: '/sales/add', name: 'sales.add', component: page('sales/itemform.vue') },
-  { path: '/sales/edit/:itemId', name: 'sales.edit', component: page('sales/itemform.vue'), props: true },
+  { path: '/sales/add', name: 'sales.add', component: page('sales/saleform.vue') },
+  { path: '/sales/edit/:itemId', name: 'sales.edit', component: page('sales/saleform.vue'), props: true },
+  { path: '/sales/view/:invoiceId', name: 'sales.view', component: page('sales/view.vue'), props: true },
 
   { path: '/suppliers', name: 'suppliers', component: page('suppliers/Suppliers.vue') },
   { path: '/suppliers/add', name: 'suppliers.add', component: page('suppliers/supplierform.vue') },

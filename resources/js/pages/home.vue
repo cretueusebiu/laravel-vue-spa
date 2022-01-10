@@ -15,6 +15,9 @@
     </v-card-title>
     <v-card-text class="text-h5 font-weight-bold">
       {{ $t('you_are_logged_in') }}
+      <v-btn @click="startTest">
+        try
+      </v-btn>
     </v-card-text>
   </v-card>
 </template>
@@ -34,6 +37,11 @@ export default {
 
   metaInfo () {
     return { title: this.$t('home') }
+  },
+  methods: {
+    startTest () {
+      this.$store.dispatch('snackbar/showMessage', 'Hello Testing')
+    }
   }
 }
 </script>
