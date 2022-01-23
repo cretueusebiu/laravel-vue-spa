@@ -14,9 +14,9 @@ export default [
 
   { path: '/home', name: 'home', component: page('home.vue') },
 
-  { path: '/customers', name: 'customers', component: page('customers/Customer.vue') },
-  { path: '/customers/add', name: 'customers.add', component: page('customers/customerform.vue') },
-  { path: '/customers/edit/:customerId', name: 'customers.edit', component: page('customers/customerform.vue'), props: true },
+  { path: '/customers', name: 'customers', component: page('customers/Index.vue') },
+  { path: '/customers/add', name: 'customers.add', component: page('customers/CustomerForm.vue') },
+  { path: '/customers/edit/:customerId', name: 'customers.edit', component: page('customers/CustomerForm.vue'), props: true },
 
   { path: '/employees', name: 'employees', component: page('employees/employees.vue') },
   { path: '/employees/add', name: 'employees.add', component: page('employees/employeeform.vue') },

@@ -1,29 +1,21 @@
-<template>
-  <div>
-    <v-app-bar
-      dense
-      flat
-    >
-      <v-btn
-        class="mr-4"
-        text
-      >
-        <v-icon>
-          mdi-arrow-left
-        </v-icon>
-      </v-btn>
 
-      <v-toolbar-title>{{ customerId ? "Update Customer" : "Add Customer" }}</v-toolbar-title>
-    </v-app-bar>
-    <v-form v-if="!loading">
-      <v-container>
-        <v-alert v-if="form.errors.any()" type="error">
-          There were some problems with your input.
-        </v-alert>
+<template>
+  <v-card
+    rounded="lg"
+  >
+    <v-card-title v-if="!customerId">
+      Add Customer
+    </v-card-title>
+    <v-card-title v-if="customerId">
+      Update Customer
+    </v-card-title>
+    <v-card-text>
+      <form-alert :form="form" />
+      <v-form class="multi-col-validation">
         <v-row>
           <v-col
             cols="12"
-            md="4"
+            md="6"
           >
             <v-text-field
               v-model="form.name"
@@ -31,12 +23,15 @@
               :error-messages="form.errors.get('name')"
               label="Name"
               required
+              outlined
+              dense
+              hide-details="auto"
             />
           </v-col>
 
           <v-col
             cols="12"
-            md="4"
+            md="6"
           >
             <v-text-field
               v-model="form.email"
@@ -44,117 +39,113 @@
               :error-messages="form.errors.get('email')"
               label="Email"
               required
+              outlined
+              dense
+              hide-details="auto"
             />
           </v-col>
 
           <v-col
             cols="12"
-            md="4"
+            md="6"
           >
             <v-text-field
               v-model="form.phone"
               :error-messages="form.errors.get('phone')"
               label="Phone"
               required
+              outlined
+              dense
+              hide-details="auto"
             />
           </v-col>
-        </v-row>
-        <v-row>
+
           <v-col
             cols="12"
-            md="4"
+            md="6"
           >
             <v-text-field
               v-model="form.address"
               :error-messages="form.errors.get('address')"
               label="Address"
               required
+              outlined
+              dense
+              hide-details="auto"
             />
           </v-col>
 
           <v-col
             cols="12"
-            md="4"
+            md="6"
           >
             <v-text-field
               v-model="form.city"
               :error-messages="form.errors.get('city')"
               label="City"
               required
+              outlined
+              dense
+              hide-details="auto"
             />
           </v-col>
 
           <v-col
             cols="12"
-            md="4"
+            md="6"
           >
             <v-text-field
               v-model="form.province"
               :error-messages="form.errors.get('province')"
               label="Province"
               required
+              outlined
+              dense
+              hide-details="auto"
             />
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-radio-group
-              v-model="form.gender"
-              row
-            >
-              <v-radio
-                label="Male"
-                value="male"
-              />
-              <v-radio
-                label="Female"
-                value="female"
-              />
-            </v-radio-group>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col
-            cols="12"
-            md="12"
-          >
+
+          <v-col cols="12">
             <v-textarea
               v-model="form.comments"
               label="Comments"
               rows="2"
+              outlined
             />
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
+
+          <v-col cols="12">
             <v-btn
-              color="success"
-              class="mr-4"
+              color="primary"
               :loading="form.busy"
               :disabled="form.busy"
               @click="submitForm"
             >
               Submit
             </v-btn>
-            <v-btn :to="{ name : 'customers' }" color="error">
+            <v-btn
+              :to="{ name : 'customers' }"
+              type="reset"
+              color="error"
+              class="mx-2"
+            >
               Cancel
             </v-btn>
           </v-col>
         </v-row>
-      </v-container>
-    </v-form>
-  </div>
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
 import Form from 'vform'
+import FormAlert from '../../components/FormAlert.vue'
 
 export default {
+  components: { FormAlert },
   middleware: 'auth',
-  props: { customerId: String },
+  props: { customerId: Number },
   data: function () {
     return {
       loading: false,
@@ -194,7 +185,6 @@ export default {
             name,
             email,
             phone,
-            gender,
             city,
             address,
             province,
@@ -204,7 +194,6 @@ export default {
             name,
             email,
             phone,
-            gender,
             city,
             address,
             province,
@@ -221,16 +210,21 @@ export default {
       if (this.customerId) {
         this.form
           .put('/api/customers/' + this.customerId)
-          .then(response => {
+          .then(({ data }) => {
+            this.$store.dispatch('snackbar/showMessage', data.message)
             this.$router.push({ name: 'customers' })
           })
           .catch(error => {
+            if (error.response && error.response.data) {
+              this.$set(this.form, 'errorMessage', error.response.data.message)
+            }
             console.log(error)
           })
       } else {
         this.form
           .post('/api/customers')
-          .then(response => {
+          .then(({ data }) => {
+            this.$store.dispatch('snackbar/showMessage', data.message)
             this.$router.push({ name: 'customers' })
           })
           .catch(error => {

@@ -4,21 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
 {
-    use HasFactory;
+  use HasFactory, SoftDeletes;
 
-    protected $table = 'ospos_customers';
-    protected $primaryKey = 'person_id';
-    public $timestamps = false;
+  protected $fillable = [
+    'name', 'email', 'phone', 'address', 'city', 'province', 'comments',
+  ];
 
-    protected $fillable = [
-        'company_name',
-    ];
-
-    public function person()
-    {
-        return $this->hasOne(Person::class, 'person_id', 'person_id');
-    }
+  public function person()
+  {
+    return $this->hasOne(Person::class, 'person_id', 'person_id');
+  }
 }

@@ -1,8 +1,7 @@
 <template>
   <v-card
-    class="mx-auto center-box"
-    max-width="344"
-    outlined
+    class="mx-auto"
+    rounded="lg"
   >
     <v-card-title>
       <v-icon
@@ -16,7 +15,7 @@
     <v-card-text class="text-h5 font-weight-bold">
       {{ $t('you_are_logged_in') }}
       <v-btn @click="startTest">
-        try
+        Test Snackbar Message
       </v-btn>
     </v-card-text>
   </v-card>

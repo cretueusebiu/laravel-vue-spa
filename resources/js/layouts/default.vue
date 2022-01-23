@@ -1,16 +1,11 @@
 <template>
   <div>
     <navbar />
-    <v-main class="grey lighten-3">
+    <v-main class="grey lighten-3" style="min-height: 100vh;">
       <v-container>
         <v-row>
           <v-col>
-            <v-sheet
-              min-height="80vh"
-              rounded="lg"
-            >
-              <child />
-            </v-sheet>
+            <child />
           </v-col>
         </v-row>
       </v-container>
