@@ -18,11 +18,11 @@
 - Login, register, email verification and password reset
 - Authentication with JWT
 - Socialite integration
-- Bootstrap 5 + Font Awesome 5
+- Vuetify + Font Awesome 5
 
 ## Installation
 
-- `composer create-project --prefer-dist cretueusebiu/laravel-vue-spa`
+- `composer create-project --prefer-dist zulfiqarpk92/lospos`
 - Edit `.env` and set your database connection details
 - (When installed via git clone or download, run `php artisan key:generate` and `php artisan jwt:secret`)
 - `php artisan migrate`

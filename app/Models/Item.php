@@ -4,18 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
-    use HasFactory;
-
-    protected $table = 'ospos_items';
-    protected $primaryKey = 'item_id';
-    public $timestamps = false;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name',
+        'item_name',
         'category',
-        'stock_type',
+        'item_type',
     ];
 }

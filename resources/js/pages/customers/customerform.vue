@@ -1,4 +1,3 @@
-
 <template>
   <v-card
     rounded="lg"
@@ -228,6 +227,9 @@ export default {
             this.$router.push({ name: 'customers' })
           })
           .catch(error => {
+            if (error.response && error.response.data) {
+              this.$set(this.form, 'errorMessage', error.response.data.message)
+            }
             console.log(error)
           })
       }

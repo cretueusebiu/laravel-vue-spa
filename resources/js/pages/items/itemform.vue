@@ -1,35 +1,29 @@
 <template>
-  <div>
-    <v-app-bar
-      dense
-      flat
-    >
-      <v-btn
-        class="mr-4"
-        text
-      >
-        <v-icon>
-          mdi-arrow-left
-        </v-icon>
-      </v-btn>
-
-      <v-toolbar-title>{{ itemId ? 'Update Item' : 'Add Item' }}</v-toolbar-title>
-    </v-app-bar>
-    <v-form v-if="!loading">
-      <v-container>
-        <v-alert v-if="form.errors.any()" type="error">
-          There were some problems with your input.
-        </v-alert>
+  <v-card
+    rounded="lg"
+  >
+    <v-card-title v-if="!itemId">
+      Add Item
+    </v-card-title>
+    <v-card-title v-if="itemId">
+      Update Item
+    </v-card-title>
+    <v-card-text>
+      <form-alert :form="form" />
+      <v-form class="multi-col-validation">
         <v-row>
           <v-col
             cols="12"
             md="6"
           >
             <v-text-field
-              v-model="form.name"
-              :error-messages="form.errors.get('name')"
+              v-model="form.item_name"
+              :error-messages="form.errors.get('item_name')"
               label="Item Name"
               required
+              outlined
+              dense
+              hide-details="auto"
             />
           </v-col>
 
@@ -42,6 +36,9 @@
               :error-messages="form.errors.get('category')"
               label="Category"
               required
+              outlined
+              dense
+              hide-details="auto"
             />
           </v-col>
 
@@ -50,12 +47,12 @@
             md="12"
           >
             <v-radio-group
-              v-model="form.stock_type"
-              :error-messages="form.errors.get('stock_type')"
+              v-model="form.item_type"
+              :error-messages="form.errors.get('item_type')"
               row
             >
               <template #label>
-                <div>Stock Type</div>
+                <div>Item Type</div>
               </template>
               <v-radio
                 label="Stock"
@@ -71,31 +68,36 @@
         <v-row>
           <v-col>
             <v-btn
-              color="success"
-              class="mr-4"
+              color="primary"
               :loading="form.busy"
               :disabled="form.busy"
               @click="submitForm"
             >
               {{ itemId ? 'Update' : 'Submit' }}
             </v-btn>
-            <v-btn :to="{ name : 'items' }" color="error">
+            <v-btn
+              :to="{ name : 'items' }"
+              type="reset"
+              color="error"
+              class="mx-2"
+            >
               Cancel
             </v-btn>
           </v-col>
         </v-row>
-      </v-container>
-    </v-form>
-  </div>
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
 import Form from 'vform'
-import axios from 'axios'
+import FormAlert from '../../components/FormAlert.vue'
 
 export default {
+  components: { FormAlert },
   middleware: 'auth',
-  props: { itemId: String },
+  props: { itemId: Number },
   data: function () {
     return {
       loading: false,
@@ -114,33 +116,50 @@ export default {
   methods: {
     loadData: function () {
       this.loading = true
-      axios.get('/api/items/' + this.itemId).then(({ data }) => {
-        // eslint-disable-next-line camelcase
-        const { item_name, category, item_type } = data.data
-        this.form = new Form({
-          item_name,
-          category,
-          item_type
+      this.$http
+        .get('/api/items/' + this.itemId)
+        .then(({ data }) => {
+          // eslint-disable-next-line camelcase
+          const { item_name, category, item_type } = data.data
+          this.form = new Form({
+            item_name,
+            category,
+            item_type
+          })
+          this.loading = false
         })
-        this.loading = false
-      }).catch((error) => {
-        console.log(error)
-        this.loading = false
-      })
+        .catch(error => {
+          console.log(error)
+          this.loading = false
+        })
     },
     submitForm: function () {
       if (this.itemId) {
-        this.form.put('/api/items/' + this.itemId).then((response) => {
-          this.$router.push({ name: 'items' })
-        }).catch((error) => {
-          console.log(error)
-        })
+        this.form
+          .put('/api/items/' + this.itemId)
+          .then(({ data }) => {
+            this.$store.dispatch('snackbar/showMessage', data.message)
+            this.$router.push({ name: 'items' })
+          })
+          .catch(error => {
+            if (error.response && error.response.data) {
+              this.$set(this.form, 'errorMessage', error.response.data.message)
+            }
+            console.log(error)
+          })
       } else {
-        this.form.post('/api/items').then((response) => {
-          this.$router.push({ name: 'items' })
-        }).catch((error) => {
-          console.log(error)
-        })
+        this.form
+          .post('/api/items')
+          .then(({ data }) => {
+            this.$store.dispatch('snackbar/showMessage', data.message)
+            this.$router.push({ name: 'items' })
+          })
+          .catch(error => {
+            if (error.response && error.response.data) {
+              this.$set(this.form, 'errorMessage', error.response.data.message)
+            }
+            console.log(error)
+          })
       }
     }
   }

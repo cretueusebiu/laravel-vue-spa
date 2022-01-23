@@ -22,9 +22,9 @@ export default [
   { path: '/employees/add', name: 'employees.add', component: page('employees/employeeform.vue') },
   { path: '/employees/edit/:employeeId', name: 'employees.edit', component: page('employees/employeeform.vue'), props: true },
 
-  { path: '/items', name: 'items', component: page('items/index.vue') },
-  { path: '/items/add', name: 'items.add', component: page('items/itemform.vue') },
-  { path: '/items/edit/:itemId', name: 'items.edit', component: page('items/itemform.vue'), props: true },
+  { path: '/items', name: 'items', component: page('items/Index.vue') },
+  { path: '/items/add', name: 'items.add', component: page('items/ItemForm.vue') },
+  { path: '/items/edit/:itemId', name: 'items.edit', component: page('items/ItemForm.vue'), props: true },
 
   { path: '/sales', name: 'sales', component: page('sales/index.vue') },
   { path: '/sales/add', name: 'sales.add', component: page('sales/saleform.vue') },

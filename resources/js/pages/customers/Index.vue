@@ -91,12 +91,21 @@ export default {
     loadData: function () {
       this.loading = true
       const { sortBy, sortDesc, page, itemsPerPage } = this.options
-      this.$http.get(`/api/customers?per_page=${itemsPerPage}&page=${page}&orderBy=${sortBy}&orderDesc=${sortDesc}&q=${this.searchText}`).then(response => {
-        const { meta, data } = response.data
-        this.totalCustomers = meta.total
-        this.customers = data
-        this.loading = false
-      })
+      this.$http.get(`/api/customers?per_page=${itemsPerPage}&page=${page}&orderBy=${sortBy}&orderDesc=${sortDesc}&q=${this.searchText}`)
+        .then(response => {
+          const { meta, data } = response.data
+          this.totalCustomers = meta && meta.total
+          this.customers = data || []
+          this.loading = false
+        })
+        .catch(error => {
+          this.totalCustomers = 0
+          this.loading = false
+          if (error.response && error.response.data) {
+            this.$set(this.form, 'errorMessage', error.response.data.message)
+          }
+          console.log(error)
+        })
     },
     deleteCustomer: function (customer) {
       this.$confirm.fire({
