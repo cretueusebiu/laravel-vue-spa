@@ -21,6 +21,12 @@ if (mix.inProduction()) {
   mix.sourceMaps()
 }
 
+mix.browserSync({
+  proxy: 'laravel.test',
+  port: 3000,
+  open: false,
+});
+
 mix.webpackConfig({
   plugins: [
     // new BundleAnalyzerPlugin()

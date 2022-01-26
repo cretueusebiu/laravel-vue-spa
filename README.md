@@ -1,8 +1,8 @@
 #  Laravel-Vue SPA Coding Challenge
 
 ## References
-- https://laravel.com/docs/8.x/sail#redis
-- https://github.com/cretueusebiu/laravel-vue-spa
+- Laravel Sail: https://laravel.com/docs/8.x/sail
+- Forked From: https://github.com/cretueusebiu/laravel-vue-spa
 
 ## Features
 - Laravel 8
@@ -11,6 +11,7 @@
 - Login, register, email verification and password reset
 - Authentication with JWT
 - Bootstrap 5 + Font Awesome 5
+- Laravel Sail integration
 
 ## Objective
 
@@ -18,7 +19,7 @@ To create a note taking app using Laravel and VueJS and to create a page to get 
 
 ## Insructions
 
-You are going to use a pre-configured dockerized application to create a simple CRUD application. Laravel is used on the back-end Vuejs is used on the front end as a SPA.
+You are going to use a pre-configured application to create a simple CRUD application. Laravel is used on the back-end Vuejs is used on the front end as a SPA.
 
 _Note: There is already JWT authentication implemented for the app._
 
@@ -33,43 +34,60 @@ _Note: There is already JWT authentication implemented for the app._
 6.  Create phpunit tests for the new feature
 
 ### Part 2: Shipment Rate API
-https://app.swaggerhub.com/apis-docs/outgive-inc/stallionexpress/3.0
-Testing URL: https://sandbox.stallionexpress.ca/api/v3
-Bearer Token: {sent via email}
+- Documentation: https://app.swaggerhub.com/apis-docs/outgive-inc/stallionexpress/3.0
+- Environment URL: https://sandbox.stallionexpress.ca/api/v3
+- Bearer Token: {sent via email}
 
 1.  Create a page where a user can fill out a form to get rates for the United States using the Stallion API
 2.  Display these rates to the user showing the cost information
 
 ## Grading Scheme
 
-Functionality: Out of 10
-UX/Design: Out of 10
-DB Design: Out of 5
-Validation: Out of 10
-Coding Style: Out of 10
-Testing: Out of 5
+- Functionality: Out of 10
+- UX/Design: Out of 10
+- DB Design: Out of 5
+- Validation: Out of 10
+- Coding Style: Out of 10
+- Testing: Out of 5
 
 Include front-end and back-end validation.
 Feel free to use your creativity and design skills to make the existing site design your own.
 ## Installation
 
+***Copy ENV***
 ```
 cp .env.example .env
-
+```
+***Use Docker container containing PHP and Composer to install the application's dependencies***
+https://laravel.com/docs/8.x/sail#installing-composer-dependencies-for-existing-projects
+```
 docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v $(pwd):/var/www/html \
     -w /var/www/html \
     laravelsail/php81-composer:latest \
     composer install --ignore-platform-reqs
+```
 
+***Run Sail***
+```
 ./vendor/bin/sail up
+```
+
+***Setup Application Keys***
+```
 ./vendor/bin/sail artisan key:generate 
 ./vendor/bin/sail artisan jwt:secret
-./vendor/bin/sail artisan migrate 
-./vendor/bin/sail npm install
-./vendor/bin/sail npm run build
+```
 
+***Run Migrations***
+```
+./vendor/bin/sail artisan migrate 
+```
+
+***Install Node Dependencies***
+```
+./vendor/bin/sail npm install
 ```
 
 ## Usage
@@ -77,8 +95,9 @@ docker run --rm \
 #### Development
 
 ```bash
-./vendor/bin/sail npm run dev
+./vendor/bin/sail npm run watch
 ```
+View app at: http://localhost:3000
 
 #### Production
 
