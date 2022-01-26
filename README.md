@@ -1,71 +1,93 @@
-# Laravel-Vue SPA 
+#  Laravel-Vue SPA Coding Challenge
 
-<a href="https://github.com/cretueusebiu/laravel-vue-spa/actions"><img src="https://github.com/cretueusebiu/laravel-vue-spa/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/v/stable.svg" alt="Latest Stable Version"></a>
-
-> A Laravel-Vue SPA starter kit.
-
-<p align="center">
-<img src="https://i.imgur.com/NHFTsGt.png">
-</p>
+## References
+- https://laravel.com/docs/8.x/sail#redis
+- https://github.com/cretueusebiu/laravel-vue-spa
 
 ## Features
-
 - Laravel 8
 - Vue + VueRouter + Vuex + VueI18n + ESlint
 - Pages with dynamic import and custom layouts
 - Login, register, email verification and password reset
 - Authentication with JWT
-- Socialite integration
 - Bootstrap 5 + Font Awesome 5
 
+## Objective
+
+To create a note taking app using Laravel and VueJS and to create a page to get rates from the Stallion API.
+
+## Insructions
+
+You are going to use a pre-configured dockerized application to create a simple CRUD application. Laravel is used on the back-end Vuejs is used on the front end as a SPA.
+
+_Note: There is already JWT authentication implemented for the app._
+
+**TODO:** The application should allow you to create, edit, and delete delete notes. Notes will be save to the database. Notes will have a title, content, and created_at displayed on the front end.
+
+### Part 1: Note Taking App
+1.  Save the created notes in the database
+2.  Create the necessary table with Laravel migrations
+3.  Create all require restful routes to achieve the CRUD functionality
+4.  Create required Front End components to access the API you created
+5.  Authenticated user needs to be able to view all notes, create new notes, edit existing notes, and delete notes.
+6.  Create phpunit tests for the new feature
+
+### Part 2: Shipment Rate API
+https://app.swaggerhub.com/apis-docs/outgive-inc/stallionexpress/3.0
+Testing URL: https://sandbox.stallionexpress.ca/api/v3
+Bearer Token: {sent via email}
+
+1.  Create a page where a user can fill out a form to get rates for the United States using the Stallion API
+2.  Display these rates to the user showing the cost information
+
+## Grading Scheme
+
+Functionality: Out of 10
+UX/Design: Out of 10
+DB Design: Out of 5
+Validation: Out of 10
+Coding Style: Out of 10
+Testing: Out of 5
+
+Include front-end and back-end validation.
+Feel free to use your creativity and design skills to make the existing site design your own.
 ## Installation
 
-- `composer create-project --prefer-dist cretueusebiu/laravel-vue-spa`
-- Edit `.env` and set your database connection details
-- (When installed via git clone or download, run `php artisan key:generate` and `php artisan jwt:secret`)
-- `php artisan migrate`
-- `npm install`
+```
+cp .env.example .env
+
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
+
+./vendor/bin/sail up
+./vendor/bin/sail artisan key:generate 
+./vendor/bin/sail artisan jwt:secret
+./vendor/bin/sail artisan migrate 
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run build
+
+```
 
 ## Usage
 
 #### Development
 
 ```bash
-npm run dev
+./vendor/bin/sail npm run dev
 ```
 
 #### Production
 
 ```bash
-npm run build
+./vendor/bin/sail npm run build
 ```
-
-## Socialite
-
-This project comes with GitHub as an example for [Laravel Socialite](https://laravel.com/docs/5.8/socialite).
-
-To enable the provider create a new GitHub application and use `https://example.com/api/oauth/github/callback` as the Authorization callback URL.
-
-Edit `.env` and set `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` with the keys form your GitHub application.
-
-For other providers you may need to set the appropriate keys in `config/services.php` and redirect url in `OAuthController.php`.
-
-## Email Verification
-
-To enable email verification make sure that your `App\User` model implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract.
 
 ## Testing
 
 ```bash
 # Run unit and feature tests
-vendor/bin/phpunit
-
-# Run Dusk browser tests
-php artisan dusk
-```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+./vendor/bin/sail test
