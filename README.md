@@ -60,6 +60,8 @@ cp .env.example .env
 ```
 ***Use Docker container containing PHP and Composer to install the application's dependencies***
 https://laravel.com/docs/8.x/sail#installing-composer-dependencies-for-existing-projects
+
+Linux/MacOS
 ```
 docker run --rm \
     -u "$(id -u):$(id -g)" \
@@ -67,6 +69,10 @@ docker run --rm \
     -w /var/www/html \
     laravelsail/php81-composer:latest \
     composer install --ignore-platform-reqs
+```
+Windows
+```
+docker run --rm -v %cd%:/var/www/html -w /var/www/html laravelsail/php81-composer:latest composer install --ignore-platform-reqs
 ```
 
 ***Run Sail***
