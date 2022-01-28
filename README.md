@@ -70,10 +70,6 @@ docker run --rm \
     laravelsail/php81-composer:latest \
     composer install --ignore-platform-reqs
 ```
-Windows
-```
-docker run --rm -v %cd%:/var/www/html -w /var/www/html laravelsail/php81-composer:latest composer install --ignore-platform-reqs
-```
 
 ***Run Sail***
 ```
