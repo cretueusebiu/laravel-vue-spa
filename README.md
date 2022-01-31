@@ -41,6 +41,9 @@ _Note: There is already JWT authentication implemented for the app._
 1.  Create a page where a user can fill out a form to get rates for the United States using the Stallion API
 2.  Display these rates to the user showing the cost information
 
+### Submission
+Create a pull request on Github. Name the branch as {firstname}-{lastname}-submission.
+
 ## Grading Scheme
 
 - Functionality: Out of 10
