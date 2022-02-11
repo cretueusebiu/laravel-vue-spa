@@ -29,6 +29,11 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', [ProfileController::class, 'update']);
     Route::patch('settings/password', [PasswordController::class, 'update']);
+    //Notes
+    Route::get('/notes/list', 'API\NotesController@listNotes');
+    Route::post('/notes/add', 'API\NotesController@addNotes');
+    Route::post('/notes/edit', 'API\NotesController@editNotes');
+    Route::post('/notes/delete', 'API\NotesController@deleteNotes');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
@@ -44,3 +49,4 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::post('oauth/{driver}', [OAuthController::class, 'redirect']);
     Route::get('oauth/{driver}/callback', [OAuthController::class, 'handleCallback'])->name('oauth.callback');
 });
+
