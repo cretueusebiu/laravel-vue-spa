@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/welcome', function () {
 //     return view('welcome');
 // });
+Route::post('create-note', [NotesController::class, 'createNote']);

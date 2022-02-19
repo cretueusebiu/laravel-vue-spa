@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-
+use App\Models\Notes;
 class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 {
     use Notifiable,
@@ -53,7 +53,9 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     protected $appends = [
         'photo_url',
     ];
-
+    public function notes(): BelongsTo {
+        return $this->hasMany(Notes::class);
+    }
     /**
      * Get the profile photo URL attribute.
      *

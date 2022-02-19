@@ -1,30 +1,31 @@
-const { join, resolve } = require('path')
-const { copySync, removeSync } = require('fs-extra')
-const mix = require('laravel-mix')
-require('laravel-mix-versionhash')
+const { join, resolve } = require("path");
+const { copySync, removeSync } = require("fs-extra");
+const mix = require("laravel-mix");
+require("laravel-mix-versionhash");
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 mix
-  .js('resources/js/app.js', 'public/dist/js').vue({
+  .js("resources/js/app.js", "public/dist/js")
+  .vue({
     extractStyles: true
   })
-  .sass('resources/sass/app.scss', 'public/dist/css')
+  .sass("resources/sass/app.scss", "public/dist/css")
 
-  .disableNotifications()
+  .disableNotifications();
 
 if (mix.inProduction()) {
   mix
     // .extract() // Disabled until resolved: https://github.com/JeffreyWay/laravel-mix/issues/1889
     // .version() // Use `laravel-mix-versionhash` for the generating correct Laravel Mix manifest file.
-    .versionHash()
+    .versionHash();
 } else {
-  mix.sourceMaps()
+  mix.sourceMaps();
 }
 
 mix.browserSync({
-  proxy: 'laravel.test',
+  proxy: "laravel.test",
   port: 3000,
-  open: false,
+  open: false
 });
 
 mix.webpackConfig({
@@ -32,27 +33,27 @@ mix.webpackConfig({
     // new BundleAnalyzerPlugin()
   ],
   resolve: {
-    extensions: ['.js', '.json', '.vue'],
+    extensions: [".js", ".json", ".vue"],
     alias: {
-      '~': join(__dirname, './resources/js')
+      "~": join(__dirname, "./resources/js")
     }
   },
   output: {
-    chunkFilename: 'dist/js/[chunkhash].js',
-    path: resolve(__dirname, mix.inProduction() ? './public/build' : './public')
+    chunkFilename: "dist/js/[chunkhash].js",
+    path: resolve(__dirname, mix.inProduction() ? "./public/build" : "./public")
   }
-})
+});
 
 mix.then(() => {
   if (mix.inProduction()) {
-    process.nextTick(() => publishAseets())
+    process.nextTick(() => publishAseets());
   }
-})
+});
 
-function publishAseets () {
-  const publicDir = resolve(__dirname, './public')
+function publishAseets() {
+  const publicDir = resolve(__dirname, "./public");
 
-  removeSync(join(publicDir, 'dist'))
-  copySync(join(publicDir, 'build', 'dist'), join(publicDir, 'dist'))
-  removeSync(join(publicDir, 'build'))
+  removeSync(join(publicDir, "dist"));
+  copySync(join(publicDir, "build", "dist"), join(publicDir, "dist"));
+  removeSync(join(publicDir, "build"));
 }
