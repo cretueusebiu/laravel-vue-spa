@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('employees', EmployeeController::class);
+    //Route::get('employees/edit',[EmployeeController::class,'update']);
+    //Route::get('suppliers/edit',[SupplierController::class,'update']);
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

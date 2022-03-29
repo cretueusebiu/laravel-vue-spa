@@ -12,11 +12,24 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $supplier = Suppliers::all()->toArray();
-        return array_reverse($supplier);
+        // $supplier = Suppliers::all()->toArray();
+        // return array_reverse($supplier);
+
+        $order_column = $request->get('orderBy');
+        if (!in_array($order_column, ['id', 'name', 'email', 'phone', 'created_at'])) {
+            $order_column = 'id';
+        }
+        $q =  '%' . $request->input('q') . '%';
+        $supplier = Suppliers::where('name', 'LIKE', $q)
+            ->orWhere('email', 'LIKE', $q)
+            ->orWhere('phone', 'LIKE', $q)
+            ->orderBy($order_column, $request->boolean('orderDesc') ? 'desc' : 'asc')
+            ->paginate($request->get('per_page'));
+        return ($supplier);
+        //CustomerResource::collection;
     }
 
     /**
@@ -86,7 +99,14 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $supplier = Suppliers::findOrFail($id);
+        $supplier->update($request->all());
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Customer record updated sucessfully.',
+            'data'    => ['customer_id' => $supplier->id]
+        ]);
+        //dd($id);
     }
 
     /**
@@ -99,6 +119,8 @@ class SupplierController extends Controller
     {
         $supplier = Suppliers::find($id);
         $supplier->delete();
-        return response()->json('Deleted Successfully');
+        return response()->json([
+            'message' => "Customer $supplier->name deleted successfully."
+        ]);
     }
 }

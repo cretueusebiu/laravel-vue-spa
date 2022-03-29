@@ -2,7 +2,7 @@
   <v-card
     rounded="lg"
   >
-    <v-card-title>Suppliers</v-card-title>
+    <v-card-title>Employees</v-card-title>
     <v-card-text
       class="d-flex align-center flex-wrap pb-0"
     >
@@ -19,21 +19,21 @@
       <div class="d-flex align-center flex-wrap">
         <v-btn
           color="primary"
-          :to="{ name : 'suppliers.add' }"
+          :to="{ name : 'employees.add' }"
           class="me-3 mb-4"
         >
           <v-icon>
             mdi-plus
           </v-icon>
-          Add Supplier
+          Add Employee
         </v-btn>
       </div>
     </v-card-text>
     <v-data-table
       :headers="headers"
-      :items="suppliers"
+      :items="employees"
       :options.sync="options"
-      :server-items-length="totalSuppliers"
+      :server-items-length="totalEmployees"
       :loading="loading"
       item-key="name"
     >
@@ -41,13 +41,13 @@
         <v-icon
           small
           class="mr-2"
-          @click="$router.push({ name : 'suppliers.edit', params: { supplierId: item.id } })"
+          @click="$router.push({ name : 'employees.edit', params: { employeeId: item.id } })"
         >
           mdi-pencil
         </v-icon>
         <v-icon
           small
-          @click="deleteCustomer(item)"
+          @click="deleteEmployee(item)"
         >
           mdi-delete
         </v-icon>
@@ -61,18 +61,18 @@ export default {
   middleware: 'auth',
   data () {
     return {
-      totalSuppliers: 0,
+      totalEmployees: 0,
       loading: true,
       options: {},
       headers: [
         { text: 'ID', value: 'id' },
-        { text: 'Customer Name', value: 'name' },
+        { text: 'Employee Name', value: 'name' },
         { text: 'Email', value: 'email' },
         { text: 'Phone', value: 'phone' },
         { text: 'Created At', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false }
       ],
-      suppliers: [],
+      employees: [],
       searchText: ''
     }
   },
@@ -91,15 +91,15 @@ export default {
     loadData: function () {
       this.loading = true
       const { sortBy, sortDesc, page, itemsPerPage } = this.options
-      this.$http.get(`/api/suppliers?per_page=${itemsPerPage}&page=${page}&orderBy=${sortBy}&orderDesc=${sortDesc}&q=${this.searchText}`)
+      this.$http.get(`/api/employees?per_page=${itemsPerPage}&page=${page}&orderBy=${sortBy}&orderDesc=${sortDesc}&q=${this.searchText}`)
         .then(response => {
           const { meta, data } = response.data
-          this.totalSuppliers = meta && meta.total
-          this.suppliers = data || []
+          this.totalEmployees = meta && meta.total
+          this.employees = data || []
           this.loading = false
         })
         .catch(error => {
-          this.totalSuppliers = 0
+          this.totalEmployees = 0
           this.loading = false
           if (error.response && error.response.data) {
             this.$set(this.form, 'errorMessage', error.response.data.message)
@@ -107,7 +107,7 @@ export default {
           console.log(error)
         })
     },
-    deleteCustomer: function (supplier) {
+    deleteEmployee: function (employee) {
       this.$confirm.fire({
         icon: 'warning',
         title: 'Delete Confirm',
@@ -118,7 +118,7 @@ export default {
         cancelButtonText: 'Cancel'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$http.delete(`/api/suppliers/${supplier.id}`).then(({ data }) => {
+          this.$http.delete(`/api/employees/${employee.id}`).then(({ data }) => {
             this.$store.dispatch('snackbar/showMessage', data.message)
             this.loadData()
           })

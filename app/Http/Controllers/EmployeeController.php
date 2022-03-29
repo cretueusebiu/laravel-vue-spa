@@ -12,10 +12,25 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employee = Employee::all()->toArray();
-        return array_reverse($employee);
+        // $employee = Employee::all()->toArray();
+        // //return array_reverse($employee);
+        // dd($employee);
+
+        // 
+        $order_column = $request->get('orderBy');
+        if (!in_array($order_column, ['id', 'name', 'email', 'phone', 'created_at'])) {
+            $order_column = 'id';
+        }
+        $q =  '%' . $request->input('q') . '%';
+        $employee = Employee::where('name', 'LIKE', $q)
+            ->orWhere('email', 'LIKE', $q)
+            ->orWhere('phone', 'LIKE', $q)
+            ->orderBy($order_column, $request->boolean('orderDesc') ? 'desc' : 'asc')
+            ->paginate($request->get('per_page'));
+        return ($employee);
+        //CustomerResource::collection;
     }
 
     /**
@@ -37,7 +52,7 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            
+
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
@@ -72,7 +87,6 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**
@@ -84,21 +98,13 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'gender' => 'required',
-            'city' => 'required',
-            'address' => 'required',
-            'province' => 'required',
-            'comments' => 'required',
+        $employee = Employee::findOrFail($id);
+        $employee->update($request->all());
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Customer record updated sucessfully.',
+            'data'    => ['customer_id' => $employee->id]
         ]);
-
-        $employee = new Employee($request->all());
-        $employee->save();
-        return response()->json(['status' => 'success', 'data' => ['customer_id' => $employee->id]]);
     }
 
     /**
@@ -111,6 +117,8 @@ class EmployeeController extends Controller
     {
         $employee = Employee::find($id);
         $employee->delete();
-        return response()->json("Deleted successfully");
+        return response()->json([
+            'message' => "Employer $employee->name deleted successfully."
+        ]);
     }
 }

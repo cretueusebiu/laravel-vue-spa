@@ -1,96 +1,174 @@
 <template>
-  <div class="row my-4">
-    <div class="row">
-      <form  @submit.prevent="submitForm" @keydown="form.onKeyDown($event)">
-        <div class="card">
-          <div class="card-header">
-            {{ customerId ? 'Update Supplier' : 'Add Supplier' }}
-          </div>
-          <div v-if="!loading" class="card-body row g-3">
-            <AlertError :form="form">
-              There were some problems with your input.
-            </AlertError>
-            <!-- Add name -->
-            <div class="col-md-4">
-              <label for="name" class="form-label">Supplier Name</label>
-              <input id="name" v-model="form.name" type="text" :class="{ 'is-invalid': form.errors.has('name') }" class="form-control">
-              <has-error :form="form" field="name" />
-            </div>
-              <!-- Add email -->
-          <div class="col-md-4">
-           <label for="email" class="form-label">Email</label>
-           <input id="email"  v-model="form.email" type="text" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control">
-           <has-error :form="form" field="email" />
-          </div>
-           <!-- Add phone -->
-          <div class="col-md-4">
-            <label for="phone" class="form-label">phone</label>
-            <input id="phone"  v-model="form.phone" type="text" :class="{ 'is-invalid': form.errors.has('phone') }" class="form-control">
-           <has-error :form="form" field="phone" />
-          </div>
-          <!-- Add City -->
-        <div class="col-md-2">
-          <label for="city" class="form-label">City</label>
-          <input id="city"  v-model="form.city" type="text" :class="{ 'is-invalid': form.errors.has('city') }" class="form-control">
-           <has-error :form="form" field="city" />
-        </div>
-        <!-- Add Province -->
-        <div class="col-md-2">
-          <label for="province" class="form-label">Province</label>
-          <input id="province"  v-model="form.province" type="text" :class="{ 'is-invalid': form.errors.has('province') }" class="form-control">
-           <has-error :form="form" field="province" />
-        </div>
-        <!-- Add Address -->
-        <div class="col-md-8">
-          <label for="address" class="form-label">Address</label>
-          <input id="address"  v-model="form.address" type="text" :class="{ 'is-invalid': form.errors.has('address') }" class="form-control">
-           <has-error :form="form" field="address" />
-        </div>
-        <!-- Add Comments -->
-        <div class="mb-3">
-          <label for="comments" class="form-label">Comments</label>
-         <textarea id="comments"  v-model="form.comments" type="text" :class="{ 'is-invalid': form.errors.has('comments') }" class="form-control"></textarea>
-           <has-error :form="form" field="comments" />
-        </div>
-        <!-- Add Gender -->
-        <div class="mb-3">
-          <label class="form-label" for="supplier_gender">Supplier Gender</label><br>
-          <input id="supplier_gender_male" v-model="form.gender" type="radio" value="male" class="form-check-input">
-          <label class="form-check-label" for="supplier_gender_male">Male</label>
-          <input id="supplier_gender_female" v-model="form.gender" type="radio" value="female" class="form-check-input">
-          <label class="form-check-label" for="supplier_gender_female">Female</label>
-          <has-error :form="form" field="item_type" />
-        </div>
-          </div>
-        <div class="card-footer">
-            <v-button :loading="form.busy" type="success" @click="submitForm">
-              {{ customerId ? 'Update' : 'Submit' }}
-            </v-button>
-            <router-link :to="{ name : 'suppliers' }" class="btn btn-danger float-end">
+  <v-card
+    rounded="lg"
+  >
+    <v-card-title v-if="!supplierId">
+      Add Supplier
+    </v-card-title>
+    <v-card-title v-if="supplierId">
+      Update Supplier
+    </v-card-title>
+    <v-card-text>
+      <form-alert :form="form" />
+      <v-form class="multi-col-validation">
+        <v-row>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="form.name"
+              :rules="nameRules"
+              :error-messages="form.errors.get('name')"
+              label="Name"
+              required
+              outlined
+              dense
+              hide-details="auto"
+            />
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="form.email"
+              :rules="emailRules"
+              :error-messages="form.errors.get('email')"
+              label="Email"
+              required
+              outlined
+              dense
+              hide-details="auto"
+            />
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="form.phone"
+              :error-messages="form.errors.get('phone')"
+              label="Phone"
+              required
+              outlined
+              dense
+              hide-details="auto"
+            />
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="form.address"
+              :error-messages="form.errors.get('address')"
+              label="Address"
+              required
+              outlined
+              dense
+              hide-details="auto"
+            />
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="form.city"
+              :error-messages="form.errors.get('city')"
+              label="City"
+              required
+              outlined
+              dense
+              hide-details="auto"
+            />
+          </v-col>
+
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="form.province"
+              :error-messages="form.errors.get('province')"
+              label="Province"
+              required
+              outlined
+              dense
+              hide-details="auto"
+            />
+          </v-col>
+
+          <v-col cols="12">
+            <v-textarea
+              v-model="form.comments"
+              label="Comments"
+              rows="2"
+              outlined
+            />
+          </v-col>
+
+          <v-col cols="12">
+            <v-btn v-if="!supplierId"
+              color="primary"
+              :loading="form.busy"
+              :disabled="form.busy"
+              @click="submitForm"
+            >
+              Submit
+            </v-btn>
+            <v-btn v-if="supplierId"
+              color="primary"
+              :loading="form.busy"
+              :disabled="form.busy"
+              @click="submitForm"
+            >
+              Update
+            </v-btn>
+            <v-btn
+              :to="{ name : 'suppliers' }"
+              type="reset"
+              color="error"
+              class="mx-2"
+            >
               Cancel
-            </router-link>
-        </div>
-        </div>
-      </form>
-    </div>
-  </div>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
 import Form from 'vform'
-import axios from 'axios'
+import FormAlert from '../../components/FormAlert.vue'
 
 export default {
+  components: { FormAlert },
   middleware: 'auth',
-  props: ['supplierId'],
+  props: { supplierId: Number },
   data: function () {
     return {
       loading: false,
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => v.length <= 20 || 'Name must be less than 20 characters'
+      ],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid'
+      ],
       form: new Form({
         name: '',
         email: '',
         phone: '',
-        gender: 'male', 
+        gender: 'male',
         city: '',
         address: '',
         province: '',
@@ -99,45 +177,69 @@ export default {
     }
   },
   mounted () {
-    if (this.customerId) {
+    if (this.supplierId) {
       this.loadData()
     }
   },
   methods: {
     loadData: function () {
       this.loading = true
-      axios.get('/api/suppliers/' + this.supplierId).then(({ data }) => {
-        // eslint-disable-next-line camelcase
-        const { name, email, phone, gender, city, address, province,  comments } = data.data
-        this.form = new Form({
-          name,
-          email,
-          phone,
-          gender,
-          city,
-          address,
-          province,
-          comments
+      this.$http
+        .get('/api/suppliers/' + this.supplierId)
+        .then(({ data }) => {
+          // eslint-disable-next-line camelcase
+          const {
+            name,
+            email,
+            phone,
+            city,
+            address,
+            province,
+            comments
+          } = data
+          this.form = new Form({
+            name,
+            email,
+            phone,
+            city,
+            address,
+            province,
+            comments
+          })
+          this.loading = false
         })
-        this.loading = false
-      }).catch((error) => {
-        console.log(error)
-        this.loading = false
-      })
+        .catch(error => {
+          console.log(error)
+          this.loading = false
+        })
     },
     submitForm: function () {
-      if (this.customerId) {
-        this.form.put('/api/suppliers/' + this.supplierId).then((response) => {
-          this.$router.push({ name: 'suppliers' })
-        }).catch((error) => {
-          console.log(error)
-        })
+      if (this.supplierId) {
+        this.form
+          .put('/api/suppliers/' + this.supplierId)
+          .then(({ data }) => {
+            this.$store.dispatch('snackbar/showMessage', data.message)
+            this.$router.push({ name: 'suppliers' })
+          })
+          .catch(error => {
+            if (error.response && error.response.data) {
+              this.$set(this.form, 'errorMessage', error.response.data.message)
+            }
+            console.log(error)
+          })
       } else {
-        this.form.post('/api/suppliers').then((response) => {
-          this.$router.push({ name: 'suppliers' })
-        }).catch((error) => {
-          console.log(error)
-        })
+        this.form
+          .post('/api/suppliers')
+          .then(({ data }) => {
+            this.$store.dispatch('snackbar/showMessage', data.message)
+            this.$router.push({ name: 'suppliers' })
+          })
+          .catch(error => {
+            if (error.response && error.response.data) {
+              this.$set(this.form, 'errorMessage', error.response.data.message)
+            }
+            console.log(error)
+          })
       }
     }
   }
