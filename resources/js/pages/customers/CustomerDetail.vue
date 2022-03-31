@@ -188,7 +188,10 @@
                         outlined
                       ></v-select>
                       <v-spacer></v-spacer>
-                      <v-btn>Create Invoice</v-btn>
+                      <v-btn tile color="primary" class="rounded">
+                        <v-icon left> mdi-plus </v-icon>
+                        Create Invoice
+                      </v-btn>
                     </v-row>
                     <v-spacer></v-spacer>
                     <v-row>
@@ -220,17 +223,16 @@
                     class="elevation-1"
                   >
                     <template v-slot:item.actions="{ item }">
-                      <v-icon small class="mr-2" @click="editItem(item)">
+                      <v-icon x-small class="mr-2" @click="editItem(item)">
                         mdi-pencil
                       </v-icon>
-                      <v-icon small class="mr-2" @click="deleteItem(item)">
+                      <v-icon x-small class="mr-2" @click="deleteItem(item)">
                         mdi-delete
                       </v-icon>
-                      <v-icon small>mdi-dots-vertical</v-icon>
+                      <v-icon x-small>mdi-dots-vertical</v-icon>
                     </template>
 
                     <template v-slot:item.status="{ item }">
-                     
                       <v-btn icon x-small :color="getStatus(item.status)">
                         <v-icon>mdi-heart</v-icon>
                       </v-btn>
@@ -338,7 +340,7 @@ export default {
       ],
       headers2: [
         { text: "#ID", value: "id" },
-        { text: "  ", value: "status" },
+        { text: "Status", value: "status" },
         {
           text: "PROJECT",
           align: "start",
@@ -346,7 +348,7 @@ export default {
           value: "name",
         },
 
-        { text: "TOTAL TASK", value: "fat" },
+        { text: "TASKS", value: "fat" },
         { text: "PROGRESS", value: "calories" },
         { text: "HOURS", value: "carbs" },
         { text: "Actions", value: "actions", sortable: false },
@@ -355,7 +357,7 @@ export default {
         {
           id: "#5036",
           status: "paid",
-          name: "Frozen Yogurt",
+          name: "Yogurt",
           calories: 60,
           fat: 6.0,
           carbs: 24,
@@ -365,7 +367,7 @@ export default {
         {
           id: "#5035",
           status: "remain",
-          name: "Ice cream sandwich",
+          name: "Ice cream",
           calories: 50,
           fat: 9.0,
           carbs: 37,
@@ -399,22 +401,6 @@ export default {
           carbs: 49,
           protein: 3.9,
           iron: "16%",
-        },
-        {
-          name: "Jelly bean",
-          calories: 70,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: "0%",
-        },
-        {
-          name: "Lollipop",
-          calories: 100,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: "2%",
         },
       ],
     };
