@@ -107,33 +107,150 @@
 
           <v-tab-item v-for="n in 3" :key="n">
             <v-container fluid>
-              <v-col>
-                <v-col v-for="i in 3" :key="i" >
-                  <!-- <v-img
-                    :src="`https://picsum.photos/500/300?image=${
-                      i * n * 5 + 10
-                    }`"
-                    :lazy-src="`https://picsum.photos/10/6?image=${
-                      i * n * 5 + 10
-                    }`"
-                    aspect-ratio="1"
-                  ></v-img> -->
-                  <v-card class="mx-auto"  outlined>
-                  <
-                    <v-list-item three-line>
-                      <v-list-item-content>
-                        <div class="text-overline mb-4">OVERLINE</div>
-                        <v-list-item-title class="text-h5 mb-1">
-                          Headline 5
-                        </v-list-item-title>
-                        <v-list-item-subtitle
-                          >Greyhound divisely hello coldly
-                          fonwderfully</v-list-item-subtitle
-                        >
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-card>
-                </v-col>
+              <v-col v-if="n == 1">
+                <v-card class="mx-auto" outlined>
+                  <v-card-title>Project List</v-card-title>
+                  <v-data-table
+                    :headers="headers"
+                    :items="desserts"
+                    class="elevation-1"
+                  >
+                    <template v-slot:item.calories="{ item }">
+                      {{ item.calories }}%
+                      <v-progress-linear
+                        :value="getValue(item.calories)"
+                        :color="getColor(item.calories)"
+                        dark
+                      >
+                      </v-progress-linear>
+                    </template>
+                  </v-data-table>
+                </v-card>
+                <v-card class="max-auto mt-5" outlined>
+                  <v-card-title>User Activity Timeline</v-card-title>
+                  <v-card-text>
+                    <v-timeline align-top dense>
+                      <v-timeline-item color="pink" small>
+                        <v-row class="pt-1">
+                          <v-col>
+                            <strong>New Icon</strong>
+                            <div class="text-caption">Mobile App</div>
+                          </v-col>
+                        </v-row>
+                      </v-timeline-item>
+
+                      <v-timeline-item color="teal lighten-3" small>
+                        <v-row class="pt-1">
+                          <v-col>
+                            <strong>Design Stand Up</strong>
+                            <div class="text-caption mb-2">Hangouts</div>
+                            <v-row class="pa-2">
+                              <v-avatar>
+                                <v-img
+                                  src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Kurt&hairColor=Red&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=GraphicShirt&clotheColor=Gray01&graphicType=Skull&eyeType=Wink&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=Brown"
+                                ></v-img>
+                              </v-avatar>
+                              <div class="pt-1">
+                                <strong>Design Stand Up</strong>
+                                <div class="text-caption">Hangouts</div>
+                              </div>
+                            </v-row>
+                          </v-col>
+                        </v-row>
+                      </v-timeline-item>
+
+                      <v-timeline-item color="pink" small>
+                        <v-row class="pt-1">
+                          <v-col>
+                            <strong>Lunch break</strong>
+                          </v-col>
+                        </v-row>
+                      </v-timeline-item>
+
+                      <v-timeline-item color="green lighten-3" small>
+                        <v-row class="pt-1">
+                          <v-col>
+                            <strong>Finish Home Screen</strong>
+                            <div class="text-caption">Web App</div>
+                          </v-col>
+                        </v-row>
+                      </v-timeline-item>
+                    </v-timeline>
+                  </v-card-text>
+                </v-card>
+                <v-card>
+                  <v-card-title>
+                    <v-row>
+                      <v-select
+                        dense
+                        :items="items"
+                        label="Outlined style"
+                        outlined
+                      ></v-select>
+                      <v-spacer></v-spacer>
+                      <v-btn>Create Invoice</v-btn>
+                    </v-row>
+                    <v-spacer></v-spacer>
+                    <v-row>
+                      <v-text-field
+                        outlined
+                        dense
+                        v-model="search"
+                        append-icon="mdi-magnify"
+                        label="Search"
+                        single-line
+                        hide-details
+                      ></v-text-field>
+                      <v-select
+                        dense
+                        :items="items"
+                        label="Outlined style"
+                        outlined
+                      ></v-select>
+                    </v-row>
+                  </v-card-title>
+                  <v-data-table
+                    v-model="selected"
+                    :headers="headers2"
+                    :items="desserts2"
+                    :single-select="singleSelect"
+                    sort-by="id"
+                    item-key="name"
+                    show-select
+                    class="elevation-1"
+                  >
+                    <template v-slot:item.actions="{ item }">
+                      <v-icon small class="mr-2" @click="editItem(item)">
+                        mdi-pencil
+                      </v-icon>
+                      <v-icon small class="mr-2" @click="deleteItem(item)">
+                        mdi-delete
+                      </v-icon>
+                      <v-icon small>mdi-dots-vertical</v-icon>
+                    </template>
+
+                    <template v-slot:item.status="{ item }">
+                     
+                      <v-btn icon x-small :color="getStatus(item.status)">
+                        <v-icon>mdi-heart</v-icon>
+                      </v-btn>
+                    </template>
+                  </v-data-table>
+                </v-card>
+              </v-col>
+              <v-col v-if="n == 2">
+                <span>This is 2 tab</span>
+                <!-- <v-col v-for="i in 3" :key="i">
+                  
+            
+                </v-col> -->
+              </v-col>
+              <v-col v-if="n == 3">
+                <span>This is 3 tab</span>
+                <!-- <v-col v-for="i in 3" :key="i">
+                  
+            
+                </v-col> -->
               </v-col>
             </v-container>
           </v-tab-item>
@@ -147,22 +264,175 @@
 export default {
   middleware: "auth",
 
-  // data () {
-  //     return {
-  //       tab: null,
-  //       items: [
-  //         { tab: 'One', content: 'Tab 1 Content' },
-  //         { tab: 'Two', content: 'Tab 2 Content' },
-  //         { tab: 'Three', content: 'Tab 3 Content' },
-  //         { tab: 'Four', content: 'Tab 4 Content' },
-  //         { tab: 'Five', content: 'Tab 5 Content' },
-  //         { tab: 'Six', content: 'Tab 6 Content' },
-  //         { tab: 'Seven', content: 'Tab 7 Content' },
-  //         { tab: 'Eight', content: 'Tab 8 Content' },
-  //         { tab: 'Nine', content: 'Tab 9 Content' },
-  //         { tab: 'Ten', content: 'Tab 10 Content' },
-  //       ],
-  //     }
-  //   },
+  data() {
+    return {
+      headers: [
+        {
+          text: "PROJECT",
+          align: "start",
+          sortable: false,
+          value: "name",
+        },
+
+        { text: "TOTAL TASK", value: "fat" },
+        { text: "PROGRESS", value: "calories" },
+        { text: "HOURS", value: "carbs" },
+      ],
+      desserts: [
+        {
+          name: "Frozen Yogurt",
+          calories: 60,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+          iron: "1%",
+        },
+        {
+          name: "Ice cream sandwich",
+          calories: 50,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3,
+          iron: "1%",
+        },
+        {
+          name: "Eclair",
+          calories: 40,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0,
+          iron: "7%",
+        },
+        {
+          name: "Cupcake",
+          calories: 20,
+          fat: 3.7,
+          carbs: 67,
+          protein: 4.3,
+          iron: "8%",
+        },
+        {
+          name: "Gingerbread",
+          calories: 90,
+          fat: 16.0,
+          carbs: 49,
+          protein: 3.9,
+          iron: "16%",
+        },
+        {
+          name: "Jelly bean",
+          calories: 70,
+          fat: 0.0,
+          carbs: 94,
+          protein: 0.0,
+          iron: "0%",
+        },
+        {
+          name: "Lollipop",
+          calories: 100,
+          fat: 0.2,
+          carbs: 98,
+          protein: 0,
+          iron: "2%",
+        },
+      ],
+      headers2: [
+        { text: "#ID", value: "id" },
+        { text: "  ", value: "status" },
+        {
+          text: "PROJECT",
+          align: "start",
+          sortable: false,
+          value: "name",
+        },
+
+        { text: "TOTAL TASK", value: "fat" },
+        { text: "PROGRESS", value: "calories" },
+        { text: "HOURS", value: "carbs" },
+        { text: "Actions", value: "actions", sortable: false },
+      ],
+      desserts2: [
+        {
+          id: "#5036",
+          status: "paid",
+          name: "Frozen Yogurt",
+          calories: 60,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+          iron: "1%",
+        },
+        {
+          id: "#5035",
+          status: "remain",
+          name: "Ice cream sandwich",
+          calories: 50,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3,
+          iron: "1%",
+        },
+        {
+          id: "#5034",
+          status: "paid",
+          name: "Eclair",
+          calories: 40,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0,
+          iron: "7%",
+        },
+        {
+          name: "Cupcake",
+          status: "paid",
+          calories: 20,
+          fat: 3.7,
+          carbs: 67,
+          protein: 4.3,
+          iron: "8%",
+        },
+        {
+          status: "paid",
+          name: "Gingerbread",
+          calories: 90,
+          fat: 16.0,
+          carbs: 49,
+          protein: 3.9,
+          iron: "16%",
+        },
+        {
+          name: "Jelly bean",
+          calories: 70,
+          fat: 0.0,
+          carbs: 94,
+          protein: 0.0,
+          iron: "0%",
+        },
+        {
+          name: "Lollipop",
+          calories: 100,
+          fat: 0.2,
+          carbs: 98,
+          protein: 0,
+          iron: "2%",
+        },
+      ],
+    };
+  },
+  methods: {
+    getColor(calories) {
+      if (calories < 40) return "red";
+      else if (calories < 60) return "orange";
+      else return "primary";
+    },
+    getValue(calories) {
+      return calories;
+    },
+    getStatus(status) {
+      if (status == "paid") return "green";
+      else if (status == "remain") return "red";
+      else return "primary";
+    },
+  },
 };
 </script>
