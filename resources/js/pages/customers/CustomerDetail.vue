@@ -115,9 +115,9 @@
                     :items="desserts"
                     class="elevation-1"
                   >
-                    <template v-slot:item.calories="{ item }">
-                      {{ item.calories }}%
-                      <v-progress-linear
+                    <template  v-slot:item.calories="{ item }">
+                      <div class="text--primary grey--text">{{ item.calories }}%</div>
+                      <v-progress-linear rounded  
                         :value="getValue(item.calories)"
                         :color="getColor(item.calories)"
                         dark
@@ -217,24 +217,42 @@
                     :headers="headers2"
                     :items="desserts2"
                     :single-select="singleSelect"
-                    sort-by="id"
+                    sort-desc="id"
                     item-key="name"
                     show-select
                     class="elevation-1"
                   >
+                  <template v-slot:headers.status="{ header }">
+                    <v-icon class='no-rotate' small>filter_list</v-icon>
+                  </template>
+                  <template v-slot:item.id="{ item }">
+                    <span class="purple--text">{{ item.id }}</span>
+                  </template>
                     <template v-slot:item.actions="{ item }">
-                      <v-icon x-small class="mr-2" @click="editItem(item)">
-                        mdi-pencil
+                      <v-icon  x-small class="mr-2" @click="editItem(item)">
+                        mdi-eye-outline
                       </v-icon>
-                      <v-icon x-small class="mr-2" @click="deleteItem(item)">
-                        mdi-delete
+                      <v-icon small class="mr-2" @click="deleteItem(item)">
+                        mdi-delete-outline
                       </v-icon>
-                      <v-icon x-small>mdi-dots-vertical</v-icon>
+                      <v-icon small>mdi-dots-vertical</v-icon>
                     </template>
 
                     <template v-slot:item.status="{ item }">
-                      <v-btn icon x-small :color="getStatus(item.status)">
-                        <v-icon>mdi-heart</v-icon>
+                      <v-btn color="green" icon x-small v-if="getStatus(item.status) == 'paid'">
+                        <v-icon >mdi-check-circle-outline</v-icon>
+                      </v-btn>
+                      <v-btn icon x-small v-if="getStatus(item.status) == 'draft'">
+                        <v-icon >mdi-content-save-outline</v-icon>
+                      </v-btn>
+                       <v-btn color="pink" icon x-small v-if="getStatus(item.status) == 'send'">
+                        <v-icon >mdi-email-outline</v-icon>
+                      </v-btn>
+                       <v-btn color="red" icon x-small v-if="getStatus(item.status) == 'due'">
+                        <v-icon >mdi-alert-circle-outline</v-icon>
+                      </v-btn>
+                      <v-btn color="yellow" icon x-small v-if="getStatus(item.status) == 'remain'">
+                        <v-icon >mdi-chart-timeline-variant</v-icon>
                       </v-btn>
                     </template>
                   </v-data-table>
@@ -356,7 +374,7 @@ export default {
       desserts2: [
         {
           id: "#5036",
-          status: "paid",
+          status: "remain",
           name: "Yogurt",
           calories: 60,
           fat: 6.0,
@@ -366,7 +384,7 @@ export default {
         },
         {
           id: "#5035",
-          status: "remain",
+          status: "draft",
           name: "Ice cream",
           calories: 50,
           fat: 9.0,
@@ -386,7 +404,7 @@ export default {
         },
         {
           name: "Cupcake",
-          status: "paid",
+          status: "send",
           calories: 20,
           fat: 3.7,
           carbs: 67,
@@ -394,7 +412,7 @@ export default {
           iron: "8%",
         },
         {
-          status: "paid",
+          status: "due",
           name: "Gingerbread",
           calories: 90,
           fat: 16.0,
@@ -415,8 +433,11 @@ export default {
       return calories;
     },
     getStatus(status) {
-      if (status == "paid") return "green";
-      else if (status == "remain") return "red";
+      if (status == "paid") return "paid";
+      else if (status == "draft") return "draft";
+      else if (status == "send") return "send";
+      else if (status == "due") return "due";
+      else if (status == "remain") return "remain";
       else return "primary";
     },
   },
