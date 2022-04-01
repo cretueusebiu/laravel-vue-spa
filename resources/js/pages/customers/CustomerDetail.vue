@@ -239,7 +239,7 @@
                     </template>
 
                     <template v-slot:item.status="{ item }">
-                      <v-btn color="green" icon x-small v-if="getStatus(item.status) == 'paid'">
+                      <v-btn  color="green" icon x-small v-if="getStatus(item.status) == 'paid'">
                         <v-icon >mdi-check-circle-outline</v-icon>
                       </v-btn>
                       <v-btn icon x-small v-if="getStatus(item.status) == 'draft'">
@@ -360,24 +360,24 @@ export default {
         { text: "#ID", value: "id" },
         { text: "Status", value: "status" },
         {
-          text: "PROJECT",
+          text: "CLIENT",
           align: "start",
           sortable: false,
           value: "name",
         },
 
-        { text: "TASKS", value: "fat" },
-        { text: "PROGRESS", value: "calories" },
-        { text: "HOURS", value: "carbs" },
+        { text: "TOTAL", value: "fat" },
+        { text: "DATE", value: "calories" },
+        { text: "BALANCE", value: "carbs" },
         { text: "Actions", value: "actions", sortable: false },
       ],
       desserts2: [
         {
           id: "#5036",
           status: "remain",
-          name: "Yogurt",
-          calories: 60,
-          fat: 6.0,
+          name: "Saad",
+          calories: 3171,
+          fat: "2019-04-19"	,
           carbs: 24,
           protein: 4.0,
           iron: "1%",
@@ -385,8 +385,8 @@ export default {
         {
           id: "#5035",
           status: "draft",
-          name: "Ice cream",
-          calories: 50,
+          name: "khan",
+          calories: 3171,
           fat: 9.0,
           carbs: 37,
           protein: 4.3,
@@ -399,8 +399,8 @@ export default {
           calories: 40,
           fat: 16.0,
           carbs: 23,
-          protein: 6.0,
-          iron: "7%",
+          total: 6.0,
+          balance: "7%",
         },
         {
           name: "Cupcake",
