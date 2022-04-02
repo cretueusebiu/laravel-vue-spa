@@ -102,7 +102,7 @@
           prev-icon="mdi-arrow-left-bold-box-outline"
         >
           <v-tab>Landscape</v-tab>
-          <v-tab>City</v-tab>
+          <v-tab>Invoice</v-tab>
           <v-tab>Abstract</v-tab>
 
           <v-tab-item v-for="n in 3" :key="n">
@@ -260,10 +260,7 @@
               </v-col>
               <v-col v-if="n == 2">
                 <span>This is 2 tab</span>
-                <!-- <v-col v-for="i in 3" :key="i">
-                  
-            
-                </v-col> -->
+                
               </v-col>
               <v-col v-if="n == 3">
                 <span>This is 3 tab</span>
