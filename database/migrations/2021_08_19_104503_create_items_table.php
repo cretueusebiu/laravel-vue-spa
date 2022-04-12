@@ -18,6 +18,13 @@ class CreateItemsTable extends Migration
       $table->string('item_name');
       $table->string('category');
       $table->string('item_type');
+      $table->string('barcode',20)->nullable();
+      $table->string('company_name');
+      $table->string('cost_price');
+      $table->string('sale_price');
+      $table->string('bulk_price');
+      $table->string('available_quantity');
+      $table->string('description');
       $table->timestamps();
       $table->softDeletes();
     });
