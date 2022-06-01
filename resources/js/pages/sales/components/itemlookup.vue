@@ -4,8 +4,8 @@
     :loading="searchLoading"
     :items="searchItems"
     :search-input.sync="searchText"
-    item-text="name"
-    item-value="item_id"
+    item-text="item_name"
+    item-value="id"
     flat
     hide-no-data
     hide-details
@@ -16,8 +16,9 @@
         <v-list-item-content v-text="data.item" />
       </template>
       <template v-else>
+        <v-list-item-content v-text="data.item" />
         <v-list-item-content>
-          <v-list-item-title v-html="data.item.name" />
+          <v-list-item-title v-html="data.item.item_name" />
           <v-list-item-subtitle v-html="data.item.category" />
         </v-list-item-content>
       </template>
@@ -56,7 +57,7 @@ export default {
       }, 350)
     },
     searchItem (itemId) {
-      if (!itemId) {
+      if (itemId) {
         return
       }
       const sItem = this.searchItems.find(x => x.item_id === itemId)
