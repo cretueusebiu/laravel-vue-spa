@@ -16,7 +16,7 @@ export default [
 
   { path: '/customers', name: 'customers', component: page('customers/Index.vue') },
   { path: '/customers/add', name: 'customers.add', component: page('customers/CustomerForm.vue') },
-  { path: '/customers/edit/:customerId', name: 'customers.edit', component: page('customers/CustomerDetail.vue'), props: true },
+  { path: '/customers/edit/:customerId', name: 'customers.edit', component: page('Invoices/InvoicesPreview.vue'), props: true },
 
   { path: '/employees', name: 'employees', component: page('employees/Index.vue') },
   { path: '/employees/add', name: 'employees.add', component: page('employees/employeeform.vue') },
@@ -33,7 +33,7 @@ export default [
 
   { path: '/suppliers', name: 'suppliers', component: page('suppliers/Suppliers.vue') },
   { path: '/suppliers/add', name: 'suppliers.add', component: page('suppliers/supplierform.vue') },
-  { path: '/suppliers/edit/:supplierId', name: 'suppliers.edit', component: page('suppliers/supplierform.vue'), props: true },
+  { path: '/suppliers/edit/:supplierId', name: 'suppliers.edit', component: page('suppliers/Invoice.vue'), props: true },
   {
     path: '/settings',
     component: page('settings/index.vue'),
