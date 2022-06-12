@@ -59,6 +59,7 @@
                       Item #
                     </th>
                     <th>Name</th>
+                    
                     <th style="width:100px">
                       Price
                     </th>
@@ -73,8 +74,8 @@
                 <tbody>
                   <tr
                     v-for="item in form.invoiceItems"
-                    :key="item.name"
-                  >
+                    :key="item.id">
+                    
                     <td>
                       <v-btn
                         class="ma-2"
@@ -88,8 +89,7 @@
                         </v-icon>
                       </v-btn>
                     </td>
-                    <td>{{ item.item_id }}</td>
-                    <td>{{ item.name }}</td>
+                   
                     <td>
                       <v-text-field
                         v-model="item.price"
@@ -106,7 +106,7 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th />
+                    <th /> 
                     <th />
                     <th />
                     <th />
@@ -154,7 +154,6 @@
     </v-form>
   </div>
 </template>
-
 <script>
 import Form from 'vform'
 import CustomerLookup from './components/CustomerLookup.vue'
@@ -191,19 +190,20 @@ export default {
     },
     selectCustomer: function (customer) {
       console.log(customer)
+      alert(customer)
     },
     addItem: function (item) {
       let found = false
       for (const invoiceItem of this.form.invoiceItems) {
-        if (invoiceItem.item_id === item.item_id) {
+        if (invoiceItem.item_id === item.id) {
           invoiceItem.quantity += 1
           found = true
         }
       }
       if (!found) {
         this.form.invoiceItems.push({
-          item_id: item.item_id,
-          name: item.name,
+          item_id: item.id,
+          name: item.item_name,
           price: parseFloat(item.unit_price),
           quantity: 1,
           total: 0
@@ -211,7 +211,7 @@ export default {
       }
     },
     removeItem (itemId) {
-      this.form.invoiceItems = this.form.invoiceItems.filter(item => item.item_id !== itemId)
+      this.form.invoiceItems = this.form.invoiceItems.filter(item => item.id !== itemId)
     },
     loadData: function () {
       this.loading = true

@@ -37,8 +37,8 @@
               </v-icon>
             </v-btn>
           </td>
-          <td>{{ item.item_id }}</td>
-          <td>{{ item.name }}</td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.item_name }}</td>
           <td>
             <v-text-field
               v-if="edit"

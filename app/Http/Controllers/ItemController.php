@@ -57,7 +57,7 @@ class ItemController extends Controller
    */
   public function store(ItemRequest $request)
   {
-    $item = new Item($request->validated());
+    $item = new Item($request->all());
     $item->save();
     return response()->json([
       'status'  => 'success',

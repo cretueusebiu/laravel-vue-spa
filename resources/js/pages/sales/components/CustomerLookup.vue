@@ -5,8 +5,8 @@
       :loading="searchLoading"
       :items="searchItems"
       :search-input.sync="searchText"
-      item-text="customer_name"
-      item-value="person_id"
+      item-text="name"
+      item-value="id"
       flat
       hide-no-data
       hide-details
@@ -17,9 +17,10 @@
           <v-list-item-content v-text="data.item" />
         </template>
         <template v-else>
+          <v-list-item-content v-text="data.item" />
           <v-list-item-content>
-            <v-list-item-title v-html="data.item.customer_name" />
-            <v-list-item-subtitle v-html="data.item.company_name" />
+            <v-list-item-title v-html="data.item.name" />
+            <v-list-item-subtitle v-html="data.item.email" />
           </v-list-item-content>
           <v-list-item-action v-if="data.item.person_id < 1">
             <v-btn
@@ -178,7 +179,6 @@
 
 <script>
 import Form from 'vform'
-
 export default {
   data: function () {
     return {
@@ -228,8 +228,8 @@ export default {
       }, 350)
     },
     searchItem (itemId) {
-      if (!itemId) {
-        return
+      if (itemId) {
+        return 
       }
       const sItem = this.searchItems.find(x => x.item_id === itemId)
       if (!sItem) {
