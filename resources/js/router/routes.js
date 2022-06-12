@@ -33,7 +33,7 @@ export default [
 
   { path: '/suppliers', name: 'suppliers', component: page('suppliers/Suppliers.vue') },
   { path: '/suppliers/add', name: 'suppliers.add', component: page('suppliers/supplierform.vue') },
-  { path: '/suppliers/edit/:supplierId', name: 'suppliers.edit', component: page('suppliers/supplierform.vue'), props: true },
+  { path: '/suppliers/edit/:supplierId', name: 'suppliers.edit', component: page('suppliers/Invoice.vue'), props: true },
   {
     path: '/settings',
     component: page('settings/index.vue'),
