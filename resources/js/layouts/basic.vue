@@ -1,8 +1,8 @@
 <template>
   <v-main class="grey lighten-3">
-    <v-container>
+    <!-- <v-container> -->
       <child />
-    </v-container>
+    <!-- </v-container> -->
   </v-main>
 </template>
 
