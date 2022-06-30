@@ -1,6 +1,6 @@
 @import 'variables';
 
-@import '~bootstrap/scss/bootstrap';
+@import "~vuetify/dist/vuetify.min.css";
 @import '~sweetalert2/dist/sweetalert2';
 @import '~@fortawesome/fontawesome-svg-core/styles';
 
@@ -10,3 +10,12 @@
 @import 'elements/transitions';
 
 @import 'components/server-error';
+
+.v-data-table th {
+  font-weight: 600;
+  background-color: #fafafa!important;
+}
+.theme--light.v-data-table th {
+  color: rgba(94,86,105,.87)!important;
+  border-top: thin solid rgba(94,86,105,.14);
+}

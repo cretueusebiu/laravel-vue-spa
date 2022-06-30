@@ -1,11 +1,24 @@
 <template>
-  <div class="row">
-    <div class="col-lg-10 m-auto">
-      <card :title="$t('home')">
-        {{ $t('you_are_logged_in') }}
-      </card>
-    </div>
-  </div>
+  <v-card
+    class="mx-auto"
+    rounded="lg"
+  >
+    <v-card-title>
+      <v-icon
+        large
+        left
+      >
+        mdi-twitter
+      </v-icon>
+      <span class="text-h6 font-weight-light">{{ $t('home') }}</span>
+    </v-card-title>
+    <v-card-text class="text-h5 font-weight-bold">
+      {{ $t('you_are_logged_in') }}
+      <v-btn @click="startTest">
+        Test Snackbar Message
+      </v-btn>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -23,6 +36,20 @@ export default {
 
   metaInfo () {
     return { title: this.$t('home') }
+  },
+  methods: {
+    startTest () {
+      this.$store.dispatch('snackbar/showMessage', 'Hello Testing')
+    }
   }
 }
 </script>
+
+<style scoped>
+.center-box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
