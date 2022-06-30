@@ -14,7 +14,7 @@
         <v-btn v-if="user"
           type="button"           
           to="/home"
-          class="text-capitalize text-base font-weight-regular px-6 v-btn v-btn--has-bg v-btn--rounded theme--light v-size--large primary bg-gradient-primary group-activator-active" 
+          class="text-capitalize text-base font-weight-regular px-6 v-btn v-btn--has-bg v-btn--rounded theme--light v-size--large primary bg-gradient-primary group-activator-active v-btn--active" 
           role="button"
           >
             <span
@@ -370,7 +370,7 @@ export default {
   height: 2rem;
   margin: -.375rem 0;
 }
-.active, .v-btn:hover{
+.v-btn--active{
 color:#2b81d6;
 }
 .user-profile-menu-content{
