@@ -6,22 +6,22 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
-        "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.54",
+        "laravel/framework": "^9.0",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.6",
         "laravel/ui": "^3.3",
-        "tymon/jwt-auth": "dev-develop"
+        "tymon/jwt-auth": "dev-develop",
+        "pusher/pusher-php-server": "^5.0"
     },
     "require-dev": {
         "doctrine/dbal": "^2.13",
-        "facade/ignition": "^2.5",
+        "spatie/laravel-ignition": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/dusk": "^6.17",
         "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
+        "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.3.3"
     },
     "autoload": {
